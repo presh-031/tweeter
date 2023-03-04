@@ -1,11 +1,5 @@
-import { Inter } from "next/font/google";
+const index = () => {
+  return <div>index</div>;
+};
 
-const inter = Inter({ subsets: ["latin"] });
-
-export default function Home() {
-  return (
-    <>
-      <h1 className="text-3xl font-bold underline">Hello world!</h1>
-    </>
-  );
-}
+export default index;
