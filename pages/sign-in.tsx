@@ -3,44 +3,26 @@ import {
   AiOutlineGoogle,
   AiOutlineTwitter,
 } from "react-icons/ai";
-import { auth, provider } from "@/config/firebase";
 
 import { FaFacebookSquare } from "react-icons/fa";
 import { IconContext } from "react-icons";
 import Image from "next/image";
 import { IoMdLock } from "react-icons/io";
 import { MdEmail } from "react-icons/md";
+import { auth } from "../config/firebase";
 import logo from "../assets/tweeter.svg";
-import { signInWithPopup } from "firebase/auth";
+import { useRouter } from "next/router";
+import { useSignInWithGoogle } from "react-firebase-hooks/auth";
 
 const signIn = () => {
-  // const [signInWithGoogle, user, loading, error] = useSignInWithGoogle(auth);
+  const [signInWithGoogle, user, loading, error] = useSignInWithGoogle(auth);
 
-  //   if (error) {
-  //     return (
-  //       <div>
-  //         <p>Error: {error.message}</p>
-  //       </div>
-  //     );
-  //   }
-  //   if (loading) {
-  //     return <p>Loading...</p>;
-  //   }
-  //   if (user) {
-  //     return (
-  //       <div>
-  //         <p>Signed In User: {user.email}</p>
-  //       </div>
-  //     );
-  //   }
-  const signInWithGoogle = async () => {
-    const result = await signInWithPopup(auth, provider);
-    console.log(result);
+  const router = useRouter();
 
-    // if (result) {
-    //   navigate("/");
-    // }
-  };
+  if (user) {
+    router.push("/");
+    // console.log(user);
+  }
 
   return (
     <IconContext.Provider value={{ className: "react-icons-signin" }}>
@@ -80,6 +62,7 @@ const signIn = () => {
             value="Start tweeting now"
             className="w-full py-3 rounded-xl text-2xl mt-2 border"
           />
+          {loading ? <p>Loading...</p> : <p>{error?.message}</p>}
         </form>
 
         <p className="text-center mt-16">
@@ -88,7 +71,9 @@ const signIn = () => {
 
         <div className="flex gap-8  justify-center mt-8">
           <div
-            onClick={signInWithGoogle}
+            onClick={() => {
+              signInWithGoogle();
+            }}
             className="p-4 border-gray-800 grid items-center border-[1px] rounded-full"
           >
             <AiOutlineGoogle />
