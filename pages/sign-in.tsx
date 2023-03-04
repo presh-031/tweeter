@@ -25,7 +25,7 @@ const signIn = () => {
   }
 
   return (
-    <IconContext.Provider value={{ className: "react-icons-signin" }}>
+    <IconContext.Provider value={{ className: "react-icons" }}>
       <div className="p-4">
         <header className="mb-8">
           <Image src={logo} alt="tweeter" />
