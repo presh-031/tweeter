@@ -6,7 +6,7 @@ import logoSmall from "../assets/tweeter-small.svg";
 
 const Navbar = () => {
   return (
-    <div className="flex drop-shadow-[0_2px_2px_rgba(0,0,0,0.05)]  justify-between bg-white px-[1.7rem] py-[2rem]">
+    <div className="flex justify-between  bg-white px-[1.7rem] py-[2rem] drop-shadow-[0_2px_2px_rgba(0,0,0,0.05)]">
       <div>
         <Image src={logoSmall} alt="tweeter" />
       </div>
@@ -18,7 +18,7 @@ const Navbar = () => {
         </ul>
       </nav>
       <div className="flex items-center gap-4">
-        <Image src={dev} alt="tweeter" className="w-[3.2rem] h-[3.2rem]" />
+        <Image src={dev} alt="dev" className="h-[3.2rem] w-[3.2rem]" />
         <p className="hidden">Xanthe Neal</p>
         <IconContext.Provider value={{ className: "react-icons" }}>
           <IoMdArrowDropdown />

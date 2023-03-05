@@ -1,13 +1,22 @@
+import Navbar from "./Navbar";
 // Universal app font setup
-import { Jost } from "next/font/google";
-const jost = Jost({ subsets: ["latin"] });
+import { Poppins } from "next/font/google";
+const poppins = Poppins({
+  subsets: ["latin"],
+  weight: ["400", "500", "600", "700"],
+});
 
 type LayoutProps = {
   children: React.ReactNode;
 };
 
 const Layout = ({ children }: LayoutProps) => {
-  return <div className={`${jost.className}`}>{children}</div>;
+  return (
+    <div className={`${poppins.className}`}>
+      <Navbar />
+      {children}
+    </div>
+  );
 };
 
 export default Layout;
