@@ -19,3 +19,26 @@
 .react-icons {
   font-size: 2rem;
 }
+
+.tweet-stats {
+  font-weight: 500;
+  font-size: 1.2rem;
+  line-height: 1.634rem;
+  letter-spacing: -3.5%;
+  color: #bdbdbd;
+}
+
+.tweet-icons-btn {
+  padding: 1.141rem 2.592rem;
+  border-radius: 8px;
+}
+
+.tweet-icons-btn:hover {
+  background-color: #f2f2f2;
+}
+
+.tweet-icons {
+  width: 1.667rem;
+  height: 1.667rem;
+  color: #4f4f4f;
+}

@@ -5,7 +5,7 @@ import dev from "../assets/devchallenges.png";
 
 const NewTweet = () => {
   return (
-    <div className="mt-[1.469rem] bg-white py-[1.091rem] px-[1.39rem] drop-shadow-[0_2px_2px_rgba(0,0,0,0.05)] ">
+    <div className="mt-[1.469rem] bg-white py-[1.091rem] px-[1.39rem] shadow-[0_2px_2px_rgba(0,0,0,0.05)] ">
       <p className="border-b-[1px] border-[#f2f2f2] pb-[.74rem] text-[1.2rem] font-semibold leading-[1.8rem] tracking-[-3.5%] text-[#4F4F4F]">
         Tweet something
       </p>
