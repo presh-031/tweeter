@@ -6,7 +6,7 @@ import logoSmall from "../assets/tweeter-small.svg";
 
 const Navbar = () => {
   return (
-    <div className="flex justify-between  bg-white px-[1.7rem] py-[2rem] drop-shadow-[0_2px_2px_rgba(0,0,0,0.05)]">
+    <div className="flex justify-between  bg-white px-[1.7rem] py-[2rem] drop-shadow-[0px_2px_2px_rgba(0,0,0,0.05)]">
       <div>
         <Image src={logoSmall} alt="tweeter" />
       </div>

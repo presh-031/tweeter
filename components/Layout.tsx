@@ -12,7 +12,7 @@ type LayoutProps = {
 
 const Layout = ({ children }: LayoutProps) => {
   return (
-    <div className={`${poppins.className}`}>
+    <div className={`${poppins.className} bg-[#eee] bg-opacity-40`}>
       <Navbar />
       {children}
     </div>
