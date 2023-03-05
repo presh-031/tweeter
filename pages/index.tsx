@@ -12,6 +12,7 @@ const index = () => {
         <div>
           <NewTweet />
           <Tweet />
+          <Tweet />
         </div>
         <div></div>
       </div>

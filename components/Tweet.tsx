@@ -51,7 +51,7 @@ const Tweet = () => {
           </div>
         </div>
 
-        <div className="border-[#F2F2F2 ] border-y-[1px] py-[.382rem]">
+        <div className="flex justify-center border-y-[1px] border-[#F2F2F2] py-[.382rem]">
           <button className="tweet-icons-btn">
             <MdOutlineModeComment className="tweet-icons" />
             <span className="hidden">Comment</span>
