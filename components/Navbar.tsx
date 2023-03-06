@@ -21,14 +21,7 @@ const Navbar = () => {
   };
   return (
     <div className="flex justify-between  bg-white px-[1.7rem] py-[2rem] shadow-[0px_2px_2px_rgba(0,0,0,0.05)]">
-      <div
-        onClick={async () => {
-          const success = await signOut();
-          if (success) {
-            alert("You are sign out");
-          }
-        }}
-      >
+      <div>
         <Image src={logoSmall} alt="tweeter" />
       </div>
       <nav className="hidden">
@@ -38,7 +31,7 @@ const Navbar = () => {
           <li>Bookmarks</li>
         </ul>
       </nav>
-      <div onClick={toggleUserMenu} className="flex items-center gap-4 outline">
+      <div onClick={toggleUserMenu} className="flex items-center gap-4">
         <Image src={dev} alt="dev" className="h-[3.2rem] w-[3.2rem]" />
         <p className="hidden">Xanthe Neal</p>
         <IconContext.Provider value={{ className: "react-icons" }}>
@@ -47,17 +40,25 @@ const Navbar = () => {
       </div>
 
       {userMenu && (
-        <ul className="absolute right-[1.7rem] top-[5.2rem] bg-white text-[1.46em] shadow-lg">
-          <li className="flex items-center gap-3 py-4 pr-12 pl-4">
+        <ul className="absolute right-[1.7rem] top-[5.2rem] flex flex-col gap-[.4rem] rounded-[12px] bg-white px-[1.392rem] py-[1.527rem] text-[1.2rem] leading-[1.634rem]  tracking-[-3.5%] text-[#4F4F4F] shadow-lg">
+          <li className="flex items-center gap-[1.167rem] rounded-[8px] py-[1.1rem] pr-12 pl-[1.4rem] hover:bg-[#f2f2f2]">
             <CgProfile />
             Profile
           </li>
-          <li className="flex items-center gap-3 py-4 pr-12 pl-4">
-            {" "}
+          <li className="flex items-center gap-[1.167rem] rounded-[8px] py-[1.1rem] pr-12 pl-[1.4rem] hover:bg-[#f2f2f2]">
             <IoMdSettings />
             My account
           </li>
-          <li className="flex items-center gap-3 py-4 pr-12 pl-4">
+          <li className="my-[.71rem] border-t-[1px] border-[#e0e0e0]"></li>
+          <li
+            onClick={async () => {
+              const success = await signOut();
+              if (success) {
+                alert("You are sign out");
+              }
+            }}
+            className="flex items-center gap-[1.167rem] rounded-[8px] py-[1.1rem] pr-12 pl-[1.4rem] text-[#EB5757] hover:bg-[#f2f2f2]"
+          >
             <TbLogout />
             Logout
           </li>
