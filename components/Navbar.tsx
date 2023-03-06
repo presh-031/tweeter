@@ -1,6 +1,7 @@
 import { IoMdArrowDropdown, IoMdSettings } from "react-icons/io";
 import { useAuthState, useSignOut } from "react-firebase-hooks/auth";
 
+import AppNav from "./AppNav";
 import { CgProfile } from "react-icons/cg";
 import { IconContext } from "react-icons";
 import Image from "next/image";
@@ -24,13 +25,11 @@ const Navbar = () => {
       <div>
         <Image src={logoSmall} alt="tweeter" />
       </div>
-      <nav className="hidden">
-        <ul>
-          <li>Home</li>
-          <li>Explore</li>
-          <li>Bookmarks</li>
-        </ul>
-      </nav>
+
+      <div className="hidden">
+        <AppNav />
+      </div>
+
       <div onClick={toggleUserMenu} className="flex items-center gap-4">
         <Image src={dev} alt="dev" className="h-[3.2rem] w-[3.2rem]" />
         <p className="hidden">Xanthe Neal</p>

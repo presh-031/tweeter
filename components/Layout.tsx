@@ -1,3 +1,4 @@
+import AppNav from "./AppNav";
 import Navbar from "./Navbar";
 // Universal app font setup
 import { Poppins } from "next/font/google";
@@ -18,6 +19,7 @@ const Layout = ({ children }: LayoutProps) => {
     <div className={`${poppins.className} bg-[#eee] bg-opacity-40`}>
       {!isHomePage && <Navbar />}
       {children}
+      {!isHomePage && <AppNav />}
     </div>
   );
 };
