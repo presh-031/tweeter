@@ -18,3 +18,4 @@ const index = () => {
 };
 
 export default withAuthUser(index);
+// export default index;

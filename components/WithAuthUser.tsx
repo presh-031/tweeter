@@ -17,7 +17,7 @@ const withAuthUser = (Component: React.ComponentType<any>) => {
     }
 
     if (!user) {
-      router.replace("/signin");
+      router.replace("/sign-in");
       return null;
     }
 

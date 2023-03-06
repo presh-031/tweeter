@@ -1,13 +1,25 @@
+import { useAuthState, useSignOut } from "react-firebase-hooks/auth";
+
 import { IconContext } from "react-icons";
 import Image from "next/image";
 import { IoMdArrowDropdown } from "react-icons/io";
+import { auth } from "@/config/firebase";
 import dev from "../assets/devchallenges.png";
 import logoSmall from "../assets/tweeter-small.svg";
 
 const Navbar = () => {
+  const [user, loading, error] = useAuthState(auth);
+  const [signOut] = useSignOut(auth);
   return (
     <div className="flex justify-between  bg-white px-[1.7rem] py-[2rem] shadow-[0px_2px_2px_rgba(0,0,0,0.05)]">
-      <div>
+      <div
+        onClick={async () => {
+          const success = await signOut();
+          if (success) {
+            alert("You are sign out");
+          }
+        }}
+      >
         <Image src={logoSmall} alt="tweeter" />
       </div>
       <nav className="hidden">

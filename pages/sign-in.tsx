@@ -65,9 +65,6 @@ const signIn = () => {
   return (
     <IconContext.Provider value={{ className: "react-icons" }}>
       <div className="p-8">
-        {/* <header className="mb-8">
-          <Image src={logo} alt="tweeter" />
-        </header> */}
         <p className="mb-12 text-4xl">
           Join thousands of users around the world
         </p>
