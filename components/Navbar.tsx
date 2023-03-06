@@ -29,13 +29,19 @@ const Navbar = () => {
           <li>Bookmarks</li>
         </ul>
       </nav>
-      <div className="flex items-center gap-4">
+      <div className="flex items-center gap-4 outline">
         <Image src={dev} alt="dev" className="h-[3.2rem] w-[3.2rem]" />
         <p className="hidden">Xanthe Neal</p>
         <IconContext.Provider value={{ className: "react-icons" }}>
           <IoMdArrowDropdown />
         </IconContext.Provider>
       </div>
+
+      <ul className="absolute right-[1.7rem] top-[5.2rem] text-[1.2rem] outline">
+        <li>Profile</li>
+        <li>My account</li>
+        <li>Logout</li>
+      </ul>
     </div>
   );
 };
