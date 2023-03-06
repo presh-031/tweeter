@@ -3,7 +3,6 @@ import { FaRetweet } from "react-icons/fa";
 import { HiOutlineBookmark } from "react-icons/hi";
 import Image from "next/image";
 import { MdOutlineModeComment } from "react-icons/md";
-import dev from "../assets/devchallenges.png";
 const Tweet = () => {
   return (
     <div>
@@ -14,13 +13,13 @@ const Tweet = () => {
 
       <div className="my-[2.317rem] px-[1.523rem] pt-[2rem] shadow-[0_2px_2px_rgba(0,0,0,0.05)]">
         <div className="flex gap-[.635rem]">
-          <div>
-            <Image
-              src={dev}
-              alt="dev"
-              className="h-[4rem] w-[4rem] rounded-[8px]"
-            />
-          </div>
+          <Image
+            src="https://picsum.photos/id/220/40/40"
+            alt="dev"
+            width={40}
+            height={40}
+            className="rounded-[8px]"
+          />
           <div className="font-medium tracking-[-3.5%] ">
             <p className="text-[1.6rem] leading-[2.4rem] ">Peyton Lyons</p>
             <p className="text-[1.2rem] leading-[1.63rem] text-[#bdbdbd]">

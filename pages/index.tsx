@@ -8,8 +8,12 @@ const index = () => {
       <div>
         <div>
           <NewTweet />
-          <Tweet />
-          <Tweet />
+
+          {/* Tweet container, where we'll transform the tweets data returned */}
+          <div>
+            <Tweet />
+            <Tweet />
+          </div>
         </div>
         <div></div>
       </div>

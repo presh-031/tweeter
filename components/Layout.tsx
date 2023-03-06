@@ -16,7 +16,9 @@ const Layout = ({ children }: LayoutProps) => {
   const router = useRouter();
   const isHomePage = router.pathname === "/sign-in";
   return (
-    <div className={`${poppins.className} bg-[#eee] bg-opacity-40`}>
+    <div
+      className={`${poppins.className} min-h-screen bg-[#eee] bg-opacity-40`}
+    >
       {!isHomePage && <Navbar />}
       {children}
       {!isHomePage && <AppNav />}
