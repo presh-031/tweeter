@@ -1,19 +1,16 @@
+import AllTweets from "@/components/AllTweets";
 import NewTweet from "@/components/NewTweet";
-import Tweet from "@/components/Tweet";
 import withAuthUser from "@/components/WithAuthUser";
 
 const index = () => {
   return (
-    <div className=" px-[1.90rem]">
+    <div className=" px-[1.90rem] pb-[9.615rem]">
       <div>
         <div>
           <NewTweet />
 
           {/* Tweet container, where we'll transform the tweets data returned */}
-          <div>
-            <Tweet />
-            <Tweet />
-          </div>
+          <AllTweets />
         </div>
         <div></div>
       </div>

@@ -3,26 +3,7 @@ import { FaRetweet } from "react-icons/fa";
 import { HiOutlineBookmark } from "react-icons/hi";
 import Image from "next/image";
 import { MdOutlineModeComment } from "react-icons/md";
-
-type tweetProps = {
-  comments: {}[];
-  likes: [];
-  retweets: [];
-  media: [];
-  text: "";
-  timestamp: "";
-  userId: "";
-};
-
-const Tweet = ({
-  comments,
-  likes,
-  retweets,
-  media,
-  text,
-  timestamp,
-  userId,
-}: tweetProps) => {
+const Tweet = () => {
   return (
     <div>
       {/* Idea: Vertical slideshow of who retweeted. Scrolls automatically every 2secs */}
@@ -49,33 +30,22 @@ const Tweet = ({
 
         <div className="mt-[2rem] mb-[1.4rem]">
           <p className="text-[1.60rem] font-normal leading-[2.179rem] tracking-[-3.5%] text-[#4F4F4F]">
-            {text}
+            Travelling - it leaves you speechless, then turns you into a
+            storyteller
           </p>
         </div>
 
         <div>
-          <div>
-            {/* {media.map(item => {
-
-            })} */}
-            <Image
-              src="https://picsum.photos/id/237/311/192"
-              alt="dev"
-              width={311}
-              height={192}
-              className="rounded-[8px]"
-            />
-            <Image
-              src="https://picsum.photos/id/237/311/192"
-              alt="dev"
-              width={311}
-              height={192}
-              className="rounded-[8px]"
-            />
-          </div>
+          <Image
+            src="https://picsum.photos/id/237/311/192"
+            alt="dev"
+            width={311}
+            height={192}
+            className="rounded-[8px]"
+          />
           <div className="mt-[1.4rem] mb-[0.651rem] flex justify-end gap-[1.6rem]">
             <span className="tweet-stats">449 Comments</span>
-            <span className="tweet-stats">{retweets.length} Retweet(s)</span>
+            <span className="tweet-stats">59k Retweets</span>
             <span className="tweet-stats">234 Saved</span>
           </div>
         </div>
