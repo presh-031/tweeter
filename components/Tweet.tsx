@@ -1,8 +1,9 @@
+import { doc, getDoc } from "firebase/firestore";
+import { useEffect, useState } from "react";
+
 import { db } from "@/config/firebase";
-import { doc } from "firebase/firestore";
 import moment from "moment";
 import Image from "next/image";
-import { useDocumentData } from "react-firebase-hooks/firestore";
 import { AiOutlineHeart } from "react-icons/ai";
 import { FaRetweet } from "react-icons/fa";
 import { HiOutlineBookmark } from "react-icons/hi";
@@ -13,6 +14,7 @@ type timestampType = {
   seconds: number;
   nanoseconds: number;
 };
+
 type tweetProps = {
   comments: {}[];
   numOfLikes: number;
@@ -24,7 +26,7 @@ type tweetProps = {
 };
 
 // Logic to convert timestamp to required format
-const formatDate = (timestamp: timestampType): string => {
+const formatDate = (timestamp: timestampType) => {
   const date = moment.unix(timestamp.seconds).utcOffset(0);
   const formattedDate = date.format("DD MMMM [at] HH:mm");
   return formattedDate;
@@ -40,12 +42,24 @@ const Tweet = ({
   userId,
 }: tweetProps) => {
   // Logic to get info about the user with userId for each tweet
-  const userRef = doc(db, "users", "ZOprG50k5Jd3Imf7eEEHsgfyEY53");
-  const [user, loading, error, snapshot] = useDocumentData<any>(userRef);
+  const userRef = doc(db, "users", "LlGm1LJoQkWVaJ5yjPAHY3l4QXC3");
+  // const [user, loading, error, snapshot] = useDocumentData<any>(userRef);
+  const [user, setUser] = useState<any>({});
 
-  // console.log(timestamp);
+  useEffect(() => {
+    const getUser = async () => {
+      const userSnap = await getDoc(userRef);
+      // console.log(userSnap.data());
+      setUser(userSnap.data());
+    };
+
+    getUser();
+  }, []);
+
+  // console.log(user);
+  // console.log(userId);
+
   const formattedDate = formatDate(timestamp);
-  console.log(formattedDate);
   return (
     <div>
       {/* Idea: Vertical slideshow of who retweeted. Scrolls automatically every 2secs */}
@@ -69,7 +83,7 @@ const Tweet = ({
           />
           <div className="font-medium tracking-[-3.5%]">
             <p className="text-[1.6rem] leading-[2.4rem]">
-              {user.displayName ? user.displayName : user.userName}
+              {user.displayName ? `@${user.displayName}` : user.userName}
             </p>
             <p className="text-[1.2rem] leading-[1.63rem] text-[#bdbdbd]">
               {formattedDate}
@@ -88,11 +102,14 @@ const Tweet = ({
             <TweetMedia images={media} />
           </div>
           <div className="mt-[1.4rem] mb-[0.651rem] flex justify-end gap-[1.6rem]">
-            <span className="tweet-stats">449 Comments</span>
+            <span className="tweet-stats">
+              {numOfLikes} {numOfLikes > 1 ? "Likes" : "Like"}
+            </span>
             <span className="tweet-stats">
               {numOfRetweets} {numOfRetweets > 1 ? "Retweets" : "Retweet"}
             </span>
-            {/* <span className="tweet-stats">234 Saved</span> */}
+            <span className="tweet-stats">449 Comments</span>
+            <span className="tweet-stats">234 Saved</span>
           </div>
         </div>
 
@@ -115,7 +132,7 @@ const Tweet = ({
           </button>
         </div>
 
-        {/* <Reply/> */}
+        {/* <Reply /> */}
       </div>
     </div>
   );
