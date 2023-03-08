@@ -1,5 +1,6 @@
 import { db } from "@/config/firebase";
 import { doc } from "firebase/firestore";
+import moment from "moment";
 import Image from "next/image";
 import { useDocumentData } from "react-firebase-hooks/firestore";
 import { AiOutlineHeart } from "react-icons/ai";
@@ -8,14 +9,25 @@ import { HiOutlineBookmark } from "react-icons/hi";
 import { MdOutlineModeComment } from "react-icons/md";
 import TweetMedia from "./TweetMedia";
 
+type timestampType = {
+  seconds: number;
+  nanoseconds: number;
+};
 type tweetProps = {
   comments: {}[];
   numOfLikes: number;
   numOfRetweets: number;
   media: [];
   text: string;
-  timestamp: string;
+  timestamp: timestampType;
   userId: string;
+};
+
+// Logic to convert timestamp to required format
+const formatDate = (timestamp: timestampType): string => {
+  const date = moment.unix(timestamp.seconds).utcOffset(0);
+  const formattedDate = date.format("DD MMMM [at] HH:mm");
+  return formattedDate;
 };
 
 const Tweet = ({
@@ -27,13 +39,13 @@ const Tweet = ({
   timestamp,
   userId,
 }: tweetProps) => {
-  // console.log(userId);
-
-  // Logic to get info about the userId for each tweet
+  // Logic to get info about the user with userId for each tweet
   const userRef = doc(db, "users", "ZOprG50k5Jd3Imf7eEEHsgfyEY53");
   const [user, loading, error, snapshot] = useDocumentData<any>(userRef);
 
-  // console.log(user);
+  // console.log(timestamp);
+  const formattedDate = formatDate(timestamp);
+  console.log(formattedDate);
   return (
     <div>
       {/* Idea: Vertical slideshow of who retweeted. Scrolls automatically every 2secs */}
@@ -44,8 +56,6 @@ const Tweet = ({
       <div className="my-[2.317rem] rounded-[8px] px-[1.523rem] pt-[2rem] shadow-[0_2px_4px_rgba(0,0,0,0.05)]">
         <div className="flex gap-[.635rem]">
           <Image
-            // src="https://picsum.photos/id/220/40/40"
-
             src={
               user.profilePictureUrl
                 ? user.profilePictureUrl
@@ -57,10 +67,12 @@ const Tweet = ({
             height={40}
             className="rounded-[8px]"
           />
-          <div className="font-medium tracking-[-3.5%] ">
-            <p className="text-[1.6rem] leading-[2.4rem] ">Peyton Lyons</p>
+          <div className="font-medium tracking-[-3.5%]">
+            <p className="text-[1.6rem] leading-[2.4rem]">
+              {user.displayName ? user.displayName : user.userName}
+            </p>
             <p className="text-[1.2rem] leading-[1.63rem] text-[#bdbdbd]">
-              24 August at 20:43
+              {formattedDate}
             </p>
           </div>
         </div>
@@ -77,8 +89,10 @@ const Tweet = ({
           </div>
           <div className="mt-[1.4rem] mb-[0.651rem] flex justify-end gap-[1.6rem]">
             <span className="tweet-stats">449 Comments</span>
-            <span className="tweet-stats">{numOfRetweets} Retweet(s)</span>
-            <span className="tweet-stats">234 Saved</span>
+            <span className="tweet-stats">
+              {numOfRetweets} {numOfRetweets > 1 ? "Retweets" : "Retweet"}
+            </span>
+            {/* <span className="tweet-stats">234 Saved</span> */}
           </div>
         </div>
 
