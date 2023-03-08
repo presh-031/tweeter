@@ -1,4 +1,7 @@
+import { db } from "@/config/firebase";
+import { doc } from "firebase/firestore";
 import Image from "next/image";
+import { useDocumentData } from "react-firebase-hooks/firestore";
 import { AiOutlineHeart } from "react-icons/ai";
 import { FaRetweet } from "react-icons/fa";
 import { HiOutlineBookmark } from "react-icons/hi";
@@ -24,6 +27,13 @@ const Tweet = ({
   timestamp,
   userId,
 }: tweetProps) => {
+  // console.log(userId);
+
+  // Logic to get info about the userId for each tweet
+  const userRef = doc(db, "users", "ZOprG50k5Jd3Imf7eEEHsgfyEY53");
+  const [user, loading, error, snapshot] = useDocumentData<any>(userRef);
+
+  // console.log(user);
   return (
     <div>
       {/* Idea: Vertical slideshow of who retweeted. Scrolls automatically every 2secs */}
@@ -34,7 +44,14 @@ const Tweet = ({
       <div className="my-[2.317rem] rounded-[8px] px-[1.523rem] pt-[2rem] shadow-[0_2px_4px_rgba(0,0,0,0.05)]">
         <div className="flex gap-[.635rem]">
           <Image
-            src="https://picsum.photos/id/220/40/40"
+            // src="https://picsum.photos/id/220/40/40"
+
+            src={
+              user.profilePictureUrl
+                ? user.profilePictureUrl
+                : // Default image shown should be a placeholder, actually
+                  "https://picsum.photos/id/1/40/40"
+            }
             alt="dev"
             width={40}
             height={40}

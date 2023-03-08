@@ -7,11 +7,12 @@ import Tweet from "./Tweet";
 const AllTweets = () => {
   const [tweetsList, setTweetsList] = useState<any[]>([]);
 
-  const postsRef = collection(db, "tweets");
+  const tweetsRef = collection(db, "tweets");
 
-  const [tweetsListSnapshot, loading, error] = useCollection(postsRef, {
+  const [tweetsListSnapshot, loading, error] = useCollection(tweetsRef, {
     snapshotListenOptions: { includeMetadataChanges: true },
   });
+
   // useEffect(() => {
   //   const q = query(postsRef);
   //   const unsub = onSnapshot(q, (querySnapshot) => {
