@@ -1,23 +1,24 @@
+import Image from "next/image";
 import { AiOutlineHeart } from "react-icons/ai";
 import { FaRetweet } from "react-icons/fa";
 import { HiOutlineBookmark } from "react-icons/hi";
-import Image from "next/image";
 import { MdOutlineModeComment } from "react-icons/md";
+import TweetMedia from "./TweetMedia";
 
 type tweetProps = {
   comments: {}[];
-  likes: [];
-  retweets: [];
+  numOfLikes: number;
+  numOfRetweets: number;
   media: [];
-  text: "";
-  timestamp: "";
-  userId: "";
+  text: string;
+  timestamp: string;
+  userId: string;
 };
 
 const Tweet = ({
   comments,
-  likes,
-  retweets,
+  numOfLikes,
+  numOfRetweets,
   media,
   text,
   timestamp,
@@ -55,27 +56,11 @@ const Tweet = ({
 
         <div>
           <div>
-            {/* {media.map(item => {
-
-            })} */}
-            <Image
-              src="https://picsum.photos/id/237/311/192"
-              alt="dev"
-              width={311}
-              height={192}
-              className="rounded-[8px]"
-            />
-            <Image
-              src="https://picsum.photos/id/237/311/192"
-              alt="dev"
-              width={311}
-              height={192}
-              className="rounded-[8px]"
-            />
+            <TweetMedia images={media} />
           </div>
           <div className="mt-[1.4rem] mb-[0.651rem] flex justify-end gap-[1.6rem]">
             <span className="tweet-stats">449 Comments</span>
-            <span className="tweet-stats">{retweets.length} Retweet(s)</span>
+            <span className="tweet-stats">{numOfRetweets} Retweet(s)</span>
             <span className="tweet-stats">234 Saved</span>
           </div>
         </div>

@@ -1,9 +1,8 @@
 import { collection, onSnapshot, query } from "firebase/firestore";
 import { useEffect, useState } from "react";
 
-import TestTweet from "./TestTweet";
-import Tweet from "./Tweet";
 import { db } from "@/config/firebase";
+import Tweet from "./Tweet";
 
 const AllTweets = () => {
   const [tweetsList, setTweetsList] = useState<any[]>([]);
@@ -22,28 +21,22 @@ const AllTweets = () => {
     return () => unsub();
   }, []);
 
-  console.log(tweetsList);
-
   return (
     <div>
-      <TestTweet />
-      <TestTweet />
-      <div>
-        {tweetsList?.map((tweet) => {
-          return (
-            <Tweet
-              key={tweet.id}
-              comments={tweet.comments}
-              likes={tweet.likes}
-              retweets={tweet.retweets}
-              media={tweet.media}
-              text={tweet.text}
-              timestamp={tweet.timestamp}
-              userId={tweet.userId}
-            />
-          );
-        })}
-      </div>
+      {tweetsList?.map((tweet) => {
+        return (
+          <Tweet
+            key={tweet.id}
+            comments={tweet.comments}
+            numOfLikes={tweet.likes.length}
+            numOfRetweets={tweet.retweets.length}
+            media={tweet.media}
+            text={tweet.text}
+            timestamp={tweet.timestamp}
+            userId={tweet.userId}
+          />
+        );
+      })}
     </div>
   );
 };
