@@ -1,9 +1,7 @@
-import React, { createContext, useState } from "react";
+import React, { createContext, useEffect, useState } from "react";
 
 type State = {
-  isLoggedIn: boolean;
-  isLoginPending: boolean;
-  loginError: any;
+  userDocument: string;
 };
 
 type UserContextType = {
@@ -14,11 +12,13 @@ type UserContextType = {
 export const UserContext = createContext<UserContextType | null>(null);
 export const UserProvider = ({ children }: any) => {
   const initialState: State = {
-    isLoggedIn: false,
-    isLoginPending: false,
-    loginError: null,
+    userDocument: "boy",
   };
   const [state, setState] = useState<State>(initialState);
+
+  useEffect(() => {
+    setState("girl");
+  }, []);
 
   return (
     <UserContext.Provider value={{ state, setState }}>
