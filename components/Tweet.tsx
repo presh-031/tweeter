@@ -42,22 +42,18 @@ const Tweet = ({
   userId,
 }: tweetProps) => {
   // Logic to get info about the user with userId for each tweet
-  const userRef = doc(db, "users", "LlGm1LJoQkWVaJ5yjPAHY3l4QXC3");
+  const userRef = doc(db, "users", userId);
   // const [user, loading, error, snapshot] = useDocumentData<any>(userRef);
   const [user, setUser] = useState<any>({});
 
   useEffect(() => {
     const getUser = async () => {
       const userSnap = await getDoc(userRef);
-      // console.log(userSnap.data());
       setUser(userSnap.data());
     };
 
     getUser();
   }, []);
-
-  // console.log(user);
-  // console.log(userId);
 
   const formattedDate = formatDate(timestamp);
   return (
@@ -109,7 +105,7 @@ const Tweet = ({
               {numOfRetweets} {numOfRetweets > 1 ? "Retweets" : "Retweet"}
             </span>
             <span className="tweet-stats">449 Comments</span>
-            <span className="tweet-stats">234 Saved</span>
+            {/* <span className="tweet-stats">234 Saved</span> */}
           </div>
         </div>
 

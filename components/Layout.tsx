@@ -3,6 +3,7 @@ import Navbar from "./Navbar";
 // Universal app font setup
 import { Poppins } from "next/font/google";
 import { useRouter } from "next/router";
+
 const poppins = Poppins({
   subsets: ["latin"],
   weight: ["400", "500", "600", "700"],
@@ -19,9 +20,11 @@ const Layout = ({ children }: LayoutProps) => {
     <div
       className={`${poppins.className} min-h-screen bg-[#eee] bg-opacity-40`}
     >
+      {/* <UserProvider> */}
       {!isHomePage && <Navbar />}
       {children}
       {!isHomePage && <AppNav />}
+      {/* </UserProvider> */}
     </div>
   );
 };
