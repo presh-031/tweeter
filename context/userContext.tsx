@@ -1,7 +1,7 @@
-import React, { createContext, useEffect, useState } from "react";
+import React, { createContext, useState } from "react";
 
 type State = {
-  userDocument: string;
+  userDocument: {};
 };
 
 type UserContextType = {
@@ -12,13 +12,9 @@ type UserContextType = {
 export const UserContext = createContext<UserContextType | null>(null);
 export const UserProvider = ({ children }: any) => {
   const initialState: State = {
-    userDocument: "boy",
+    userDocument: {},
   };
   const [state, setState] = useState<State>(initialState);
-
-  useEffect(() => {
-    setState("girl");
-  }, []);
 
   return (
     <UserContext.Provider value={{ state, setState }}>

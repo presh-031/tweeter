@@ -1,7 +1,7 @@
+import { Poppins } from "next/font/google";
 import AppNav from "./AppNav";
 import Navbar from "./Navbar";
 // Universal app font setup
-import { Poppins } from "next/font/google";
 import { useRouter } from "next/router";
 
 const poppins = Poppins({
@@ -14,6 +14,8 @@ type LayoutProps = {
 };
 
 const Layout = ({ children }: LayoutProps) => {
+  // const { state, setState } = useContext(UserContext);
+
   const router = useRouter();
   const isHomePage = router.pathname === "/sign-in";
   return (
