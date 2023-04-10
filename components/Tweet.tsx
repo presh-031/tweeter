@@ -1,9 +1,10 @@
-import { doc, getDoc } from "firebase/firestore";
+import { auth, db } from "@/config/firebase";
+import { doc, getDoc, updateDoc } from "firebase/firestore";
 import { useEffect, useState } from "react";
 
-import { db } from "@/config/firebase";
 import moment from "moment";
 import Image from "next/image";
+import { useAuthState } from "react-firebase-hooks/auth";
 import { AiOutlineHeart } from "react-icons/ai";
 import { FaRetweet } from "react-icons/fa";
 import { HiOutlineBookmark } from "react-icons/hi";
@@ -14,10 +15,11 @@ type timestampType = {
   seconds: number;
   nanoseconds: number;
 };
-
 type tweetProps = {
+  tweetId: string;
   comments: {}[];
-  numOfLikes: number;
+  likes: string[];
+  // numOfLikes: number;
   numOfRetweets: number;
   media: string[];
   text: string;
@@ -33,8 +35,10 @@ const formatDate = (timestamp: timestampType) => {
 };
 
 const Tweet = ({
+  tweetId,
   comments,
-  numOfLikes,
+  likes,
+  // numOfLikes,
   numOfRetweets,
   media,
   text,
@@ -56,6 +60,37 @@ const Tweet = ({
   }, []);
 
   const formattedDate = formatDate(timestamp);
+
+  // console.log(tweetId);
+
+  // Logic to handle tweet like
+  // Liking and unLiking should be done by currently auth user
+  const [currentUser] = useAuthState(auth);
+  const currentUserId = currentUser?.uid;
+
+  const handleLike = async () => {
+    const tweetDocRef = doc(db, "tweets", tweetId);
+
+    try {
+      await updateDoc(tweetDocRef, {
+        likes: [...likes, currentUserId],
+      });
+    } catch (err) {
+      alert(err);
+    }
+  };
+
+  const handleUnlike = async () => {
+    const tweetDocRef = doc(db, "tweets", tweetId);
+
+    try {
+      await updateDoc(tweetDocRef, {
+        likes: likes.filter((like) => like !== currentUserId),
+      });
+    } catch (err) {
+      alert(err);
+    }
+  };
   return (
     <div>
       {/* Idea: Vertical slideshow of who retweeted. Scrolls automatically every 2secs */}
@@ -99,7 +134,7 @@ const Tweet = ({
           </div>
           <div className="mt-[1.4rem] mb-[0.651rem] flex justify-end gap-[1.6rem]">
             <span className="tweet-stats">
-              {numOfLikes} {numOfLikes > 1 ? "Likes" : "Like"}
+              {likes.length} {likes.length > 1 ? "Likes" : "Like"}
             </span>
             <span className="tweet-stats">
               {numOfRetweets} {numOfRetweets > 1 ? "Retweets" : "Retweet"}
@@ -118,7 +153,12 @@ const Tweet = ({
             <FaRetweet className="tweet-icons" />
             <span className="hidden">Retweet</span>
           </button>
-          <button className="tweet-icons-btn">
+          <button
+            onClick={() => {
+              likes.includes(currentUserId) ? handleUnlike() : handleLike();
+            }}
+            className="tweet-icons-btn"
+          >
             <AiOutlineHeart className="tweet-icons" />
             <span className="hidden">Likes</span>
           </button>

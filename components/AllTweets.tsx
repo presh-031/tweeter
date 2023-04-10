@@ -18,8 +18,10 @@ const AllTweets = () => {
       {tweetsListSnapshot?.docs.map((tweet) => (
         <Tweet
           key={tweet.id}
+          tweetId={tweet.id}
           comments={tweet.data().comments}
-          numOfLikes={tweet.data().likes.length}
+          // numOfLikes={tweet.data().likes.length}
+          likes={tweet.data().likes}
           numOfRetweets={tweet.data().retweets.length}
           media={tweet.data().media}
           text={tweet.data().text}

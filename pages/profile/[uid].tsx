@@ -46,8 +46,8 @@ const profile = () => {
   const router = useRouter();
   const { uid } = router.query;
 
-  console.log(uid);
-  console.log(currentUserId);
+  // console.log(uid);
+  // console.log(currentUserId);
 
   useEffect(() => {
     if (uid) {
