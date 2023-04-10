@@ -159,7 +159,12 @@ const Tweet = ({
             }}
             className="tweet-icons-btn"
           >
-            <AiOutlineHeart className="tweet-icons" />
+            <AiOutlineHeart
+              className="tweet-icons"
+              style={
+                likes.includes(currentUserId) ? { backgroundColor: "red" } : ""
+              }
+            />
             <span className="hidden">Likes</span>
           </button>
           <button className="tweet-icons-btn">
