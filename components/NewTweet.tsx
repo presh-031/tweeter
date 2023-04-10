@@ -1,10 +1,16 @@
 import Image from "next/image";
+import { useState } from "react";
 import { BiWorld } from "react-icons/bi";
 import { MdOutlineImage } from "react-icons/md";
 import dev from "../assets/devchallenges.png";
 
 const NewTweet = () => {
   // const [user, loading, error] = useAuthState(auth);
+  const [newTweet, setNewTweet] = useState("");
+
+  const handleNewTweet = () => {
+    console.log(newTweet);
+  };
   return (
     <div className="mt-[1.469rem] bg-white py-[1.091rem] px-[1.39rem] shadow-[0_2px_2px_rgba(0,0,0,0.05)] ">
       <p className="border-b-[1px] border-[#f2f2f2] pb-[.74rem] text-[1.2rem] font-semibold leading-[1.8rem] tracking-[-3.5%] text-[#4F4F4F]">
@@ -16,6 +22,10 @@ const NewTweet = () => {
           className="w-full pl-[1.2rem] text-[1.6rem] font-medium leading-[2.179rem] tracking-[-3.5%] outline-none placeholder:text-[#bdbdbd]"
           type="text"
           placeholder="What's happening?"
+          value={newTweet}
+          onChange={(e) => {
+            setNewTweet(e.target.value);
+          }}
         />
       </div>
       <div className="mt-[3rem] flex justify-between text-blueish">
@@ -30,6 +40,7 @@ const NewTweet = () => {
           className="rounded-[4px] bg-blueish px-[2.4rem] py-[.8rem] text-[1.2rem] font-medium leading-[1.6rem] tracking-[-3.5%] text-white"
           type="submit"
           value="Tweet"
+          onClick={handleNewTweet}
         />
       </div>
     </div>
