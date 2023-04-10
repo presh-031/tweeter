@@ -1,13 +1,14 @@
-import AppNav from "./AppNav";
-import { IconContext } from "react-icons";
-import Image from "next/image";
-import { IoMdArrowDropdown } from "react-icons/io";
-import UserNav from "./UserNav";
 import { auth } from "@/config/firebase";
+import Image from "next/image";
+import { useRouter } from "next/router";
+import { useState } from "react";
+import { useAuthState } from "react-firebase-hooks/auth";
+import { IconContext } from "react-icons";
+import { IoMdArrowDropdown } from "react-icons/io";
 import dev from "../assets/devchallenges.png";
 import logoSmall from "../assets/tweeter-small.svg";
-import { useAuthState } from "react-firebase-hooks/auth";
-import { useState } from "react";
+import AppNav from "./AppNav";
+import UserNav from "./UserNav";
 
 const Navbar = () => {
   const [user, loading, error] = useAuthState(auth);
@@ -17,9 +18,15 @@ const Navbar = () => {
   const toggleUserNav = () => {
     setUserNav((prevUserNav) => !prevUserNav);
   };
+  const router = useRouter();
+
   return (
     <div className="flex justify-between  bg-white px-[1.7rem] py-[2rem] shadow-[0px_2px_2px_rgba(0,0,0,0.05)]">
-      <div>
+      <div
+        onClick={() => {
+          router.push("/");
+        }}
+      >
         <Image src={logoSmall} alt="tweeter" />
       </div>
 
@@ -35,7 +42,7 @@ const Navbar = () => {
         </IconContext.Provider>
       </div>
 
-      {userNav && <UserNav />}
+      {userNav && <UserNav toggleUserNav={toggleUserNav} />}
     </div>
   );
 };

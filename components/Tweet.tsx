@@ -19,7 +19,7 @@ type tweetProps = {
   comments: {}[];
   numOfLikes: number;
   numOfRetweets: number;
-  media: [];
+  media: string[];
   text: string;
   timestamp: timestampType;
   userId: string;
