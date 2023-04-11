@@ -4,6 +4,7 @@ import { addDoc, collection, Timestamp } from "firebase/firestore";
 import Image from "next/image";
 import { useState } from "react";
 import { useAuthState } from "react-firebase-hooks/auth";
+import { AiOutlineLoading3Quarters } from "react-icons/ai";
 import { BiWorld } from "react-icons/bi";
 import { MdOutlineImage } from "react-icons/md";
 import dev from "../assets/devchallenges.png";
@@ -15,11 +16,13 @@ const NewTweet = () => {
   const currentUserId = currentUser?.uid;
 
   const [newTweetText, setNewTweetText] = useState("");
+  const [newTweetLoading, setNewTweetLoading] = useState(false);
 
   const handleNewTweet = async () => {
     console.log(newTweetText);
 
     try {
+      setNewTweetLoading(true);
       await addDoc(collection(db, "tweets"), {
         text: newTweetText,
         userId: currentUserId,
@@ -29,6 +32,7 @@ const NewTweet = () => {
         media: [],
         // comments
       });
+      setNewTweetLoading(false);
       setNewTweetText("");
     } catch (err) {
       alert(err);
@@ -39,10 +43,10 @@ const NewTweet = () => {
       <p className="border-b-[1px] border-[#f2f2f2] pb-[.74rem] text-[1.2rem] font-semibold leading-[1.8rem] tracking-[-3.5%] text-[#4F4F4F]">
         Tweet something
       </p>
-      <div className="flex">
-        <Image src={dev} alt="dev" className="h-[4rem] w-[4rem] " />
+      <div className="flex items-center">
+        <Image src={dev} alt="dev" className="h-[4rem] w-[4rem] outline " />
         <input
-          className="w-full pl-[1.2rem] text-[1.6rem] font-medium leading-[2.179rem] tracking-[-3.5%] outline-none placeholder:text-[#bdbdbd]"
+          className="w-full overflow-hidden pl-[1.2rem] text-[1.6rem] font-medium leading-[2.179rem] tracking-[-3.5%]  outline-none placeholder:text-[#bdbdbd]"
           type="text"
           placeholder="What's happening?"
           value={newTweetText}
@@ -50,6 +54,10 @@ const NewTweet = () => {
             setNewTweetText(e.target.value);
           }}
         />
+        {/* Loading spinner */}
+        {newTweetLoading && (
+          <AiOutlineLoading3Quarters className="animate-spin text-4xl text-blueish" />
+        )}
       </div>
       <div className="mt-[3rem] flex justify-between text-blueish">
         <div className=" flex items-center gap-[.71rem] ">
