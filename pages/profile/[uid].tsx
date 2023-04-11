@@ -81,8 +81,7 @@ const profile = () => {
 
   // Get all user's tweets with the uid
   // Still querying for all tweet then filtering with uid and storing in userTweets state, should use a more specific query.
-  const [userTweetsList, setUserTweetsList] = useState([]);
-  const userTweetsArr = [];
+
   const tweetsRef = collection(db, "tweets");
 
   const [tweetsListSnapshot, loading, error] = useCollection(tweetsRef, {
@@ -94,11 +93,7 @@ const profile = () => {
   allTweetsCol?.forEach((tweet) => {
     allTweets.push(tweet.data());
   });
-  console.log(allTweets);
-
   const userTweets = allTweets.filter((tweet) => tweet.userId === uid);
-
-  console.log("userTweets", userTweets);
 
   return (
     <>
@@ -116,8 +111,13 @@ const profile = () => {
         <div className="relative rounded-[1.2rem] px-[1.6rem] pb-[2.316rem] pt-[4.388rem] text-center shadow-[0_2px_4px_rgba(0,0,0,0.05)]">
           <div className="absolute top-[-8.7rem] left-[50%] translate-x-[-50%] overflow-hidden rounded-[8px] p-[.8rem] ">
             <Image
-              src="https://picsum.photos/id/80/116/116"
-              alt="header-photo"
+              src={
+                userInfo.profilePictureUrl
+                  ? userInfo.profilePictureUrl
+                  : // Default image shown should be a placeholder, actually
+                    "https://picsum.photos/id/1/40/40"
+              }
+              alt="profile-pic"
               width={116}
               height={116}
               className=""
@@ -164,8 +164,9 @@ const profile = () => {
               userTweets.map((tweet) => (
                 <Tweet
                   // key={tweet.id}
+                  tweetId={tweet.id}
                   comments={tweet.comments}
-                  numOfLikes={tweet.likes.length}
+                  likes={tweet.likes}
                   numOfRetweets={tweet.retweets.length}
                   media={tweet.media}
                   text={tweet.text}
