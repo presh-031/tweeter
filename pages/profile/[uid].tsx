@@ -10,7 +10,7 @@ import { useAuthState } from "react-firebase-hooks/auth";
 import { useCollection } from "react-firebase-hooks/firestore";
 import { SlUserFollow } from "react-icons/sl";
 
-type userInfo = {
+export type userInfo = {
   bio: string;
   createdAt: string;
   displayName: string;
