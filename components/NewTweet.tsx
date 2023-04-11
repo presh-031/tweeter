@@ -1,15 +1,38 @@
+import { auth, db } from "@/config/firebase";
+import { addDoc, collection, Timestamp } from "firebase/firestore";
+
 import Image from "next/image";
 import { useState } from "react";
+import { useAuthState } from "react-firebase-hooks/auth";
 import { BiWorld } from "react-icons/bi";
 import { MdOutlineImage } from "react-icons/md";
 import dev from "../assets/devchallenges.png";
 
 const NewTweet = () => {
   // const [user, loading, error] = useAuthState(auth);
-  const [newTweet, setNewTweet] = useState("");
 
-  const handleNewTweet = () => {
-    console.log(newTweet);
+  const [currentUser] = useAuthState(auth);
+  const currentUserId = currentUser?.uid;
+
+  const [newTweetText, setNewTweetText] = useState("");
+
+  const handleNewTweet = async () => {
+    console.log(newTweetText);
+
+    try {
+      await addDoc(collection(db, "tweets"), {
+        text: newTweetText,
+        userId: currentUserId,
+        timestamp: Timestamp.now(),
+        likes: [],
+        retweets: [],
+        media: [],
+        // comments
+      });
+      setNewTweetText("");
+    } catch (err) {
+      alert(err);
+    }
   };
   return (
     <div className="mt-[1.469rem] bg-white py-[1.091rem] px-[1.39rem] shadow-[0_2px_2px_rgba(0,0,0,0.05)] ">
@@ -22,9 +45,9 @@ const NewTweet = () => {
           className="w-full pl-[1.2rem] text-[1.6rem] font-medium leading-[2.179rem] tracking-[-3.5%] outline-none placeholder:text-[#bdbdbd]"
           type="text"
           placeholder="What's happening?"
-          value={newTweet}
+          value={newTweetText}
           onChange={(e) => {
-            setNewTweet(e.target.value);
+            setNewTweetText(e.target.value);
           }}
         />
       </div>
