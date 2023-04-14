@@ -20,7 +20,8 @@ type tweetProps = {
   comments: {}[];
   likes: string[];
   // numOfLikes: number;
-  numOfRetweets: number;
+  // numOfRetweets: number;
+  retweets: string[];
   media: string[];
   text: string;
   timestamp: timestampType;
@@ -39,7 +40,8 @@ const Tweet = ({
   comments,
   likes,
   // numOfLikes,
-  numOfRetweets,
+  retweets,
+  // numOfRetweets,
   media,
   text,
   timestamp,
@@ -63,7 +65,7 @@ const Tweet = ({
 
   // console.log(tweetId);
 
-  // Logic to handle tweet like
+  // Logic to handle tweet like and unlike
   // Liking and unLiking should be done by currently auth user
   const [currentUser] = useAuthState(auth);
   const currentUserId = currentUser?.uid;
@@ -91,6 +93,33 @@ const Tweet = ({
       alert(err);
     }
   };
+
+  // Logic to handle tweet retweets
+  // Retweeting should be done by currently auth user
+  const handleRetweet = async () => {
+    const tweetDocRef = doc(db, "tweets", tweetId);
+
+    try {
+      await updateDoc(tweetDocRef, {
+        retweets: [...retweets, currentUserId],
+      });
+    } catch (err) {
+      alert(err);
+    }
+  };
+
+  const handleUnretweet = async () => {
+    const tweetDocRef = doc(db, "tweets", tweetId);
+
+    try {
+      await updateDoc(tweetDocRef, {
+        retweets: retweets.filter((retweet) => retweet !== currentUserId),
+      });
+    } catch (err) {
+      alert(err);
+    }
+  };
+
   return (
     // Clicking the tweet generally should show you more info about the tweet
     <div className="my-[2.317rem] rounded-[8px] px-[1.523rem] pt-[2rem] shadow-[0_2px_4px_rgba(0,0,0,0.05)] hover:cursor-pointer hover:shadow-xl">
@@ -134,7 +163,7 @@ const Tweet = ({
             {likes.length} {likes.length > 1 ? "Likes" : "Like"}
           </span>
           <span className="tweet-stats">
-            {numOfRetweets} {numOfRetweets > 1 ? "Retweets" : "Retweet"}
+            {retweets.length} {retweets.length > 1 ? "Retweets" : "Retweet"}
           </span>
           <span className="tweet-stats">449 Comments</span>
           {/* <span className="tweet-stats">234 Saved</span> */}
@@ -146,8 +175,18 @@ const Tweet = ({
           <MdOutlineModeComment className="tweet-icons" />
           <span className="hidden">Comment</span>
         </button>
-        <button className="tweet-icons-btn">
-          <FaRetweet className="tweet-icons" />
+        <button
+          onClick={() => {
+            retweets.includes(currentUserId)
+              ? handleUnretweet()
+              : handleRetweet();
+          }}
+          className="tweet-icons-btn"
+        >
+          <FaRetweet
+            style={retweets.includes(currentUserId) ? { color: "red" } : ""}
+            className="tweet-icons"
+          />
           <span className="hidden">Retweet</span>
         </button>
         <button
@@ -158,9 +197,7 @@ const Tweet = ({
         >
           <AiOutlineHeart
             className="tweet-icons"
-            style={
-              likes.includes(currentUserId) ? { backgroundColor: "red" } : ""
-            }
+            style={likes.includes(currentUserId) ? { color: "red" } : ""}
           />
           <span className="hidden">Likes</span>
         </button>
