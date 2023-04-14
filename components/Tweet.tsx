@@ -9,6 +9,7 @@ import { AiOutlineHeart } from "react-icons/ai";
 import { FaRetweet } from "react-icons/fa";
 import { HiOutlineBookmark } from "react-icons/hi";
 import { MdOutlineModeComment } from "react-icons/md";
+import AddComment from "./AddComment";
 import TweetMedia from "./TweetMedia";
 
 type timestampType = {
@@ -49,7 +50,6 @@ const Tweet = ({
 }: tweetProps) => {
   // Logic to get info about the user with userId for each tweet
   const userRef = doc(db, "users", userId);
-  // const [user, loading, error, snapshot] = useDocumentData<any>(userRef);
   const [user, setUser] = useState<any>({});
 
   useEffect(() => {
@@ -61,9 +61,8 @@ const Tweet = ({
     getUser();
   }, []);
 
+  // Logic to format date for tweet timestamps
   const formattedDate = formatDate(timestamp);
-
-  // console.log(tweetId);
 
   // Logic to handle tweet like and unlike
   // Liking and unLiking should be done by currently auth user
@@ -120,6 +119,13 @@ const Tweet = ({
     }
   };
 
+  // Logic to handle rendering of commenting component
+  const [showAddComment, setShowAddComment] = useState(false);
+
+  const handleCommentBtnClick = () => {
+    setShowAddComment((prevState) => !prevState);
+  };
+
   return (
     // Clicking the tweet generally should show you more info about the tweet
     <div className="my-[2.317rem] rounded-[8px] px-[1.523rem] pt-[2rem] shadow-[0_2px_4px_rgba(0,0,0,0.05)] hover:cursor-pointer hover:shadow-xl">
@@ -132,7 +138,7 @@ const Tweet = ({
               : // Default image shown should be a placeholder, actually
                 "https://picsum.photos/id/1/40/40"
           }
-          alt="dev"
+          alt="profile-pic"
           width={40}
           height={40}
           className="rounded-[8px]"
@@ -171,7 +177,7 @@ const Tweet = ({
       </div>
 
       <div className="flex justify-center border-y-[1px] border-[#F2F2F2] py-[.382rem]">
-        <button className="tweet-icons-btn">
+        <button onClick={handleCommentBtnClick} className="tweet-icons-btn">
           <MdOutlineModeComment className="tweet-icons" />
           <span className="hidden">Comment</span>
         </button>
@@ -207,7 +213,8 @@ const Tweet = ({
         </button>
       </div>
 
-      {/* <Reply /> */}
+      {/* Add comment */}
+      {showAddComment && <AddComment profilePic={user.profilePictureUrl} />}
     </div>
   );
 };
