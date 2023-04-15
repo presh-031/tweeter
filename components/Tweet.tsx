@@ -110,9 +110,10 @@ const Tweet = ({
   const handleUnretweet = async () => {
     const tweetDocRef = doc(db, "tweets", tweetId);
 
+    // retweets still not adding up in tweets list
     try {
       await updateDoc(tweetDocRef, {
-        likes: likes.filter((like) => like !== currentUserId),
+        retweets: retweets.filter((retweet) => retweet !== currentUserId),
       });
     } catch (err) {
       alert(err);
