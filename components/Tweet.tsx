@@ -112,7 +112,7 @@ const Tweet = ({
 
     try {
       await updateDoc(tweetDocRef, {
-        retweets: retweets.filter((retweet) => retweet !== currentUserId),
+        likes: likes.filter((like) => like !== currentUserId),
       });
     } catch (err) {
       alert(err);
@@ -214,7 +214,7 @@ const Tweet = ({
       </div>
 
       {/* Add comment */}
-      {showAddComment && <AddComment profilePic={user.profilePictureUrl} />}
+      {showAddComment && <AddComment tweetId={tweetId} />}
     </div>
   );
 };

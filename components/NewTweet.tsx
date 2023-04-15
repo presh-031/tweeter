@@ -30,7 +30,7 @@ const NewTweet = () => {
         likes: [],
         retweets: [],
         media: [],
-        // comments
+        comments: [],
       });
       setNewTweetLoading(false);
       setNewTweetText("");
