@@ -1,10 +1,11 @@
 import { auth, db } from "@/config/firebase";
-import { doc, getDoc, updateDoc } from "firebase/firestore";
+import { collection, doc, getDoc, updateDoc } from "firebase/firestore";
 import { useEffect, useState } from "react";
 
 import moment from "moment";
 import Image from "next/image";
 import { useAuthState } from "react-firebase-hooks/auth";
+import { useCollection } from "react-firebase-hooks/firestore";
 import { AiOutlineHeart } from "react-icons/ai";
 import { FaRetweet } from "react-icons/fa";
 import { HiOutlineBookmark } from "react-icons/hi";
@@ -18,7 +19,7 @@ type timestampType = {
 };
 type tweetProps = {
   tweetId: string;
-  comments: {}[];
+  // comments: {}[];
   likes: string[];
   // numOfLikes: number;
   // numOfRetweets: number;
@@ -38,7 +39,7 @@ const formatDate = (timestamp: timestampType) => {
 
 const Tweet = ({
   tweetId,
-  comments,
+  // comments,
   likes,
   // numOfLikes,
   retweets,
@@ -127,6 +128,26 @@ const Tweet = ({
     setShowAddComment((prevState) => !prevState);
   };
 
+  // Logic to handle fetching of tweet comments
+  // Still querying for all comments then filtering with uid and storing in userTweets state, should use a more specific query.
+
+  const commentsRef = collection(db, "comments");
+
+  const [commentsListSnapshot, loading, error] = useCollection(commentsRef, {
+    snapshotListenOptions: { includeMetadataChanges: true },
+  });
+  const allCommentsCol = commentsListSnapshot?.docs;
+
+  const allComments = [];
+  allCommentsCol?.forEach((comment) => {
+    allComments.push(comment.data());
+  });
+  const tweetComments = allComments.filter(
+    (comment) => comment.tweetId === tweetId
+  );
+
+  console.log(tweetComments);
+
   return (
     // Clicking the tweet generally should show you more info about the tweet
     <div className="my-[2.317rem] rounded-[8px] px-[1.523rem] pt-[2rem] shadow-[0_2px_4px_rgba(0,0,0,0.05)] hover:cursor-pointer hover:shadow-xl">
@@ -172,7 +193,10 @@ const Tweet = ({
           <span className="tweet-stats">
             {retweets.length} {retweets.length > 1 ? "Retweets" : "Retweet"}
           </span>
-          <span className="tweet-stats">449 Comments</span>
+          <span className="tweet-stats">
+            {tweetComments.length}{" "}
+            {tweetComments.length > 1 ? "Comments" : "Comment"}
+          </span>
           {/* <span className="tweet-stats">234 Saved</span> */}
         </div>
       </div>
@@ -215,7 +239,13 @@ const Tweet = ({
       </div>
 
       {/* Add comment */}
-      {showAddComment && <AddComment tweetId={tweetId} comments={comments} />}
+      {showAddComment && (
+        <AddComment
+          tweetId={tweetId}
+          // comments={tweetComments}
+          setShowAddComment={setShowAddComment}
+        />
+      )}
     </div>
   );
 };
