@@ -1,5 +1,5 @@
 import { auth, db } from "@/config/firebase";
-import { doc, getDoc, updateDoc } from "firebase/firestore";
+import { addDoc, collection, doc, getDoc, Timestamp } from "firebase/firestore";
 import { useEffect, useRef, useState } from "react";
 
 import Image from "next/image";
@@ -7,8 +7,9 @@ import { useAuthState } from "react-firebase-hooks/auth";
 
 type AddCommentProps = {
   tweetId: string;
+  comments: {}[];
 };
-const AddComment = ({ tweetId }: AddCommentProps) => {
+const AddComment = ({ tweetId, comments }: AddCommentProps) => {
   // Logic to get info of auth user, for Id and profilePic
   const [currentUser] = useAuthState(auth);
   const currentUserId = currentUser?.uid;
@@ -34,19 +35,15 @@ const AddComment = ({ tweetId }: AddCommentProps) => {
     if (e.key == "Enter") {
       const comment = e.target.value;
 
-      // Comment will be used to create a new comment object to the comments part of the tweet
-      const tweetDocRef = doc(db, "tweets", tweetId);
-
       try {
-        await updateDoc(tweetDocRef, {
-          comments: [
-            ...comments,
-            {
-              user: currentUserId,
-              comment,
-            },
-          ],
+        await addDoc(collection(db, "comments"), {
+          // id will be automatically generated for each new comment in the firebase
+          comment,
+          tweetId,
+          userId: currentUserId,
+          timestamp: Timestamp.now(),
         });
+        inputRef.current.value = "";
       } catch (err) {
         alert(err);
       }

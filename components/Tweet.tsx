@@ -214,7 +214,7 @@ const Tweet = ({
       </div>
 
       {/* Add comment */}
-      {showAddComment && <AddComment tweetId={tweetId} />}
+      {showAddComment && <AddComment tweetId={tweetId} comments={comments} />}
     </div>
   );
 };
