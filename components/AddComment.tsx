@@ -9,7 +9,7 @@ import { AiOutlineLoading3Quarters } from "react-icons/ai";
 type AddCommentProps = {
   tweetId: string;
   comments: {}[];
-  setShowAddComment: () => {};
+  setShowAddComment: (newState: boolean) => {};
 };
 const AddComment = ({
   tweetId,
@@ -83,6 +83,7 @@ const AddComment = ({
         className="h-[4rem] flex-1 border-[1px] border-[#f2f2f2] bg-[#fafafa] px-[1.2rem] text-[1.4rem] font-medium leading-[1.9rem] tracking-[-3.5%] text-[#bdbdbd]"
         placeholder="Tweet your reply"
       />
+
       {newCommentLoading && (
         <AiOutlineLoading3Quarters className="animate-spin text-4xl text-blueish" />
       )}

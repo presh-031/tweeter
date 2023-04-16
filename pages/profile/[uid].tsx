@@ -163,11 +163,10 @@ const profile = () => {
             {userTweets.length ? (
               userTweets.map((tweet) => (
                 <Tweet
-                  // key={tweet.id}
+                  key={tweet.id}
                   tweetId={tweet.id}
-                  comments={tweet.comments}
                   likes={tweet.likes}
-                  numOfRetweets={tweet.retweets.length}
+                  retweets={tweet.retweets}
                   media={tweet.media}
                   text={tweet.text}
                   timestamp={tweet.timestamp}
