@@ -1,3 +1,5 @@
+import { Toaster } from "react-hot-toast";
+
 import { Poppins } from "next/font/google";
 import AppNav from "./AppNav";
 import Navbar from "./Navbar";
@@ -23,6 +25,7 @@ const Layout = ({ children }: LayoutProps) => {
       className={`${poppins.className} min-h-screen bg-[#eee] bg-opacity-40`}
     >
       {/* <UserProvider> */}
+      <Toaster />
       {!isHomePage && <Navbar />}
       {children}
       {!isHomePage && <AppNav />}

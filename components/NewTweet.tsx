@@ -5,6 +5,7 @@ import { useEffect, useState } from "react";
 import { userInfo } from "@/pages/profile/[uid]";
 import Image from "next/image";
 import { useAuthState } from "react-firebase-hooks/auth";
+import { toast } from "react-hot-toast";
 import { AiOutlineLoading3Quarters } from "react-icons/ai";
 import { BiWorld } from "react-icons/bi";
 import { MdOutlineImage } from "react-icons/md";
@@ -33,8 +34,10 @@ const NewTweet = () => {
         comments: [],
       });
       setNewTweetLoading(false);
+      toast.success("Posted!");
       setNewTweetText("");
     } catch (err) {
+      toast.success("Try again!");
       alert(err);
     }
   };
@@ -77,7 +80,7 @@ const NewTweet = () => {
       <p className="border-b-[1px] border-[#f2f2f2] pb-[.74rem] text-[1.2rem] font-semibold leading-[1.8rem] tracking-[-3.5%] text-[#4F4F4F]">
         Tweet something
       </p>
-      <div className="flex items-center">
+      <form className="flex items-center">
         <Image
           src={
             userInfo.profilePictureUrl
@@ -103,7 +106,7 @@ const NewTweet = () => {
         {newTweetLoading && (
           <AiOutlineLoading3Quarters className="animate-spin text-4xl text-blueish" />
         )}
-      </div>
+      </form>
       <div className="mt-[3rem] flex justify-between text-blueish">
         <div className=" flex items-center gap-[.71rem] ">
           <MdOutlineImage className="mr-[.673] h-[1.5rem] w-[1.5rem] " />

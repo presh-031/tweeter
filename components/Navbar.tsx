@@ -6,11 +6,14 @@ import { userInfo } from "@/pages/profile/[uid]";
 import Image from "next/image";
 import { useRouter } from "next/router";
 import { useAuthState } from "react-firebase-hooks/auth";
+import toast from "react-hot-toast";
 import { IconContext } from "react-icons";
 import { IoMdArrowDropdown } from "react-icons/io";
 import logoSmall from "../assets/tweeter-small.svg";
 import AppNav from "./AppNav";
 import UserNav from "./UserNav";
+
+const notify = () => toast("Here is your toast.");
 
 const Navbar = () => {
   const [userNav, setUserNav] = useState(false);
@@ -62,6 +65,7 @@ const Navbar = () => {
       <div
         onClick={() => {
           router.push("/");
+          // notify();
         }}
       >
         <Image src={logoSmall} alt="tweeter" />

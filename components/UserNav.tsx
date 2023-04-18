@@ -30,7 +30,13 @@ const UserNav = ({ toggleUserNav }: UserNavProps) => {
         <CgProfile />
         Profile
       </li>
-      <li className="flex items-center gap-[1.167rem] rounded-[8px] py-[1.1rem] pr-12 pl-[1.4rem] hover:bg-[#f2f2f2]">
+      <li
+        onClick={() => {
+          router.push("/edit");
+          toggleUserNav();
+        }}
+        className="flex items-center gap-[1.167rem] rounded-[8px] py-[1.1rem] pr-12 pl-[1.4rem] hover:bg-[#f2f2f2]"
+      >
         <IoMdSettings />
         My account
       </li>

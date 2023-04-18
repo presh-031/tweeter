@@ -1,13 +1,19 @@
 import * as yup from "yup";
 
+import { auth, db } from "@/config/firebase";
+import { doc, updateDoc } from "firebase/firestore";
+import toast from "react-hot-toast";
+
 import { yupResolver } from "@hookform/resolvers/yup";
+import { useRouter } from "next/router";
+import { useAuthState } from "react-firebase-hooks/auth";
 import { useForm } from "react-hook-form";
 
 const editProfileSchema = yup.object({
-  name: yup.string().required("You must add a name"),
+  userName: yup.string().required("You must add a name"),
   email: yup.string().required("You must add an email"),
   displayName: yup.string().required("You must add a displayName"),
-  coverImageUrl: yup.string().required("You must add a cover image"),
+  profilePictureUrl: yup.string().required("You must add a profile picture"),
   headerImageUrl: yup.string().required("You must add a header image"),
   bio: yup.string(),
 });
@@ -23,9 +29,31 @@ const edit = () => {
     resolver: yupResolver(editProfileSchema),
   });
 
-  const onSubmit = (data: FormData) => {
+  const [currentUser] = useAuthState(auth);
+  const currentUserId = currentUser?.uid;
+
+  const router = useRouter();
+
+  const onSubmit = async (data: FormData) => {
     // update user doc in db
-    console.log(data);
+    const userDocRef = doc(db, "users", currentUserId);
+
+    try {
+      await updateDoc(userDocRef, {
+        userName: data.userName,
+        email: data.email,
+        displayName: data.displayName,
+        profilePictureUrl: data.profilePictureUrl,
+        headerImageUrl: data.headerImageUrl,
+        bio: data.bio,
+      });
+      toast.success("Successfully edited.");
+      router.push("/");
+    } catch (err) {
+      toast.error("Try again.");
+      router.push("/");
+      alert(err);
+    }
   };
 
   return (
@@ -39,12 +67,12 @@ const edit = () => {
             Name *
           </label>
           <input
-            {...register("name")}
+            {...register("userName")}
             className="mb-8 block w-full border border-red-800"
             type="text"
-            id="name"
+            id="userName"
           />
-          <p style={{ color: "red" }}>{errors.name?.message}</p>
+          <p style={{ color: "red" }}>{errors.userName?.message}</p>
 
           <label className="mb-4" htmlFor="email">
             Email *
@@ -68,16 +96,16 @@ const edit = () => {
           />
           <p style={{ color: "red" }}>{errors.displayName?.message}</p>
 
-          <label className="mb-4" htmlFor="coverImageUrl">
-            Cover ImageUrl *
+          <label className="mb-4" htmlFor="profilePictureUrl">
+            Profile-PicUrl *
           </label>
           <input
-            {...register("coverImageUrl")}
+            {...register("profilePictureUrl")}
             className="mb-8 block w-full border border-red-800"
             type="text"
-            id="coverImageUrl"
+            id="profilePictureUrl"
           />
-          <p style={{ color: "red" }}>{errors.coverImageUrl?.message}</p>
+          <p style={{ color: "red" }}>{errors.profilePictureUrl?.message}</p>
 
           <label className="mb-4" htmlFor="headerImageUrl">
             Header ImageUrl *

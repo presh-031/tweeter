@@ -65,6 +65,7 @@ const Media: React.FC<MediaProps> = ({ images }) => {
               layout="responsive"
             />
           </div>
+          {/* w should be full */}
           <div className="w-1/2 pl-2">
             <Image
               src={images[2]}

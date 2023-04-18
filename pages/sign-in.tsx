@@ -1,17 +1,17 @@
+import { collection, doc, getDoc, setDoc } from "firebase/firestore";
 import {
   AiFillGithub,
   AiOutlineGoogle,
   AiOutlineTwitter,
 } from "react-icons/ai";
 import { auth, db } from "../config/firebase";
-import { collection, doc, getDoc, setDoc } from "firebase/firestore";
 
-import { FaFacebookSquare } from "react-icons/fa";
-import { IconContext } from "react-icons";
-import { IoMdLock } from "react-icons/io";
-import { MdEmail } from "react-icons/md";
 import { useRouter } from "next/router";
 import { useSignInWithGoogle } from "react-firebase-hooks/auth";
+import { IconContext } from "react-icons";
+import { FaFacebookSquare } from "react-icons/fa";
+import { IoMdLock } from "react-icons/io";
+import { MdEmail } from "react-icons/md";
 
 const signIn = () => {
   const [signInWithGoogle, user, loading, error] = useSignInWithGoogle(auth);
