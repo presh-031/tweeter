@@ -8,7 +8,6 @@ import { AiOutlineLoading3Quarters } from "react-icons/ai";
 
 type AddCommentProps = {
   tweetId: string;
-  comments: {}[];
   setShowAddComment: React.Dispatch<React.SetStateAction<boolean>>;
 
   onKeyDown: (e: React.KeyboardEvent<HTMLInputElement>) => void;

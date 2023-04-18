@@ -126,7 +126,8 @@ const Tweet = ({
   // Logic to handle rendering of commenting component
   const [showAddComment, setShowAddComment] = useState(false);
 
-  const handleCommentBtnClick = () => {
+  const handleCommentBtnClick = (e) => {
+    e.stopPropagation();
     setShowAddComment((prevState) => !prevState);
   };
 
@@ -153,18 +154,7 @@ const Tweet = ({
   const handleTweetClick = (e) => {
     e.preventDefault();
 
-    if (e.target === e.currentTarget) {
-      console.log("parent clicked");
-      // 👇 your logic here
-    }
-
-    // if (e.currentTarget.id === "profile" || e.currentTarget.id === "button") {
-    //   e.stopPropagation();
-    //   console.log(`${e.currentTarget.id} clicked`);
-    // } else {
-    //   // If any other element inside the parent is clicked, execute the parent's click event
-    //   console.log("Parent clicked");
-    // }
+    router.push(`/tweets/${tweetId}`);
   };
 
   return (
@@ -174,7 +164,8 @@ const Tweet = ({
       <div className=" rounded-[8px] px-[1.523rem] pt-[2rem] shadow-[0_2px_4px_rgba(0,0,0,0.05)] hover:cursor-pointer hover:shadow-xl">
         {/* Clicking here should take you to the user profile of who made the tweet */}
         <div
-          onClick={() => {
+          onClick={(e) => {
+            e.stopPropagation();
             router.push(`/profile/${userId}`);
           }}
           className="flex w-fit gap-[.635rem]"
@@ -228,17 +219,13 @@ const Tweet = ({
         </div>
 
         <div className="flex justify-center border-y-[1px] border-[#F2F2F2] py-[.382rem]">
-          <button
-            id="button"
-            onClick={handleCommentBtnClick}
-            className="tweet-icons-btn"
-          >
+          <button onClick={handleCommentBtnClick} className="tweet-icons-btn">
             <MdOutlineModeComment className="tweet-icons" />
             <span className="hidden">Comment</span>
           </button>
           <button
-            id="button"
-            onClick={() => {
+            onClick={(e) => {
+              e.stopPropagation();
               retweets.includes(currentUserId)
                 ? handleUnretweet()
                 : handleRetweet();
@@ -252,8 +239,8 @@ const Tweet = ({
             <span className="hidden">Retweet</span>
           </button>
           <button
-            id="button"
-            onClick={() => {
+            onClick={(e) => {
+              e.stopPropagation();
               likes.includes(currentUserId) ? handleUnlike() : handleLike();
             }}
             className="tweet-icons-btn"
@@ -264,7 +251,12 @@ const Tweet = ({
             />
             <span className="hidden">Likes</span>
           </button>
-          <button id="button" className="tweet-icons-btn">
+          <button
+            onClick={(e) => {
+              e.stopPropagation();
+            }}
+            className="tweet-icons-btn"
+          >
             <HiOutlineBookmark className="tweet-icons" />
             <span className="hidden">Save</span>
           </button>

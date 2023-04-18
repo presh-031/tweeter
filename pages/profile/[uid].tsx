@@ -96,7 +96,7 @@ const profile = () => {
   const userTweets = allTweets.filter((tweet) => tweet.userId === uid);
 
   return (
-    <>
+    <div className="border border-red-800 pb-[9.5rem]">
       <div className=" ">
         <Image
           src={
@@ -179,7 +179,7 @@ const profile = () => {
           </div>
         </div>
       </div>
-    </>
+    </div>
   );
 };
 

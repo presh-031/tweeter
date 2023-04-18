@@ -1,5 +1,11 @@
+import Tweet from "@/components/Tweet";
+
 const TweetInfo = () => {
-  return <div>TweetInfo</div>;
+  return (
+    <div>
+      <Tweet />
+    </div>
+  );
 };
 
 export default TweetInfo;
