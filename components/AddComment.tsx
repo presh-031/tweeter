@@ -9,16 +9,14 @@ import { AiOutlineLoading3Quarters } from "react-icons/ai";
 type AddCommentProps = {
   tweetId: string;
   comments: {}[];
-  setShowAddComment: (newState: boolean) => {};
+  setShowAddComment: React.Dispatch<React.SetStateAction<boolean>>;
+
+  onKeyDown: (e: React.KeyboardEvent<HTMLInputElement>) => void;
 };
-const AddComment = ({
-  tweetId,
-  // comments,
-  setShowAddComment,
-}: AddCommentProps) => {
+const AddComment = ({ tweetId, setShowAddComment }: AddCommentProps) => {
   // Logic to get info of auth user, for Id and profilePic
   const [currentUser] = useAuthState(auth);
-  const currentUserId = currentUser?.uid;
+  const currentUserId = currentUser ? currentUser.uid : "";
 
   const userRef = doc(db, "users", currentUserId);
   const [user, setUser] = useState<any>({});
@@ -33,29 +31,31 @@ const AddComment = ({
   }, [currentUserId]);
 
   // Logic to handle comment creation
-  const inputRef = useRef(null);
-  const [newCommentLoading, setNewCommentLoading] = useState(false);
+  const inputRef = useRef<HTMLInputElement>(null);
+  const [newCommentLoading, setNewCommentLoading] = useState<boolean>(false);
 
-  const handleKeyDown = async (e) => {
+  const handleKeyDown = async (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.key == "Enter") {
-      const comment = e.target.value;
+      const comment = inputRef.current?.value;
 
-      try {
-        setNewCommentLoading(true);
-        await addDoc(collection(db, "comments"), {
-          // id will be automatically generated for each new comment in the firebase
-          comment,
-          tweetId,
-          userId: currentUserId,
-          timestamp: Timestamp.now(),
-        });
+      if (comment) {
+        try {
+          setNewCommentLoading(true);
+          await addDoc(collection(db, "comments"), {
+            // id will be automatically generated for each new comment in the firebase
+            comment,
+            tweetId,
+            userId: currentUserId,
+            timestamp: Timestamp.now(),
+          });
 
-        inputRef.current.value = "";
+          inputRef.current.value = "";
 
-        setNewCommentLoading(false);
-        setShowAddComment(false);
-      } catch (err) {
-        alert(err);
+          setNewCommentLoading(false);
+          setShowAddComment(false);
+        } catch (err) {
+          alert(err);
+        }
       }
     }
   };
@@ -80,7 +80,7 @@ const AddComment = ({
         type="text"
         ref={inputRef}
         onKeyDown={handleKeyDown}
-        className="h-[4rem] flex-1 border-[1px] border-[#f2f2f2] bg-[#fafafa] px-[1.2rem] text-[1.4rem] font-medium leading-[1.9rem] tracking-[-3.5%] text-[#bdbdbd]"
+        className="h-[4rem] flex-1 border-[1px] border-[#f2f2f2] bg-[#fafafa] px-[1.2rem] text-[1.4rem] font-medium leading-[1.9rem] tracking-[-3.5%] placeholder:text-[#bdbdbd]"
         placeholder="Tweet your reply"
       />
 

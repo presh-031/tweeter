@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 
 import moment from "moment";
 import Image from "next/image";
+import { useRouter } from "next/router";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { useCollection } from "react-firebase-hooks/firestore";
 import { AiOutlineHeart } from "react-icons/ai";
@@ -49,6 +50,7 @@ const Tweet = ({
   timestamp,
   userId,
 }: tweetProps) => {
+  const router = useRouter();
   // Logic to get info about the user with userId for each tweet
   const userRef = doc(db, "users", userId);
   const [user, setUser] = useState<any>({});
@@ -68,7 +70,7 @@ const Tweet = ({
   // Logic to handle tweet like and unlike
   // Liking and unLiking should be done by currently auth user
   const [currentUser] = useAuthState(auth);
-  const currentUserId = currentUser?.uid;
+  const currentUserId = currentUser ? currentUser.uid : "";
 
   const handleLike = async () => {
     const tweetDocRef = doc(db, "tweets", tweetId);
@@ -138,7 +140,7 @@ const Tweet = ({
   });
   const allCommentsCol = commentsListSnapshot?.docs;
 
-  const allComments = [];
+  const allComments: {}[] = [];
   allCommentsCol?.forEach((comment) => {
     allComments.push(comment.data());
   });
@@ -148,13 +150,35 @@ const Tweet = ({
 
   console.log(tweetComments);
 
+  const handleTweetClick = (e) => {
+    e.preventDefault();
+
+    if (e.target === e.currentTarget) {
+      console.log("parent clicked");
+      // 👇 your logic here
+    }
+
+    // if (e.currentTarget.id === "profile" || e.currentTarget.id === "button") {
+    //   e.stopPropagation();
+    //   console.log(`${e.currentTarget.id} clicked`);
+    // } else {
+    //   // If any other element inside the parent is clicked, execute the parent's click event
+    //   console.log("Parent clicked");
+    // }
+  };
+
   return (
     // Clicking the tweet generally should show you more info about the tweet
-    <div className="my-[2.317rem]">
+    <div onClick={handleTweetClick} className="my-[2.317rem]">
       {/* <p>Daniel Jensen Retweeted</p> */}
       <div className=" rounded-[8px] px-[1.523rem] pt-[2rem] shadow-[0_2px_4px_rgba(0,0,0,0.05)] hover:cursor-pointer hover:shadow-xl">
         {/* Clicking here should take you to the user profile of who made the tweet */}
-        <div className="flex gap-[.635rem]">
+        <div
+          onClick={() => {
+            router.push(`/profile/${userId}`);
+          }}
+          className="flex w-fit gap-[.635rem]"
+        >
           <Image
             src={
               user.profilePictureUrl
@@ -199,16 +223,21 @@ const Tweet = ({
               {tweetComments.length}{" "}
               {tweetComments.length > 1 ? "Comments" : "Comment"}
             </span>
-            {/* <span className="tweet-stats">234 Saved</span> */}
+            <span className="tweet-stats">234 Saved</span>
           </div>
         </div>
 
         <div className="flex justify-center border-y-[1px] border-[#F2F2F2] py-[.382rem]">
-          <button onClick={handleCommentBtnClick} className="tweet-icons-btn">
+          <button
+            id="button"
+            onClick={handleCommentBtnClick}
+            className="tweet-icons-btn"
+          >
             <MdOutlineModeComment className="tweet-icons" />
             <span className="hidden">Comment</span>
           </button>
           <button
+            id="button"
             onClick={() => {
               retweets.includes(currentUserId)
                 ? handleUnretweet()
@@ -217,12 +246,13 @@ const Tweet = ({
             className="tweet-icons-btn"
           >
             <FaRetweet
-              style={retweets.includes(currentUserId) ? { color: "red" } : ""}
+              style={retweets.includes(currentUserId) ? { color: "red" } : {}}
               className="tweet-icons"
             />
             <span className="hidden">Retweet</span>
           </button>
           <button
+            id="button"
             onClick={() => {
               likes.includes(currentUserId) ? handleUnlike() : handleLike();
             }}
@@ -230,11 +260,11 @@ const Tweet = ({
           >
             <AiOutlineHeart
               className="tweet-icons"
-              style={likes.includes(currentUserId) ? { color: "red" } : ""}
+              style={likes.includes(currentUserId) ? { color: "red" } : {}}
             />
             <span className="hidden">Likes</span>
           </button>
-          <button className="tweet-icons-btn">
+          <button id="button" className="tweet-icons-btn">
             <HiOutlineBookmark className="tweet-icons" />
             <span className="hidden">Save</span>
           </button>

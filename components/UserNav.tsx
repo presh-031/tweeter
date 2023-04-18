@@ -2,6 +2,7 @@ import { useAuthState, useSignOut } from "react-firebase-hooks/auth";
 
 import { auth } from "@/config/firebase";
 import { useRouter } from "next/router";
+import { toast } from "react-hot-toast";
 import { CgProfile } from "react-icons/cg";
 import { IoMdSettings } from "react-icons/io";
 import { TbLogout } from "react-icons/tb";
@@ -45,7 +46,7 @@ const UserNav = ({ toggleUserNav }: UserNavProps) => {
         onClick={async () => {
           const success = await signOut();
           if (success) {
-            alert("You are sign out");
+            toast.success("Signed out Successfully.");
             toggleUserNav();
           }
         }}
