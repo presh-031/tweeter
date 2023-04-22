@@ -4,6 +4,7 @@ import { useEffect, useRef, useState } from "react";
 
 import Image from "next/image";
 import { useAuthState } from "react-firebase-hooks/auth";
+import { toast } from "react-hot-toast";
 import { AiOutlineLoading3Quarters } from "react-icons/ai";
 
 type AddCommentProps = {
@@ -48,9 +49,10 @@ const AddComment = ({ tweetId, setShowAddComment }: AddCommentProps) => {
             timestamp: Timestamp.now(),
           });
 
+          setNewCommentLoading(false);
+          toast.success("Commented");
           inputRef.current.value = "";
 
-          setNewCommentLoading(false);
           setShowAddComment(false);
         } catch (err) {
           alert(err);

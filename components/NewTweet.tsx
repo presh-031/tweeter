@@ -19,9 +19,8 @@ const NewTweet = () => {
   const [newTweetText, setNewTweetText] = useState("");
   const [newTweetLoading, setNewTweetLoading] = useState(false);
 
-  const handleNewTweet = async () => {
-    console.log(newTweetText);
-
+  const handleNewTweet = async (e) => {
+    e.preventDefault();
     try {
       setNewTweetLoading(true);
       await addDoc(collection(db, "tweets"), {
@@ -80,7 +79,7 @@ const NewTweet = () => {
       <p className="border-b-[1px] border-[#f2f2f2] pb-[.74rem] text-[1.2rem] font-semibold leading-[1.8rem] tracking-[-3.5%] text-[#4F4F4F]">
         Tweet something
       </p>
-      <form className="flex items-center">
+      <form onSubmit={handleNewTweet} className="flex items-center">
         <Image
           src={
             userInfo.profilePictureUrl
@@ -119,7 +118,7 @@ const NewTweet = () => {
           className="rounded-[4px] bg-blueish px-[2.4rem] py-[.8rem] text-[1.2rem] font-medium leading-[1.6rem] tracking-[-3.5%] text-white"
           type="submit"
           value="Tweet"
-          onClick={handleNewTweet}
+          // onClick={handleNewTweet}
         />
       </div>
     </div>

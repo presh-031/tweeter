@@ -49,12 +49,12 @@ const Tweet = ({
 }: tweetProps) => {
   const router = useRouter();
   // Logic to get info about the user with userId for each tweet
-  const userRef = doc(db, "users", userId);
+  // const userRef = doc(db, "users", userId);
   const [user, setUser] = useState<any>({});
 
   useEffect(() => {
     const getUser = async () => {
-      const userSnap = await getDoc(userRef);
+      const userSnap = await getDoc(doc(db, "users", userId));
       setUser(userSnap.data());
     };
 

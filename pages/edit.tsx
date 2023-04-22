@@ -2,12 +2,12 @@ import * as yup from "yup";
 
 import { auth, db } from "@/config/firebase";
 import { doc, updateDoc } from "firebase/firestore";
-import toast from "react-hot-toast";
 
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useRouter } from "next/router";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { useForm } from "react-hook-form";
+import toast from "react-hot-toast";
 
 const editProfileSchema = yup.object({
   userName: yup.string().required("You must add a name"),
