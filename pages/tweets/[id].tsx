@@ -3,6 +3,7 @@ import { collection, doc, getDoc } from "firebase/firestore";
 import { useEffect, useState } from "react";
 
 import { db } from "@/config/firebase";
+import Image from "next/image";
 import { useRouter } from "next/router";
 import { useCollection } from "react-firebase-hooks/firestore";
 
@@ -61,23 +62,44 @@ const TweetInfo = () => {
   return (
     <div className="px-8">
       {tweet ? (
-        // "tweet"
-        <Tweet
-          key={id}
-          tweetId={id}
-          likes={tweet.likes}
-          retweets={tweet.retweets}
-          media={tweet.media}
-          text={tweet.text}
-          timestamp={tweet.timestamp}
-          userId={tweet.userId}
-        />
+        <>
+          <Tweet
+            key={id}
+            tweetId={id}
+            likes={tweet.likes}
+            retweets={tweet.retweets}
+            media={tweet.media}
+            text={tweet.text}
+            timestamp={tweet.timestamp}
+            userId={tweet.userId}
+          />
+          <div>
+            <>
+              <p>Comments</p>
+              {tweetComments.map((comment) => (
+                <div>
+                  <Image
+                    src="https://picsum.photos/id/220/40/40"
+                    alt="dev"
+                    width={40}
+                    height={40}
+                    className="rounded-[8px]"
+                  />
+                  <div>
+                    <div>
+                      <span>FEYI</span>
+                      <span>@feyi_x . 6h</span>
+                    </div>
+                    <p>Comment details go here</p>
+                  </div>
+                </div>
+              ))}
+            </>
+          </div>
+        </>
       ) : (
         "Loading"
       )}
-      <div>
-        <p>Comments</p>
-      </div>
     </div>
   );
 };
