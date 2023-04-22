@@ -60,7 +60,10 @@ const AddComment = ({ tweetId, setShowAddComment }: AddCommentProps) => {
   };
 
   return (
-    <div className="flex items-center gap-[1.622rem] pt-[.9rem] pb-[2rem]">
+    <div
+      onClick={(e) => [e.stopPropagation()]}
+      className="flex items-center gap-[1.622rem] pt-[.9rem] pb-[2rem]"
+    >
       {/* Image here is that of the currently auth user */}
       <div className=" h-[4rem] w-[4rem]">
         {user.profilePictureUrl && (

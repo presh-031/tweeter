@@ -14,7 +14,7 @@ import { MdOutlineModeComment } from "react-icons/md";
 import AddComment from "./AddComment";
 import TweetMedia from "./TweetMedia";
 
-type timestampType = {
+export type timestampType = {
   seconds: number;
   nanoseconds: number;
 };
@@ -40,11 +40,8 @@ const formatDate = (timestamp: timestampType) => {
 
 const Tweet = ({
   tweetId,
-  // comments,
   likes,
-  // numOfLikes,
   retweets,
-  // numOfRetweets,
   media,
   text,
   timestamp,
@@ -266,7 +263,7 @@ const Tweet = ({
         {showAddComment && (
           <AddComment
             tweetId={tweetId}
-            // comments={tweetComments}
+            onKeyDown={() => {}}
             setShowAddComment={setShowAddComment}
           />
         )}
