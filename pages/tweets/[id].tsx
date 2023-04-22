@@ -76,9 +76,13 @@ const TweetInfo = () => {
 
           <div>
             <>
-              <p className="mb-8 text-[1.8rem] font-medium">Comments</p>
+              <p className="mb-4 text-[1.8rem] font-medium">Comments</p>
               {tweetComments.map((comment) => (
-                <Comment />
+                <Comment
+                  text={comment.comment}
+                  timestamp={comment.timestamp}
+                  userId={comment.userId}
+                />
               ))}
             </>
           </div>
