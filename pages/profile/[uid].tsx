@@ -1,13 +1,13 @@
 import { auth, db } from "@/config/firebase";
 import { collection, doc, updateDoc } from "firebase/firestore";
 import { useCollection, useDocumentData } from "react-firebase-hooks/firestore";
+import { SlUserFollow, SlUserUnfollow } from "react-icons/sl";
 
 import Tweet from "@/components/Tweet";
 import withAuthUser from "@/components/WithAuthUser";
 import Image from "next/image";
 import { useRouter } from "next/router";
 import { useAuthState } from "react-firebase-hooks/auth";
-import { SlUserFollow } from "react-icons/sl";
 
 export type userInfo = {
   bio: string;
@@ -32,9 +32,6 @@ const profile = () => {
   // use displaynames as params //udn => user display name ??
   const router = useRouter();
   const { uid } = router.query;
-
-  // console.log(uid);
-  // console.log(currentUserId);
 
   const [userInfo, userInfoLoading, userInfoError] = useDocumentData(
     doc(db, "users", uid),
@@ -85,19 +82,35 @@ const profile = () => {
 
     try {
       await updateDoc(followedUserDocRef, {
-        followers: [...userInfo.followers, currentUserId],
+        followers: [...userInfo?.followers, currentUserId],
       });
       await updateDoc(followingUserDocRef, {
-        following: [...authUserInfo.following, uid],
+        following: [...authUserInfo?.following, uid],
       });
     } catch (err) {
       alert(err);
     }
   };
 
-  console.log(userInfo);
-  console.log(authUserInfo);
   // unfollow
+  const handleUnFollowBtnClick = async () => {
+    const followedUserDocRef = doc(db, "users", uid);
+    const followingUserDocRef = doc(db, "users", currentUserId);
+    try {
+      await updateDoc(followedUserDocRef, {
+        followers: userInfo?.followers.filter(
+          (follower) => follower !== currentUserId
+        ),
+      });
+      await updateDoc(followingUserDocRef, {
+        following: authUserInfo?.following.filter(
+          (following) => following !== uid
+        ),
+      });
+    } catch (err) {
+      alert(err);
+    }
+  };
 
   return (
     <>
@@ -105,9 +118,6 @@ const profile = () => {
         <div className="pb-[9.615rem]">
           <div className=" ">
             <Image
-              // src={
-              //   userInfo.headerImageUrl || "https://picsum.photos/id/220/375/168"
-              // }
               src={
                 userInfo.headerImageUrl
                   ? userInfo.headerImageUrl
@@ -164,11 +174,25 @@ const profile = () => {
               {/* Clicking btn should follow user */}
               {currentUserIsProfileOwner || (
                 <button
-                  onClick={handleFollowBtnClick}
+                  // onClick={handleFollowBtnClick}
+                  onClick={() => {
+                    userInfo.followers.includes(currentUserId)
+                      ? handleUnFollowBtnClick()
+                      : handleFollowBtnClick();
+                  }}
                   className="mx-auto flex items-center gap-[.4rem] rounded-[4px] bg-[#2F80ED] py-[.80rem]  px-[2.4rem] text-[1.2rem] font-medium leading-[1.6rem] tracking-[-3.5%] text-white outline"
                 >
-                  <SlUserFollow />
-                  <span>Follow</span>
+                  {userInfo.followers.includes(currentUserId) ? (
+                    <>
+                      <SlUserUnfollow />
+                      <span>UnFollow</span>
+                    </>
+                  ) : (
+                    <>
+                      <SlUserFollow />
+                      <span>Follow</span>
+                    </>
+                  )}
                 </button>
               )}
             </div>
