@@ -2,8 +2,8 @@ import Tweet, { timestampType } from "@/components/Tweet";
 import { collection, doc, getDoc } from "firebase/firestore";
 import { useEffect, useState } from "react";
 
+import Comment from "@/components/Comment";
 import { db } from "@/config/firebase";
-import Image from "next/image";
 import { useRouter } from "next/router";
 import { useCollection } from "react-firebase-hooks/firestore";
 
@@ -73,26 +73,12 @@ const TweetInfo = () => {
             timestamp={tweet.timestamp}
             userId={tweet.userId}
           />
+
           <div>
             <>
-              <p>Comments</p>
+              <p className="mb-8 text-[1.8rem] font-medium">Comments</p>
               {tweetComments.map((comment) => (
-                <div>
-                  <Image
-                    src="https://picsum.photos/id/220/40/40"
-                    alt="dev"
-                    width={40}
-                    height={40}
-                    className="rounded-[8px]"
-                  />
-                  <div>
-                    <div>
-                      <span>FEYI</span>
-                      <span>@feyi_x . 6h</span>
-                    </div>
-                    <p>Comment details go here</p>
-                  </div>
-                </div>
+                <Comment />
               ))}
             </>
           </div>

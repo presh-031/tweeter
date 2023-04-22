@@ -52,7 +52,6 @@ const AddComment = ({ tweetId, setShowAddComment }: AddCommentProps) => {
           setNewCommentLoading(false);
           toast.success("Commented");
           inputRef.current.value = "";
-
           setShowAddComment(false);
         } catch (err) {
           alert(err);

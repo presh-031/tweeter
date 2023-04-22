@@ -180,9 +180,13 @@ const Tweet = ({
             className="rounded-[8px]"
           />
           <div className="font-medium tracking-[-3.5%]">
-            <p className="text-[1.6rem] leading-[2.4rem]">
-              {user.displayName ? `@${user.displayName}` : user.userName}
-            </p>
+            <div className="flex  items-center gap-4 leading-[2.4rem]">
+              <span className="text-[1.6rem]">{user.userName}</span>
+              <span className="text-[1.2rem] text-[#555555]">
+                {user.displayName && `@${user.displayName}`}
+              </span>
+              {/* {user.displayName ? `@${user.displayName}` : user.userName} */}
+            </div>
             <p className="text-[1.2rem] leading-[1.63rem] text-[#bdbdbd]">
               {formattedDate}
             </p>
