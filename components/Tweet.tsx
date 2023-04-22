@@ -185,7 +185,6 @@ const Tweet = ({
               <span className="text-[1.2rem] text-[#555555]">
                 {user.displayName && `@${user.displayName}`}
               </span>
-              {/* {user.displayName ? `@${user.displayName}` : user.userName} */}
             </div>
             <p className="text-[1.2rem] leading-[1.63rem] text-[#bdbdbd]">
               {formattedDate}

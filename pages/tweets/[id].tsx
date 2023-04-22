@@ -60,7 +60,7 @@ const TweetInfo = () => {
 
   console.log(tweetComments);
   return (
-    <div className="px-8">
+    <div className="px-[1.90rem] pb-[9.615rem]">
       {tweet ? (
         <>
           <Tweet
@@ -77,13 +77,17 @@ const TweetInfo = () => {
           <div>
             <>
               <p className="mb-4 text-[1.8rem] font-medium">Comments</p>
-              {tweetComments.map((comment) => (
-                <Comment
-                  text={comment.comment}
-                  timestamp={comment.timestamp}
-                  userId={comment.userId}
-                />
-              ))}
+              {tweetComments.length ? (
+                tweetComments.map((comment) => (
+                  <Comment
+                    text={comment.comment}
+                    timestamp={comment.timestamp}
+                    userId={comment.userId}
+                  />
+                ))
+              ) : (
+                <p>No comments to see</p>
+              )}
             </>
           </div>
         </>

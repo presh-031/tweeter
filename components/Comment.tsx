@@ -2,6 +2,7 @@ import { doc, getDoc } from "firebase/firestore";
 import { useEffect, useState } from "react";
 
 import { db } from "@/config/firebase";
+import moment from "moment";
 import Image from "next/image";
 import { timestampType } from "./Tweet";
 
@@ -26,8 +27,15 @@ const Comment = ({ text, timestamp, userId }: CommentProps) => {
   }, []);
 
   console.log(user);
+
+  //   Logic to convert timestamp to timeAgo
+  const formatDate = (timestamp: timestampType) => {
+    const date = moment.unix(timestamp.seconds).utcOffset(1);
+    return moment(date).fromNow();
+  };
+  const timeAgo = formatDate(timestamp);
   return (
-    <div className="mb-4 flex gap-[.635rem]">
+    <div className="mb-8 flex gap-[.635rem]">
       <Image
         src={
           user.profilePictureUrl
@@ -40,14 +48,17 @@ const Comment = ({ text, timestamp, userId }: CommentProps) => {
         height={40}
         className="h-[4rem] w-[4rem] rounded-[8px]"
       />
-      <div className="flex-1">
-        <div className="flex  items-center gap-4 font-medium leading-[2.4rem]">
-          <span className="text-[1.6rem]">{user.userName}</span>
-          <span className="text-[1.2rem] text-[#555555]">
-            @{user.displayName} &#183; {"6h"}
-          </span>
+      <div className="">
+        <div className="flex h-[4rem] flex-col justify-center font-medium leading-[2.4rem]">
+          <div className="flex items-center text-[1.6rem]">
+            <span>{user.userName}</span>
+            <span className="ml-4 text-[1.2rem] text-[#555555]">
+              @{user.displayName}
+            </span>
+          </div>
+          <span>{timeAgo}</span>
         </div>
-        <p className="text-[1.2rem] font-medium">{text}</p>
+        <p className="mt-4 text-[1.2rem] font-medium">{text}</p>
       </div>
     </div>
   );
