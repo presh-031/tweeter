@@ -5,9 +5,11 @@ import { doc, updateDoc } from "firebase/firestore";
 
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useRouter } from "next/router";
+import { useState } from "react";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { useForm } from "react-hook-form";
 import toast from "react-hot-toast";
+import { AiOutlineLoading3Quarters } from "react-icons/ai";
 
 const editProfileSchema = yup.object({
   userName: yup.string().required("You must add a name"),
@@ -34,10 +36,13 @@ const edit = () => {
 
   const router = useRouter();
 
+  const [loading, setLoading] = useState(false);
+
   const onSubmit = async (data: FormData) => {
     // update user doc in db
     const userDocRef = doc(db, "users", currentUserId);
 
+    setLoading(true);
     try {
       await updateDoc(userDocRef, {
         userName: data.userName,
@@ -47,6 +52,7 @@ const edit = () => {
         headerImageUrl: data.headerImageUrl,
         bio: data.bio,
       });
+      setLoading(false);
       toast.success("Successfully edited.");
       router.push("/");
     } catch (err) {
@@ -130,14 +136,14 @@ const edit = () => {
           ></textarea>
           <p style={{ color: "red" }}>{errors.bio?.message}</p>
 
-          <div>
+          <div className="flex items-center gap-4">
             <input
               className="rounded-xl bg-blueish py-4 px-6 text-white"
               type="submit"
             />
-            {
-              // loading spinner
-            }
+            {loading && (
+              <AiOutlineLoading3Quarters className="animate-spin text-4xl text-blueish" />
+            )}
           </div>
         </form>
       </div>

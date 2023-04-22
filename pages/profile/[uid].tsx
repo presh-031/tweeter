@@ -1,13 +1,12 @@
 import { auth, db } from "@/config/firebase";
-import { collection, doc, getDoc } from "firebase/firestore";
-import { useEffect, useState } from "react";
+import { collection, doc, updateDoc } from "firebase/firestore";
+import { useCollection, useDocumentData } from "react-firebase-hooks/firestore";
 
 import Tweet from "@/components/Tweet";
 import withAuthUser from "@/components/WithAuthUser";
 import Image from "next/image";
 import { useRouter } from "next/router";
 import { useAuthState } from "react-firebase-hooks/auth";
-import { useCollection } from "react-firebase-hooks/firestore";
 import { SlUserFollow } from "react-icons/sl";
 
 export type userInfo = {
@@ -25,18 +24,6 @@ export type userInfo = {
 let currentUserIsProfileOwner;
 
 const profile = () => {
-  const [userInfo, setUserInfo] = useState<userInfo>({
-    bio: "",
-    createdAt: "",
-    displayName: "",
-    email: "",
-    followers: [],
-    following: [],
-    headerImageUrl: "",
-    profilePictureUrl: "",
-    userName: "",
-  });
-
   // check if incoming id is same as auth user id.
 
   const [currentUser] = useAuthState(auth);
@@ -49,26 +36,19 @@ const profile = () => {
   // console.log(uid);
   // console.log(currentUserId);
 
-  useEffect(() => {
-    if (uid) {
-      const getUser = async () => {
-        // loading
-        const userRef = doc(db, "users", uid);
-
-        try {
-          const userSnap = await getDoc(userRef);
-          // console.log(userSnap.data());
-          const userDoc = userSnap.data();
-
-          setUserInfo(userDoc);
-        } catch (err) {
-          console.error(err);
-        }
-      };
-
-      getUser();
+  const [userInfo, userInfoLoading, userInfoError] = useDocumentData(
+    doc(db, "users", uid),
+    {
+      snapshotListenOptions: { includeMetadataChanges: true },
     }
-  }, []);
+  );
+
+  console.log(userInfo);
+
+  const [authUserInfo, authUserInfoLoading, authUserInfoError] =
+    useDocumentData(doc(db, "users", currentUserId), {
+      snapshotListenOptions: { includeMetadataChanges: true },
+    });
 
   // Compare the two user IDs to determine if the profile page is being visited by the current user or another user
   if (currentUserId === uid) {
@@ -95,91 +75,129 @@ const profile = () => {
   });
   const userTweets = allTweets.filter((tweet) => tweet.userId === uid);
 
+  // Logic to handleFollowBtnClick
+  // follow
+  const handleFollowBtnClick = async () => {
+    console.log("btn clicked");
+    // Update followers of followed user, and following of currentUser
+    const followedUserDocRef = doc(db, "users", uid);
+    const followingUserDocRef = doc(db, "users", currentUserId);
+
+    try {
+      await updateDoc(followedUserDocRef, {
+        followers: [...userInfo.followers, currentUserId],
+      });
+      await updateDoc(followingUserDocRef, {
+        following: [...authUserInfo.following, uid],
+      });
+    } catch (err) {
+      alert(err);
+    }
+  };
+
+  console.log(userInfo);
+  console.log(authUserInfo);
+  // unfollow
+
   return (
-    <div className="border border-red-800 pb-[9q.5rem]">
-      <div className=" ">
-        <Image
-          src={
-            userInfo.headerImageUrl || "https://picsum.photos/id/220/375/168"
-          }
-          alt="header-photo"
-          width={375}
-          height={168}
-        />
-      </div>
-      <div className="px-[1.90rem] ">
-        <div className="relative rounded-[1.2rem] px-[1.6rem] pb-[2.316rem] pt-[4.388rem] text-center shadow-[0_2px_4px_rgba(0,0,0,0.05)]">
-          <div className="absolute top-[-8.7rem] left-[50%] translate-x-[-50%] overflow-hidden rounded-[8px] p-[.8rem] ">
+    <>
+      {userInfo && (
+        <div className="pb-[9.615rem]">
+          <div className=" ">
             <Image
+              // src={
+              //   userInfo.headerImageUrl || "https://picsum.photos/id/220/375/168"
+              // }
               src={
-                userInfo.profilePictureUrl
-                  ? userInfo.profilePictureUrl
+                userInfo.headerImageUrl
+                  ? userInfo.headerImageUrl
                   : // Default image shown should be a placeholder, actually
-                    "https://picsum.photos/id/1/40/40"
+                    "https://picsum.photos/id/220/375/168"
               }
-              alt="profile-pic"
-              width={116}
-              height={116}
-              className=""
+              alt="header-photo"
+              width={375}
+              height={168}
             />
           </div>
-          <div className="">
-            <div>
-              <h1 className="text-[2.4rem] font-semibold leading-[3.6rem] tracking-[-3.5%] text-[#333333]">
-                {userInfo.userName}
-              </h1>
-              <div className="mt-[.4rem] mb-[1.4rem] flex items-center justify-center gap-8 text-[1.2rem] font-medium leading-[1.8rem] tracking-[-3.5%] text-[#828282] ">
-                <p>
-                  <span className="font-semibold text-[#333333]">
-                    {userInfo.following.length}
-                  </span>{" "}
-                  Following
-                </p>
-                <p>
-                  <span className="font-semibold text-[#333333]">
-                    {userInfo.followers.length}
-                  </span>{" "}
-                  Followers
+          <div className="px-[1.90rem] ">
+            <div className="relative rounded-[1.2rem] px-[1.6rem] pb-[2.316rem] pt-[4.388rem] text-center shadow-[0_2px_4px_rgba(0,0,0,0.05)]">
+              <div className="absolute top-[-8.7rem] left-[50%] translate-x-[-50%] overflow-hidden rounded-[8px] p-[.8rem] ">
+                <Image
+                  src={
+                    userInfo.profilePictureUrl
+                      ? userInfo.profilePictureUrl
+                      : // Default image shown should be a placeholder, actually
+                        "https://picsum.photos/id/1/40/40"
+                  }
+                  alt="profile-pic"
+                  width={116}
+                  height={116}
+                  className=""
+                />
+              </div>
+              <div className="">
+                <div>
+                  <h1 className="text-[2.4rem] font-semibold leading-[3.6rem] tracking-[-3.5%] text-[#333333]">
+                    {userInfo.userName}
+                  </h1>
+                  <div className="mt-[.4rem] mb-[1.4rem] flex items-center justify-center gap-8 text-[1.2rem] font-medium leading-[1.8rem] tracking-[-3.5%] text-[#828282] ">
+                    <p>
+                      <span className="font-semibold text-[#333333]">
+                        {userInfo.following.length}
+                      </span>{" "}
+                      Following
+                    </p>
+                    <p>
+                      <span className="font-semibold text-[#333333]">
+                        {userInfo.followers.length}
+                      </span>{" "}
+                      Followers
+                    </p>
+                  </div>
+                </div>
+                <p className="mb-[2.563rem] text-[1.8rem] font-normal leading-[2.4rem] tracking-[-3.5%] text-[#828282]">
+                  {userInfo.bio}
                 </p>
               </div>
+
+              {/* Follow button only shows if the profile page is being visited by another user*/}
+              {/* Clicking btn should follow user */}
+              {currentUserIsProfileOwner || (
+                <button
+                  onClick={handleFollowBtnClick}
+                  className="mx-auto flex items-center gap-[.4rem] rounded-[4px] bg-[#2F80ED] py-[.80rem]  px-[2.4rem] text-[1.2rem] font-medium leading-[1.6rem] tracking-[-3.5%] text-white outline"
+                >
+                  <SlUserFollow />
+                  <span>Follow</span>
+                </button>
+              )}
             </div>
-            <p className="mb-[2.563rem] text-[1.8rem] font-normal leading-[2.4rem] tracking-[-3.5%] text-[#828282]">
-              {userInfo.bio}
-            </p>
-          </div>
 
-          {/* Follow button only shows if the profile page is being visited by another user*/}
-          {currentUserIsProfileOwner || (
-            <button className="mx-auto flex items-center gap-[.4rem] rounded-[4px] bg-[#2F80ED] py-[.80rem]  px-[2.4rem] text-[1.2rem] font-medium leading-[1.6rem] tracking-[-3.5%] text-white outline">
-              <SlUserFollow />
-              <span>Follow</span>
-            </button>
-          )}
-        </div>
-
-        {/* User's Tweets */}
-        <div>
-          <div>
-            {userTweets.length ? (
-              userTweets.map((tweet) => (
-                <Tweet
-                  key={tweet.id}
-                  tweetId={tweet.id}
-                  likes={tweet.likes}
-                  retweets={tweet.retweets}
-                  media={tweet.media}
-                  text={tweet.text}
-                  timestamp={tweet.timestamp}
-                  userId={tweet.userId}
-                />
-              ))
-            ) : (
-              <p>No tweets yet</p>
-            )}
+            {/* User's Tweets */}
+            <div>
+              <div>
+                {userTweets.length ? (
+                  userTweets.map((tweet) => (
+                    <Tweet
+                      key={tweet.id}
+                      tweetId={tweet.id}
+                      likes={tweet.likes}
+                      retweets={tweet.retweets}
+                      media={tweet.media}
+                      text={tweet.text}
+                      timestamp={tweet.timestamp}
+                      userId={tweet.userId}
+                    />
+                  ))
+                ) : (
+                  <p>No tweets yet</p>
+                )}
+              </div>
+            </div>
           </div>
         </div>
-      </div>
-    </div>
+      )}
+    </>
   );
 };
 

@@ -20,6 +20,7 @@ const UserNav = ({ toggleUserNav }: UserNavProps) => {
   const currentUserId = currentUser?.uid;
 
   return (
+    // backdrop for nav
     <ul className="absolute right-[1.7rem] top-[5.2rem] z-[100] flex flex-col gap-[.4rem] rounded-[12px] bg-white px-[1.392rem] py-[1.527rem] text-[1.2rem] leading-[1.634rem]  tracking-[-3.5%] text-[#4F4F4F] shadow-lg">
       <li
         onClick={() => {
