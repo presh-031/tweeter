@@ -1,5 +1,5 @@
 import Tweet, { timestampType } from "@/components/Tweet";
-import { collection, doc, getDoc } from "firebase/firestore";
+import { collection, doc, getDoc, orderBy, query } from "firebase/firestore";
 import { useEffect, useState } from "react";
 
 import Comment from "@/components/Comment";
@@ -47,7 +47,10 @@ const TweetInfo = () => {
 
   const commentsRef = collection(db, "comments");
 
-  const [commentsListSnapshot, loading, error] = useCollection(commentsRef, {
+  // Create a query object that orders the documents by the "timestamp" field
+  const commentsQuery = query(commentsRef, orderBy("timestamp", "desc"));
+
+  const [commentsListSnapshot, loading, error] = useCollection(commentsQuery, {
     snapshotListenOptions: { includeMetadataChanges: true },
   });
   const allCommentsCol = commentsListSnapshot?.docs;
