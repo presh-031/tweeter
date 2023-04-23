@@ -2,7 +2,7 @@ import { auth, db } from "@/config/firebase";
 import { addDoc, collection, doc, getDoc, Timestamp } from "firebase/firestore";
 import { useEffect, useState } from "react";
 
-import { userInfo } from "@/pages/profile/[uid]";
+import { userInfoType } from "@/typings";
 import Image from "next/image";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { toast } from "react-hot-toast";
@@ -11,15 +11,13 @@ import { BiWorld } from "react-icons/bi";
 import { MdOutlineImage } from "react-icons/md";
 
 const NewTweet = () => {
-  // const [user, loading, error] = useAuthState(auth);
-
   const [currentUser] = useAuthState(auth);
   const currentUserId = currentUser?.uid;
 
   const [newTweetText, setNewTweetText] = useState("");
   const [newTweetLoading, setNewTweetLoading] = useState(false);
 
-  const handleNewTweet = async (e) => {
+  const handleNewTweet = async (e: { preventDefault: () => void }) => {
     e.preventDefault();
     try {
       setNewTweetLoading(true);
@@ -42,7 +40,7 @@ const NewTweet = () => {
   };
 
   // Logic to get current user info for navbar
-  const [userInfo, setUserInfo] = useState<userInfo>({
+  const [userInfo, setUserInfo] = useState<userInfoType>({
     bio: "",
     createdAt: "",
     displayName: "",
@@ -62,7 +60,6 @@ const NewTweet = () => {
 
         try {
           const userSnap = await getDoc(userRef);
-          // console.log(userSnap.data());
           const userDoc = userSnap.data();
 
           setUserInfo(userDoc);

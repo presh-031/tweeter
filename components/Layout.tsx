@@ -1,6 +1,6 @@
-import { Toaster } from "react-hot-toast";
-
+import { LayoutProps } from "@/typings";
 import { Poppins } from "next/font/google";
+import { Toaster } from "react-hot-toast";
 import AppNav from "./AppNav";
 import Navbar from "./Navbar";
 // Universal app font setup
@@ -10,10 +10,6 @@ const poppins = Poppins({
   subsets: ["latin"],
   weight: ["400", "500", "600", "700"],
 });
-
-type LayoutProps = {
-  children: React.ReactNode;
-};
 
 const Layout = ({ children }: LayoutProps) => {
   // const { state, setState } = useContext(UserContext);

@@ -2,28 +2,25 @@ import { auth, db } from "@/config/firebase";
 import { doc, getDoc } from "firebase/firestore";
 import { useEffect, useState } from "react";
 
-import { userInfo } from "@/pages/profile/[uid]";
+import { userInfoType } from "@/typings";
 import Image from "next/image";
 import { useRouter } from "next/router";
 import { useAuthState } from "react-firebase-hooks/auth";
-import toast from "react-hot-toast";
 import { IconContext } from "react-icons";
 import { IoMdArrowDropdown } from "react-icons/io";
 import logoSmall from "../assets/tweeter-small.svg";
 import AppNav from "./AppNav";
 import UserNav from "./UserNav";
 
-const notify = () => toast("Here is your toast.");
-
 const Navbar = () => {
   const [userNav, setUserNav] = useState(false);
-
   const toggleUserNav = () => {
     setUserNav((prevUserNav) => !prevUserNav);
   };
+
   const router = useRouter();
 
-  const [userInfo, setUserInfo] = useState<userInfo>({
+  const [userInfo, setUserInfo] = useState<userInfoType>({
     bio: "",
     createdAt: "",
     displayName: "",
@@ -65,7 +62,6 @@ const Navbar = () => {
       <div
         onClick={() => {
           router.push("/");
-          // notify();
         }}
       >
         <Image src={logoSmall} alt="tweeter" />

@@ -24,6 +24,10 @@ export type userInfoType = {
   userName: string;
 };
 
+export type LayoutProps = {
+  children: React.ReactNode;
+};
+
 export type TweetProps = {
   tweetId: string;
   likes: string[];

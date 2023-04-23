@@ -37,7 +37,7 @@ const edit = () => {
 
   const router = useRouter();
 
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState<boolean>(false);
 
   const onSubmit = async (data: FormData) => {
     // update user doc in db
