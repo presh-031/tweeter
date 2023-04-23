@@ -8,8 +8,8 @@ import {
 import { collection, doc, getDoc } from "firebase/firestore";
 import { useEffect, useState } from "react";
 
-import { timestampType } from "@/typings";
-import { formatDate } from "@/utils/formatDate";
+import { TweetProps } from "@/typings";
+import { formatDateForTweet } from "@/utils/formatDate";
 import Image from "next/image";
 import { useRouter } from "next/router";
 import { useAuthState } from "react-firebase-hooks/auth";
@@ -18,18 +18,8 @@ import { AiOutlineHeart } from "react-icons/ai";
 import { FaRetweet } from "react-icons/fa";
 import { HiOutlineBookmark } from "react-icons/hi";
 import { MdOutlineModeComment } from "react-icons/md";
-import AddComment from "./AddComment";
+import AddComment from "../AddComment";
 import TweetMedia from "./TweetMedia";
-
-type tweetProps = {
-  tweetId: string;
-  likes: string[];
-  retweets: string[];
-  media: string[];
-  text: string;
-  timestamp: timestampType;
-  userId: string;
-};
 
 const Tweet = ({
   tweetId,
@@ -39,7 +29,7 @@ const Tweet = ({
   text,
   timestamp,
   userId,
-}: tweetProps) => {
+}: TweetProps) => {
   const router = useRouter();
   // Logic to get info about the user with userId for each tweet
   // const userRef = doc(db, "users", userId);
@@ -55,15 +45,15 @@ const Tweet = ({
   }, []);
 
   // Format date for tweet timestamps
-  const formattedDate = formatDate(timestamp);
+  const formattedDate = formatDateForTweet(timestamp);
 
-  // Logic to handle tweet like and unlike
+  // For logics to handle tweet like and unlike
   // Liking and unLiking should be done by currently auth user
   const [currentUser] = useAuthState(auth);
   const currentUserId = currentUser ? currentUser.uid : "";
 
   // Logic to handle rendering of commenting component
-  const [showAddComment, setShowAddComment] = useState(false);
+  const [showAddComment, setShowAddComment] = useState<boolean>(false);
 
   const handleCommentBtnClick = (e) => {
     e.stopPropagation();
@@ -95,7 +85,6 @@ const Tweet = ({
   };
 
   return (
-    // Clicking the tweet generally should show you more info about the tweet
     <div onClick={handleTweetClick} className="my-[2.317rem]">
       {/* <p>Daniel Jensen Retweeted</p> */}
       <div className=" rounded-[8px] px-[1.523rem] pt-[2rem] shadow-[0_2px_4px_rgba(0,0,0,0.05)] hover:cursor-pointer hover:shadow-xl">

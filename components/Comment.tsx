@@ -2,9 +2,9 @@ import { doc, getDoc } from "firebase/firestore";
 import { useEffect, useState } from "react";
 
 import { db } from "@/config/firebase";
-import moment from "moment";
+import { timestampType } from "@/typings";
+import { formatDateToTimeAgo } from "@/utils/formatDate";
 import Image from "next/image";
-import { timestampType } from "./Tweet";
 
 type CommentProps = {
   text: string;
@@ -12,8 +12,6 @@ type CommentProps = {
   userId: string;
 };
 const Comment = ({ text, timestamp, userId }: CommentProps) => {
-  console.log(text, timestamp, userId);
-
   //  Logic to Get info about user that made the comment
   const [user, setUser] = useState<any>({});
 
@@ -26,14 +24,8 @@ const Comment = ({ text, timestamp, userId }: CommentProps) => {
     getUser();
   }, []);
 
-  console.log(user);
+  const timeAgo = formatDateToTimeAgo(timestamp);
 
-  //   Logic to convert timestamp to timeAgo
-  const formatDate = (timestamp: timestampType) => {
-    const date = moment.unix(timestamp.seconds).utcOffset(1);
-    return moment(date).fromNow();
-  };
-  const timeAgo = formatDate(timestamp);
   return (
     <div className="mb-8 flex gap-[.635rem]">
       <Image

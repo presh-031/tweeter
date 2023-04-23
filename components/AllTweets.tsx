@@ -19,7 +19,6 @@ const AllTweets = () => {
       {error && <strong>Error: {JSON.stringify(error)}</strong>}
       {loading && <span>Collection: Loading...</span>}
 
-      {/* Tweets should be ordered such that new tweets are at the top */}
       {tweetsListSnapshot?.docs.map((tweet) => (
         <Tweet
           key={tweet.id}

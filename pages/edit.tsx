@@ -33,7 +33,7 @@ const edit = () => {
   });
 
   const [currentUser] = useAuthState(auth);
-  const currentUserId = currentUser?.uid;
+  const currentUserId = currentUser ? currentUser.uid : "";
 
   const router = useRouter();
 

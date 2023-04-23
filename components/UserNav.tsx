@@ -32,6 +32,7 @@ const UserNav = ({ toggleUserNav }: UserNavProps) => {
         <CgProfile />
         Profile
       </li>
+
       <li
         onClick={() => {
           router.push("/edit");
@@ -42,7 +43,9 @@ const UserNav = ({ toggleUserNav }: UserNavProps) => {
         <IoMdSettings />
         My account
       </li>
+
       <li className="my-[.71rem] border-t-[1px] border-[#e0e0e0]"></li>
+
       <li
         onClick={async () => {
           const success = await signOut();
