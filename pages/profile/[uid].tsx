@@ -29,7 +29,6 @@ const profile = () => {
   const [currentUser] = useAuthState(auth);
   const currentUserId = currentUser?.uid;
 
-  // use displaynames as params //udn => user display name ??
   const router = useRouter();
   const { uid } = router.query;
 
@@ -39,8 +38,6 @@ const profile = () => {
       snapshotListenOptions: { includeMetadataChanges: true },
     }
   );
-
-  console.log(userInfo);
 
   const [authUserInfo, authUserInfoLoading, authUserInfoError] =
     useDocumentData(doc(db, "users", currentUserId), {
@@ -99,12 +96,12 @@ const profile = () => {
     try {
       await updateDoc(followedUserDocRef, {
         followers: userInfo?.followers.filter(
-          (follower) => follower !== currentUserId
+          (follower: string) => follower !== currentUserId
         ),
       });
       await updateDoc(followingUserDocRef, {
         following: authUserInfo?.following.filter(
-          (following) => following !== uid
+          (following: string) => following !== uid
         ),
       });
     } catch (err) {
@@ -127,6 +124,7 @@ const profile = () => {
               alt="header-photo"
               width={375}
               height={168}
+              className="h-[16.8rem] w-[37.5rem]"
             />
           </div>
           <div className="px-[1.90rem] ">
@@ -142,7 +140,7 @@ const profile = () => {
                   alt="profile-pic"
                   width={116}
                   height={116}
-                  className=""
+                  className="h-[11.6rem] w-[11.6rem]"
                 />
               </div>
               <div className="">

@@ -88,7 +88,7 @@ const signIn = () => {
             <IoMdLock />
             <input
               placeholder="Password"
-              type="text"
+              type="password"
               className="w-full  py-3 text-2xl outline-none"
             />
           </div>

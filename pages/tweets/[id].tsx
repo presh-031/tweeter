@@ -3,6 +3,7 @@ import { collection, doc, getDoc, orderBy, query } from "firebase/firestore";
 import { useEffect, useState } from "react";
 
 import Comment from "@/components/Comment";
+import withAuthUser from "@/components/WithAuthUser";
 import { db } from "@/config/firebase";
 import { useRouter } from "next/router";
 import { useCollection } from "react-firebase-hooks/firestore";
@@ -101,4 +102,4 @@ const TweetInfo = () => {
   );
 };
 
-export default TweetInfo;
+export default withAuthUser(TweetInfo);

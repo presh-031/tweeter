@@ -3,6 +3,7 @@ import * as yup from "yup";
 import { auth, db } from "@/config/firebase";
 import { doc, updateDoc } from "firebase/firestore";
 
+import withAuthUser from "@/components/WithAuthUser";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useRouter } from "next/router";
 import { useState } from "react";
@@ -151,4 +152,4 @@ const edit = () => {
   );
 };
 
-export default edit;
+export default withAuthUser(edit);

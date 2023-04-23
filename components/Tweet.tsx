@@ -1,8 +1,15 @@
 import { auth, db } from "@/config/firebase";
-import { collection, doc, getDoc, updateDoc } from "firebase/firestore";
+import {
+  likeTweet,
+  retweetTweet,
+  unlikeTweet,
+  unRetweetTweet,
+} from "@/services/tweetServices";
+import { collection, doc, getDoc } from "firebase/firestore";
 import { useEffect, useState } from "react";
 
-import moment from "moment";
+import { timestampType } from "@/typings";
+import { formatDate } from "@/utils/formatDate";
 import Image from "next/image";
 import { useRouter } from "next/router";
 import { useAuthState } from "react-firebase-hooks/auth";
@@ -14,28 +21,14 @@ import { MdOutlineModeComment } from "react-icons/md";
 import AddComment from "./AddComment";
 import TweetMedia from "./TweetMedia";
 
-export type timestampType = {
-  seconds: number;
-  nanoseconds: number;
-};
 type tweetProps = {
   tweetId: string;
-  // comments: {}[];
   likes: string[];
-  // numOfLikes: number;
-  // numOfRetweets: number;
   retweets: string[];
   media: string[];
   text: string;
   timestamp: timestampType;
   userId: string;
-};
-
-// Logic to convert timestamp to required format
-const formatDate = (timestamp: timestampType) => {
-  const date = moment.unix(timestamp.seconds).utcOffset(1);
-  const formattedDate = date.format("DD MMMM [at] HH:mm");
-  return formattedDate;
 };
 
 const Tweet = ({
@@ -61,64 +54,13 @@ const Tweet = ({
     getUser();
   }, []);
 
-  // Logic to format date for tweet timestamps
+  // Format date for tweet timestamps
   const formattedDate = formatDate(timestamp);
 
   // Logic to handle tweet like and unlike
   // Liking and unLiking should be done by currently auth user
   const [currentUser] = useAuthState(auth);
   const currentUserId = currentUser ? currentUser.uid : "";
-
-  const handleLike = async () => {
-    const tweetDocRef = doc(db, "tweets", tweetId);
-
-    try {
-      await updateDoc(tweetDocRef, {
-        likes: [...likes, currentUserId],
-      });
-    } catch (err) {
-      alert(err);
-    }
-  };
-
-  const handleUnlike = async () => {
-    const tweetDocRef = doc(db, "tweets", tweetId);
-
-    try {
-      await updateDoc(tweetDocRef, {
-        likes: likes.filter((like) => like !== currentUserId),
-      });
-    } catch (err) {
-      alert(err);
-    }
-  };
-
-  // Logic to handle tweet retweets
-  // Retweeting should be done by currently auth user
-  const handleRetweet = async () => {
-    const tweetDocRef = doc(db, "tweets", tweetId);
-
-    try {
-      await updateDoc(tweetDocRef, {
-        retweets: [...retweets, currentUserId],
-      });
-    } catch (err) {
-      alert(err);
-    }
-  };
-
-  const handleUnretweet = async () => {
-    const tweetDocRef = doc(db, "tweets", tweetId);
-
-    // retweets still not adding up in tweets list
-    try {
-      await updateDoc(tweetDocRef, {
-        retweets: retweets.filter((retweet) => retweet !== currentUserId),
-      });
-    } catch (err) {
-      alert(err);
-    }
-  };
 
   // Logic to handle rendering of commenting component
   const [showAddComment, setShowAddComment] = useState(false);
@@ -145,8 +87,6 @@ const Tweet = ({
   const tweetComments = allComments.filter(
     (comment) => comment.tweetId === tweetId
   );
-
-  console.log(tweetComments);
 
   const handleTweetClick = (e) => {
     e.preventDefault();
@@ -227,8 +167,8 @@ const Tweet = ({
             onClick={(e) => {
               e.stopPropagation();
               retweets.includes(currentUserId)
-                ? handleUnretweet()
-                : handleRetweet();
+                ? unRetweetTweet(tweetId, currentUserId, retweets)
+                : retweetTweet(tweetId, currentUserId, retweets);
             }}
             className="tweet-icons-btn"
           >
@@ -241,7 +181,9 @@ const Tweet = ({
           <button
             onClick={(e) => {
               e.stopPropagation();
-              likes.includes(currentUserId) ? handleUnlike() : handleLike();
+              likes.includes(currentUserId)
+                ? unlikeTweet(tweetId, currentUserId, likes)
+                : likeTweet(tweetId, currentUserId, likes);
             }}
             className="tweet-icons-btn"
           >
