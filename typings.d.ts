@@ -37,3 +37,10 @@ export type TweetProps = {
   timestamp: timestampType;
   userId: string;
 };
+
+export type AddCommentProps = {
+  tweetId: string;
+  setShowAddComment: React.Dispatch<React.SetStateAction<boolean>>;
+
+  onKeyDown: (e: React.KeyboardEvent<HTMLInputElement>) => void;
+};

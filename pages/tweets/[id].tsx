@@ -1,46 +1,39 @@
-import Tweet, { timestampType } from "@/components/Tweet";
-import { collection, doc, getDoc, orderBy, query } from "firebase/firestore";
-import { useEffect, useState } from "react";
+import { collection, doc, orderBy, query } from "firebase/firestore";
+import { useCollection, useDocumentData } from "react-firebase-hooks/firestore";
 
 import Comment from "@/components/Comment";
+import Tweet from "@/components/Tweet";
 import withAuthUser from "@/components/WithAuthUser";
 import { db } from "@/config/firebase";
 import { useRouter } from "next/router";
-import { useCollection } from "react-firebase-hooks/firestore";
 
-type tweet = {
-  userId: string;
-  timestamp: timestampType;
-  text: string;
-  retweets: string[];
-  media: string[];
-  likes: string[];
-};
 const TweetInfo = () => {
   const router = useRouter();
   const { id } = router.query;
 
-  const [tweet, setTweet] = useState<any>();
-
-  const [loadingTweet, setLoadingTweet] = useState(true);
-  useEffect(() => {
-    if (id) {
-      const getTweet = async () => {
-        const tweetRef = doc(db, "tweets", id);
-
-        try {
-          const tweetSnap = await getDoc(tweetRef);
-          const tweetDoc = tweetSnap.data();
-
-          setLoadingTweet(false);
-          setTweet(tweetDoc);
-        } catch (err) {
-          console.error(err);
-        }
-      };
-      getTweet();
+  const [tweet, tweetLoading, tweetError, snapshot] = useDocumentData(
+    doc(db, "tweets", id),
+    {
+      snapshotListenOptions: { includeMetadataChanges: true },
     }
-  }, [id]);
+  );
+  // useEffect(() => {
+  //   if (id) {
+  //     const getTweet = async () => {
+  //       const tweetRef = doc(db, "tweets", id);
+
+  //       try {
+  //         const tweetSnap = await getDoc(tweetRef);
+  //         const tweetDoc = tweetSnap.data();
+
+  //         setTweet(tweetDoc);
+  //       } catch (err) {
+  //         console.error(err);
+  //       }
+  //     };
+  //     getTweet();
+  //   }
+  // }, []);
 
   // Logic to get tweet comments
   // Get all tweet's comments with the id
@@ -62,14 +55,13 @@ const TweetInfo = () => {
   });
   const tweetComments = allComments.filter((comment) => comment.tweetId === id);
 
-  console.log(tweetComments);
+  console.log(tweet);
   return (
     <div className="px-[1.90rem] pb-[9.615rem]">
       {tweet ? (
         <>
           <Tweet
-            key={id}
-            tweetId={id}
+            tweetId={id ? id : ""}
             likes={tweet.likes}
             retweets={tweet.retweets}
             media={tweet.media}
