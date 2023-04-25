@@ -10,16 +10,17 @@ const AllTweets = () => {
   // Create a query object that orders the documents by the "timestamp" field
   const tweetsQuery = query(tweetsRef, orderBy("timestamp", "desc"));
 
-  const [tweetsListSnapshot, loading, error] = useCollection(tweetsQuery, {
+  const [tweets, loading, error] = useCollection(tweetsQuery, {
     snapshotListenOptions: { includeMetadataChanges: true },
   });
 
+  // console.log(tweets?.docs[0].id);
   return (
     <div>
       {error && <strong>Error: {JSON.stringify(error)}</strong>}
       {loading && <span>Collection: Loading...</span>}
 
-      {tweetsListSnapshot?.docs.map((tweet) => (
+      {tweets?.docs.map((tweet) => (
         <Tweet
           key={tweet.id}
           tweetId={tweet.id}
