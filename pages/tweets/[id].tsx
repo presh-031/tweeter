@@ -1,4 +1,4 @@
-import { collection, doc, orderBy, query, where } from "firebase/firestore";
+import { collection, doc, query, where } from "firebase/firestore";
 import { useCollection, useDocument } from "react-firebase-hooks/firestore";
 
 import Comment from "@/components/Comment";
@@ -10,10 +10,14 @@ import { useRouter } from "next/router";
 const TweetInfo = () => {
   const router = useRouter();
   const { id } = router.query;
+  const routeId = `${id ? id : ""}`;
 
-  const [tweet, tweetLoading, tweetError] = useDocument(doc(db, "tweets", id), {
-    snapshotListenOptions: { includeMetadataChanges: true },
-  });
+  const [tweet, tweetLoading, tweetError] = useDocument(
+    doc(db, "tweets", routeId),
+    {
+      snapshotListenOptions: { includeMetadataChanges: true },
+    }
+  );
 
   // Logic to get tweet comments
   // Get all tweet's comments with the id
@@ -21,9 +25,8 @@ const TweetInfo = () => {
 
   const commentsQuery = query(
     commentsRef,
-    orderBy("timestamp", "desc"),
+    // orderBy("timestamp", "desc"),
     where("tweetId", "==", id)
-    // orderBy("timestamp")
   );
 
   const [comments, commentsLoading, commentsError] = useCollection(
@@ -34,10 +37,7 @@ const TweetInfo = () => {
   );
   console.log(comments?.docs[0]?.data());
 
-  // const comments = allComments?.docs.data.filter((comment) => {
-  // return allComments.id == id;
-  // });
-
+  // still yet to order comments by timestamp.
   return (
     <div className="px-[1.90rem] pb-[9.615rem]">
       {/* Rendering tweet states */}

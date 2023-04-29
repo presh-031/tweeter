@@ -44,26 +44,14 @@ const profile = () => {
   }
 
   // Get all user's tweets with the uid
-  // Still querying for all tweet then filtering with uid and storing in userTweets state, should use a more specific query.
-
   const tweetsRef = collection(db, "tweets");
 
-  const tweetsQuery = query(
-    tweetsRef,
-    where("userId", "==", uid)
-    // orderBy("timestamp")
-  );
+  const tweetsQuery = query(tweetsRef, where("userId", "==", uid));
 
-  const [tweetsListSnapshot, loading, error] = useCollection(tweetsRef, {
+  const [tweetsListSnapshot, loading, error] = useCollection(tweetsQuery, {
     snapshotListenOptions: { includeMetadataChanges: true },
   });
   const userTweets = tweetsListSnapshot?.docs;
-
-  // const allTweets = [];
-  // allTweetsCol?.forEach((tweet) => {
-  //   allTweets.push(tweet.data());
-  // });
-  // const userTweets = allTweets.filter((tweet) => tweet.userId === uid);
 
   return (
     <>
@@ -152,24 +140,22 @@ const profile = () => {
 
             {/* User's Tweets */}
             <div>
-              <div>
-                {userTweets?.length ? (
-                  userTweets.map((tweet) => (
-                    <Tweet
-                      key={tweet.id}
-                      tweetId={tweet.id}
-                      likes={tweet.data().likes}
-                      retweets={tweet.data().retweets}
-                      media={tweet.data().media}
-                      text={tweet.data().text}
-                      timestamp={tweet.data().timestamp}
-                      userId={tweet.data().userId}
-                    />
-                  ))
-                ) : (
-                  <p>No tweets yet</p>
-                )}
-              </div>
+              {userTweets?.length ? (
+                userTweets.map((tweet) => (
+                  <Tweet
+                    key={tweet.id}
+                    tweetId={tweet.id}
+                    likes={tweet.data().likes}
+                    retweets={tweet.data().retweets}
+                    media={tweet.data().media}
+                    text={tweet.data().text}
+                    timestamp={tweet.data().timestamp}
+                    userId={tweet.data().userId}
+                  />
+                ))
+              ) : (
+                <p>No tweets yet</p>
+              )}
             </div>
           </div>
         </div>
