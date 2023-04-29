@@ -1,6 +1,6 @@
 import { auth, db } from "@/config/firebase";
 import { follow, unFollow } from "@/services/userServices";
-import { collection, doc } from "firebase/firestore";
+import { collection, doc, query, where } from "firebase/firestore";
 import { useCollection, useDocumentData } from "react-firebase-hooks/firestore";
 import { SlUserFollow, SlUserUnfollow } from "react-icons/sl";
 
@@ -48,16 +48,22 @@ const profile = () => {
 
   const tweetsRef = collection(db, "tweets");
 
+  const tweetsQuery = query(
+    tweetsRef,
+    where("userId", "==", uid)
+    // orderBy("timestamp")
+  );
+
   const [tweetsListSnapshot, loading, error] = useCollection(tweetsRef, {
     snapshotListenOptions: { includeMetadataChanges: true },
   });
-  const allTweetsCol = tweetsListSnapshot?.docs;
+  const userTweets = tweetsListSnapshot?.docs;
 
-  const allTweets = [];
-  allTweetsCol?.forEach((tweet) => {
-    allTweets.push(tweet.data());
-  });
-  const userTweets = allTweets.filter((tweet) => tweet.userId === uid);
+  // const allTweets = [];
+  // allTweetsCol?.forEach((tweet) => {
+  //   allTweets.push(tweet.data());
+  // });
+  // const userTweets = allTweets.filter((tweet) => tweet.userId === uid);
 
   return (
     <>
@@ -147,17 +153,17 @@ const profile = () => {
             {/* User's Tweets */}
             <div>
               <div>
-                {userTweets.length ? (
+                {userTweets?.length ? (
                   userTweets.map((tweet) => (
                     <Tweet
                       key={tweet.id}
                       tweetId={tweet.id}
-                      likes={tweet.likes}
-                      retweets={tweet.retweets}
-                      media={tweet.media}
-                      text={tweet.text}
-                      timestamp={tweet.timestamp}
-                      userId={tweet.userId}
+                      likes={tweet.data().likes}
+                      retweets={tweet.data().retweets}
+                      media={tweet.data().media}
+                      text={tweet.data().text}
+                      timestamp={tweet.data().timestamp}
+                      userId={tweet.data().userId}
                     />
                   ))
                 ) : (

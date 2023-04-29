@@ -1,4 +1,4 @@
-import { collection, doc, orderBy, query } from "firebase/firestore";
+import { collection, doc, orderBy, query, where } from "firebase/firestore";
 import { useCollection, useDocument } from "react-firebase-hooks/firestore";
 
 import Comment from "@/components/Comment";
@@ -17,14 +17,13 @@ const TweetInfo = () => {
 
   // Logic to get tweet comments
   // Get all tweet's comments with the id
-  // Still querying for all comments then filtering with id and storing in tweetComments state, should use a more specific query.
   const commentsRef = collection(db, "comments");
 
-  // Query object that orders the documents by the "timestamp" field
   const commentsQuery = query(
     commentsRef,
-    // where("tweetId", "==", id),
-    orderBy("timestamp", "desc")
+    orderBy("timestamp", "desc"),
+    where("tweetId", "==", id)
+    // orderBy("timestamp")
   );
 
   const [comments, commentsLoading, commentsError] = useCollection(
@@ -33,7 +32,11 @@ const TweetInfo = () => {
       snapshotListenOptions: { includeMetadataChanges: true },
     }
   );
-  // console.log(comments?.docs[0].id);
+  console.log(comments?.docs[0]?.data());
+
+  // const comments = allComments?.docs.data.filter((comment) => {
+  // return allComments.id == id;
+  // });
 
   return (
     <div className="px-[1.90rem] pb-[9.615rem]">
@@ -54,17 +57,19 @@ const TweetInfo = () => {
 
       <p className="mb-4 text-[1.8rem] font-medium">Comments</p>
       {/* Rendering comment states */}
-      {commentsError && <strong>Error: {JSON.stringify(commentsError)}</strong>}
+      {/* {commentsError && <strong>Error: {JSON.stringify(commentsError)}</strong>} */}
       {commentsLoading && <span>Collection: Loading...</span>}
       {comments ? (
-        comments.docs.map((comment) => (
-          <Comment
-            key={comment.id}
-            text={comment.data()?.comment}
-            timestamp={comment.data()?.timestamp}
-            userId={comment.data()?.userId}
-          />
-        ))
+        comments.docs.map((comment) => {
+          return (
+            <Comment
+              key={comment.id}
+              text={comment.data()?.comment}
+              timestamp={comment.data()?.timestamp}
+              userId={comment.data()?.userId}
+            />
+          );
+        })
       ) : (
         <p>No comments to see</p>
       )}
