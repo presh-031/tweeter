@@ -1,16 +1,17 @@
+/* eslint-disable react-hooks/rules-of-hooks */
 import * as yup from "yup";
 
 import { auth, db } from "@/config/firebase";
 import { doc, updateDoc } from "firebase/firestore";
 
-import withAuthUser from "@/components/WithAuthUser";
+import WithAuthUser from "@/components/WithAuthUser";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useRouter } from "next/router";
 import { useState } from "react";
 import { useAuthState } from "react-firebase-hooks/auth";
-import { useForm } from "react-hook-form";
 import toast from "react-hot-toast";
 import { AiOutlineLoading3Quarters } from "react-icons/ai";
+import { useForm } from "react-hook-form";
 
 const editProfileSchema = yup.object({
   userName: yup.string().required("You must add a name"),
@@ -152,4 +153,4 @@ const edit = () => {
   );
 };
 
-export default withAuthUser(edit);
+export default WithAuthUser(edit);

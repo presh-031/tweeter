@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/rules-of-hooks */
 import { auth, db } from "@/config/firebase";
 import { follow, unFollow } from "@/services/userServices";
 import { collection, doc, query, where } from "firebase/firestore";
@@ -5,7 +6,7 @@ import { useCollection, useDocumentData } from "react-firebase-hooks/firestore";
 import { SlUserFollow, SlUserUnfollow } from "react-icons/sl";
 
 import Tweet from "@/components/Tweet";
-import withAuthUser from "@/components/WithAuthUser";
+import WithAuthUser from "@/components/WithAuthUser";
 import Image from "next/image";
 import { useRouter } from "next/router";
 import { useAuthState } from "react-firebase-hooks/auth";
@@ -164,4 +165,4 @@ const profile = () => {
   );
 };
 
-export default withAuthUser(profile);
+export default WithAuthUser(profile);

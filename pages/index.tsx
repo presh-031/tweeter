@@ -1,6 +1,6 @@
 import AllTweets from "@/components/AllTweets";
 import NewTweet from "@/components/NewTweet";
-import withAuthUser from "@/components/WithAuthUser";
+import WithAuthUser from "@/components/WithAuthUser";
 
 const index = () => {
   return (
@@ -16,5 +16,5 @@ const index = () => {
   );
 };
 
-export default withAuthUser(index);
+export default WithAuthUser(index);
 // export default index;

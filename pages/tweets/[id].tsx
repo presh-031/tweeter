@@ -3,7 +3,7 @@ import { useCollection, useDocument } from "react-firebase-hooks/firestore";
 
 import Comment from "@/components/Comment";
 import Tweet from "@/components/Tweet";
-import withAuthUser from "@/components/WithAuthUser";
+import WithAuthUser from "@/components/WithAuthUser";
 import { db } from "@/config/firebase";
 import { useRouter } from "next/router";
 
@@ -77,4 +77,4 @@ const TweetInfo = () => {
   );
 };
 
-export default withAuthUser(TweetInfo);
+export default WithAuthUser(TweetInfo);

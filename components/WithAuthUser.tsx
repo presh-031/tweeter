@@ -7,7 +7,7 @@ type WithAuthUserProps = {
   children: ReactNode;
 };
 
-const withAuthUser = (Component: React.ComponentType<any>) => {
+const WithAuthUser = (Component: React.ComponentType<any>) => {
   const AuthenticatedComponent = ({ children }: WithAuthUserProps) => {
     const router = useRouter();
     const [user, loading, error] = useAuthState(auth);
@@ -27,4 +27,4 @@ const withAuthUser = (Component: React.ComponentType<any>) => {
   return AuthenticatedComponent;
 };
 
-export default withAuthUser;
+export default WithAuthUser;
