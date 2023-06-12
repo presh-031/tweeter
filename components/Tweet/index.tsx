@@ -42,6 +42,7 @@ const Tweet = ({
     };
 
     getUser();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   // Format date for tweet timestamps
@@ -55,7 +56,7 @@ const Tweet = ({
   // Logic to handle rendering of commenting component
   const [showAddComment, setShowAddComment] = useState<boolean>(false);
 
-  const handleCommentBtnClick = (e) => {
+  const handleCommentBtnClick = (e: any) => {
     e.stopPropagation();
     setShowAddComment((prevState) => !prevState);
   };
@@ -75,10 +76,10 @@ const Tweet = ({
     allComments.push(comment.data());
   });
   const tweetComments = allComments.filter(
-    (comment) => comment.tweetId === tweetId
+    (comment: any) => comment.tweetId === tweetId
   );
 
-  const handleTweetClick = (e) => {
+  const handleTweetClick = (e: any) => {
     e.preventDefault();
 
     router.push(`/tweets/${tweetId}`);
