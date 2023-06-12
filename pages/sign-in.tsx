@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/rules-of-hooks */
 import { collection, doc, getDoc, setDoc } from "firebase/firestore";
 import {
   AiFillGithub,
