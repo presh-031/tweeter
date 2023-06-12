@@ -47,7 +47,22 @@ const Navbar = () => {
           // console.log(userSnap.data());
           const userDoc = userSnap.data();
 
-          setUserInfo(userDoc);
+          if (userDoc) {
+            const userInfoData: userInfoType = {
+              bio: userDoc.bio,
+              createdAt: userDoc.createdAt,
+              displayName: userDoc.displayName,
+              email: userDoc.email,
+              followers: userDoc.followers,
+              following: userDoc.following,
+              headerImageUrl: userDoc.headerImageUrl,
+              profilePictureUrl: userDoc.profilePictureUrl,
+              userName: userDoc.userName,
+            };
+
+            setUserInfo(userInfoData);
+            // setUserInfo(userDoc);
+          }
         } catch (err) {
           console.error(err);
         }
@@ -55,7 +70,8 @@ const Navbar = () => {
 
       getUser();
     }
-  }, [currentUser]);
+    // }, [currentUser]);
+  }, [currentUserId]);
 
   return (
     <div className="flex justify-between  bg-white px-[1.7rem] py-[2rem] shadow-[0px_2px_2px_rgba(0,0,0,0.05)]">

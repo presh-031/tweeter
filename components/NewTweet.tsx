@@ -62,7 +62,22 @@ const NewTweet = () => {
           const userSnap = await getDoc(userRef);
           const userDoc = userSnap.data();
 
-          setUserInfo(userDoc);
+          if (userDoc) {
+            const userInfoData: userInfoType = {
+              bio: userDoc.bio,
+              createdAt: userDoc.createdAt,
+              displayName: userDoc.displayName,
+              email: userDoc.email,
+              followers: userDoc.followers,
+              following: userDoc.following,
+              headerImageUrl: userDoc.headerImageUrl,
+              profilePictureUrl: userDoc.profilePictureUrl,
+              userName: userDoc.userName,
+            };
+
+            setUserInfo(userInfoData);
+            // setUserInfo(userDoc);
+          }
         } catch (err) {
           console.error(err);
         }
@@ -70,6 +85,7 @@ const NewTweet = () => {
 
       getUser();
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [currentUser]);
   return (
     <div className="mt-[1.469rem] bg-white py-[1.091rem] px-[1.39rem] shadow-[0_2px_2px_rgba(0,0,0,0.05)] ">

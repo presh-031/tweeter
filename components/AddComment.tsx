@@ -23,7 +23,8 @@ const AddComment = ({ tweetId, setShowAddComment }: AddCommentProps) => {
     };
 
     getUser();
-  }, [currentUserId]);
+    // }, [currentUserId]
+  }, [userRef]);
 
   // Logic to handle comment creation
   const inputRef = useRef<HTMLInputElement>(null);
