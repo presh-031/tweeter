@@ -2,7 +2,7 @@ import AllTweets from "@/components/AllTweets";
 import NewTweet from "@/components/NewTweet";
 import WithAuthUser from "@/components/WithAuthUser";
 
-const index = () => {
+const Home = () => {
   return (
     <div className=" px-[1.90rem] pb-[9.615rem]">
       <>
@@ -16,5 +16,5 @@ const index = () => {
   );
 };
 
-export default WithAuthUser(index);
+export default WithAuthUser(Home);
 // export default index;

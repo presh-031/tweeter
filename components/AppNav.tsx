@@ -6,6 +6,7 @@ import { useState } from "react";
 import { useRouter } from "next/router";
 
 const AppNav = () => {
+  // should get route from client and pass in as default
   const [activeTab, setActiveTab] = useState("tweets");
 
   const router = useRouter();

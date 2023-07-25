@@ -13,7 +13,7 @@ import { useAuthState } from "react-firebase-hooks/auth";
 
 let currentUserIsProfileOwner;
 
-const profile = () => {
+const Profile = () => {
   // check if incoming id is same as auth user id.
 
   const [currentUser] = useAuthState(auth);
@@ -165,4 +165,4 @@ const profile = () => {
   );
 };
 
-export default WithAuthUser(profile);
+export default WithAuthUser(Profile);

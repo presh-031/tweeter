@@ -24,7 +24,7 @@ const editProfileSchema = yup.object({
 
 type FormData = yup.InferType<typeof editProfileSchema>;
 
-const edit = () => {
+const Edit = () => {
   const {
     register,
     handleSubmit,
@@ -153,4 +153,4 @@ const edit = () => {
   );
 };
 
-export default WithAuthUser(edit);
+export default WithAuthUser(Edit);

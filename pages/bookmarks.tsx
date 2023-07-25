@@ -1,7 +1,7 @@
 import React from "react";
 
-const bookmarks = () => {
-  return <div>bookmarks</div>;
+const Bookmarks = () => {
+  return <div className=" px-[1.90rem] pb-[9.615rem]">bookmarks</div>;
 };
 
-export default bookmarks;
+export default Bookmarks;

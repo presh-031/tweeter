@@ -14,7 +14,7 @@ import { FaFacebookSquare } from "react-icons/fa";
 import { IoMdLock } from "react-icons/io";
 import { MdEmail } from "react-icons/md";
 
-const signIn = () => {
+const SignIn = () => {
   const [signInWithGoogle, user, loading, error] = useSignInWithGoogle(auth);
 
   const router = useRouter();
@@ -130,4 +130,4 @@ const signIn = () => {
   );
 };
 
-export default signIn;
+export default SignIn;
