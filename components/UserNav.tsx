@@ -8,9 +8,9 @@ import { IoMdSettings } from "react-icons/io";
 import { TbLogout } from "react-icons/tb";
 
 type UserNavProps = {
-  toggleUserNav: () => any;
+  toggleShowUserNav: () => any;
 };
-const UserNav = ({ toggleUserNav }: UserNavProps) => {
+const UserNav = ({ toggleShowUserNav }: UserNavProps) => {
   const [signOut] = useSignOut(auth);
 
   const router = useRouter();
@@ -25,7 +25,7 @@ const UserNav = ({ toggleUserNav }: UserNavProps) => {
       <li
         onClick={() => {
           router.push(`/profile/${currentUserId}`);
-          toggleUserNav();
+          toggleShowUserNav();
         }}
         className="flex items-center gap-[1.167rem] rounded-[8px] py-[1.1rem] pr-12 pl-[1.4rem] hover:bg-[#f2f2f2]"
       >
@@ -36,7 +36,7 @@ const UserNav = ({ toggleUserNav }: UserNavProps) => {
       <li
         onClick={() => {
           router.push("/edit");
-          toggleUserNav();
+          toggleShowUserNav();
         }}
         className="flex items-center gap-[1.167rem] rounded-[8px] py-[1.1rem] pr-12 pl-[1.4rem] hover:bg-[#f2f2f2]"
       >
@@ -51,7 +51,7 @@ const UserNav = ({ toggleUserNav }: UserNavProps) => {
           const success = await signOut();
           if (success) {
             toast.success("Signed out Successfully.");
-            toggleUserNav();
+            toggleShowUserNav();
           }
         }}
         className="flex items-center gap-[1.167rem] rounded-[8px] py-[1.1rem] pr-12 pl-[1.4rem] text-[#EB5757] hover:bg-[#f2f2f2]"

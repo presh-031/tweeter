@@ -6,16 +6,15 @@ import { userInfoType } from "@/typings";
 import Image from "next/image";
 import { useRouter } from "next/router";
 import { useAuthState } from "react-firebase-hooks/auth";
-import { IconContext } from "react-icons";
-import { IoMdArrowDropdown } from "react-icons/io";
-import logoSmall from "../assets/tweeter-small.svg";
+import { RiArrowDownSFill, RiArrowUpSFill } from "react-icons/ri";
+import logo from "../assets/tweeter.svg";
 import AppNav from "./AppNav";
 import UserNav from "./UserNav";
 
 const Navbar = () => {
-  const [userNav, setUserNav] = useState(false);
-  const toggleUserNav = () => {
-    setUserNav((prevUserNav) => !prevUserNav);
+  const [showUserNav, setShowUserNav] = useState(false);
+  const toggleShowUserNav = () => {
+    setShowUserNav((prevShowUserNav) => !prevShowUserNav);
   };
 
   const router = useRouter();
@@ -80,14 +79,14 @@ const Navbar = () => {
           router.push("/");
         }}
       >
-        <Image src={logoSmall} alt="tweeter" />
+        <Image src={logo} alt="tweeter" />
       </div>
 
       <div className="hidden">
         <AppNav />
       </div>
 
-      <div onClick={toggleUserNav} className="flex items-center gap-4 ">
+      <div onClick={toggleShowUserNav} className="flex items-center gap-4 ">
         <Image
           src={
             userInfo.profilePictureUrl
@@ -101,20 +100,20 @@ const Navbar = () => {
           className="h-[3.2rem] w-[3.2rem] rounded-[8px] outline"
         />
 
-        {/* Normally hidden on mobile view */}
-        <p className="hidden">
-          {" "}
+        <p>
           {userInfo.displayName
             ? `@${userInfo.displayName}`
             : userInfo.userName}
         </p>
 
-        <IconContext.Provider value={{ className: "react-icons" }}>
-          <IoMdArrowDropdown />
-        </IconContext.Provider>
+        {showUserNav ? (
+          <RiArrowUpSFill className="text-3xl" />
+        ) : (
+          <RiArrowDownSFill className="text-3xl" />
+        )}
       </div>
 
-      {userNav && <UserNav toggleUserNav={toggleUserNav} />}
+      {showUserNav && <UserNav toggleShowUserNav={toggleShowUserNav} />}
     </div>
   );
 };
