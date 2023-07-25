@@ -22,11 +22,11 @@ const AppNav = () => {
   return (
     // Checkout little blue styling for active link
     <IconContext.Provider value={{ className: "app-nav-icons" }}>
-      <nav className="fixed bottom-0 flex w-full items-center justify-between bg-white pt-[2rem]  shadow-md">
+      <nav className="fixed bottom-0 flex w-full items-center justify-between bg-white pt-[2rem] shadow-md">
         <div className="relative ">
           <div
             onClick={() => handleTabClick("tweets")}
-            className="mb-[1.6rem] rounded-[8px]  py-[1.091rem]  px-[5.0rem] hover:bg-[#f2f2f2] "
+            className="mb-[1.6rem] rounded-[8px]  py-[1.091rem]  px-[5.0rem]  "
           >
             <AiFillHome
               className={`${
@@ -44,7 +44,7 @@ const AppNav = () => {
         <div className="relative ">
           <div
             onClick={() => handleTabClick("explore")}
-            className="mb-[1.6rem] rounded-[8px]  py-[1.091rem]  px-[5.0rem] hover:bg-[#f2f2f2] "
+            className="mb-[1.6rem] rounded-[8px]  py-[1.091rem]  px-[5.0rem]  "
           >
             <MdExplore
               className={`${
@@ -61,7 +61,7 @@ const AppNav = () => {
         <div className="relative ">
           <div
             onClick={() => handleTabClick("bookmarks")}
-            className="mb-[1.6rem] rounded-[8px]  py-[1.091rem]  px-[5.0rem] hover:bg-[#f2f2f2] "
+            className="mb-[1.6rem] rounded-[8px]  py-[1.091rem]  px-[5.0rem]  "
           >
             <IoMdBookmark
               className={`${
