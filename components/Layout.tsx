@@ -12,20 +12,16 @@ const poppins = Poppins({
 });
 
 const Layout = ({ children }: LayoutProps) => {
-  // const { state, setState } = useContext(UserContext);
-
   const router = useRouter();
   const isHomePage = router.pathname === "/sign-in";
   return (
     <div
       className={`${poppins.className} min-h-screen bg-[#eee] bg-opacity-40`}
     >
-      {/* <UserProvider> */}
       <Toaster />
       {!isHomePage && <Navbar />}
       {children}
       {!isHomePage && <AppNav />}
-      {/* </UserProvider> */}
     </div>
   );
 };

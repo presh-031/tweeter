@@ -3,12 +3,20 @@ import { IconContext } from "react-icons";
 import { IoMdBookmark } from "react-icons/io";
 import { MdExplore } from "react-icons/md";
 import { useState } from "react";
+import { useRouter } from "next/router";
 
 const AppNav = () => {
   const [activeTab, setActiveTab] = useState("tweets");
 
+  const router = useRouter();
   const handleTabClick = (tabName: string) => {
     setActiveTab(tabName);
+
+    if (tabName === "tweets") {
+      router.push("/");
+    } else {
+      router.push(`/${tabName}`);
+    }
   };
   return (
     // Checkout little blue styling for active link
@@ -28,8 +36,8 @@ const AppNav = () => {
 
           <div
             className={`${
-              activeTab === "tweets" ? "bg-[#2F80ED]" : "bg-transparent"
-            } mx-auto h-[.3rem] w-[8rem] rounded-t-[8px] bg-[#2F80ED]`}
+              activeTab === "tweets" ? "scale-x-100" : "scale-x-0"
+            } mx-auto h-[.3rem] w-[8rem] rounded-t-[8px] bg-[#2F80ED]  transition-transform duration-200`}
           ></div>
         </div>
         <div>
@@ -45,8 +53,8 @@ const AppNav = () => {
           </div>
           <div
             className={`${
-              activeTab === "explore" ? "bg-[#2F80ED]" : "bg-transparent"
-            } mx-auto h-[.3rem] w-[8rem] rounded-t-[8px] bg-[#2F80ED]`}
+              activeTab === "explore" ? "scale-x-100" : "scale-x-0"
+            } mx-auto h-[.3rem] w-[8rem] rounded-t-[8px] bg-[#2F80ED]  transition-transform duration-200`}
           ></div>
         </div>
         <div>
@@ -62,8 +70,8 @@ const AppNav = () => {
           </div>
           <div
             className={`  ${
-              activeTab === "bookmarks" ? "bg-[#2F80ED]" : "bg-transparent"
-            } mx-auto h-[.3rem] w-[8rem] rounded-t-[8px] bg-[#2F80ED]`}
+              activeTab === "bookmarks" ? "scale-x-100" : "scale-x-0"
+            } mx-auto h-[.3rem] w-[8rem] rounded-t-[8px] bg-[#2F80ED] transition-transform duration-200`}
           ></div>
         </div>{" "}
       </nav>
