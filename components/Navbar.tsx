@@ -100,7 +100,7 @@ const Navbar = () => {
           className="h-[3.2rem] w-[3.2rem] rounded-[8px] outline"
         />
 
-        <p>
+        <p className="text-lg">
           {userInfo.displayName
             ? `@${userInfo.displayName}`
             : userInfo.userName}
