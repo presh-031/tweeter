@@ -22,7 +22,7 @@ const AppNav = () => {
     // Checkout little blue styling for active link
     <IconContext.Provider value={{ className: "app-nav-icons" }}>
       <nav className="fixed bottom-0 flex w-full items-center justify-between bg-white pt-[2rem]  shadow-md">
-        <div>
+        <div className="relative ">
           <div
             onClick={() => handleTabClick("tweets")}
             className="mb-[1.6rem] rounded-[8px]  py-[1.091rem]  px-[5.0rem] hover:bg-[#f2f2f2] "
@@ -37,10 +37,10 @@ const AppNav = () => {
           <div
             className={`${
               activeTab === "tweets" ? "scale-x-100" : "scale-x-0"
-            } mx-auto h-[.3rem] w-[8rem] rounded-t-[8px] bg-[#2F80ED]  transition-transform duration-200`}
+            } absolute  left-1/2 bottom-0 h-[.3rem] w-[8rem]  -translate-x-1/2 transform rounded-t-[8px] bg-[#2F80ED]  transition-transform duration-200`}
           ></div>
         </div>
-        <div>
+        <div className="relative ">
           <div
             onClick={() => handleTabClick("explore")}
             className="mb-[1.6rem] rounded-[8px]  py-[1.091rem]  px-[5.0rem] hover:bg-[#f2f2f2] "
@@ -54,10 +54,10 @@ const AppNav = () => {
           <div
             className={`${
               activeTab === "explore" ? "scale-x-100" : "scale-x-0"
-            } mx-auto h-[.3rem] w-[8rem] rounded-t-[8px] bg-[#2F80ED]  transition-transform duration-200`}
+            } absolute  left-1/2 bottom-0 h-[.3rem] w-[8rem]  -translate-x-1/2 transform rounded-t-[8px] bg-[#2F80ED]  transition-transform duration-200`}
           ></div>
         </div>
-        <div>
+        <div className="relative ">
           <div
             onClick={() => handleTabClick("bookmarks")}
             className="mb-[1.6rem] rounded-[8px]  py-[1.091rem]  px-[5.0rem] hover:bg-[#f2f2f2] "
@@ -71,7 +71,7 @@ const AppNav = () => {
           <div
             className={`  ${
               activeTab === "bookmarks" ? "scale-x-100" : "scale-x-0"
-            } mx-auto h-[.3rem] w-[8rem] rounded-t-[8px] bg-[#2F80ED] transition-transform duration-200`}
+            } absolute  left-1/2 bottom-0 h-[.3rem] w-[8rem]  -translate-x-1/2 transform rounded-t-[8px] bg-[#2F80ED]  transition-transform duration-200`}
           ></div>
         </div>{" "}
       </nav>
