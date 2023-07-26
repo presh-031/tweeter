@@ -6,7 +6,7 @@ import { useState } from "react";
 import { useRouter } from "next/router";
 
 const AppNav = () => {
-  // should get route from client and pass in as default
+  // Get route from client and pass in as default
   const router = useRouter();
   const page = router.pathname;
   const [activeTab, setActiveTab] = useState(page);
@@ -16,7 +16,6 @@ const AppNav = () => {
     router.push(tabName);
   };
   return (
-    // Checkout little blue styling for active link
     <IconContext.Provider value={{ className: "app-nav-icons" }}>
       <nav className="fixed bottom-0 flex w-full items-center justify-between bg-white pt-[2rem] shadow-md">
         <div className="relative ">

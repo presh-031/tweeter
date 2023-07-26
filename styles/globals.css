@@ -31,10 +31,7 @@
 .tweet-icons-btn {
   padding: 1.141rem 2.592rem;
   border-radius: 8px;
-}
-
-.tweet-icons-btn:hover {
-  background-color: #f2f2f2;
+  cursor: pointer;
 }
 
 .tweet-icons {

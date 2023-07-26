@@ -1,4 +1,7 @@
+import { db } from "@/config/firebase";
+import { collection, orderBy, query, where } from "firebase/firestore";
 import React, { useState } from "react";
+import { useCollection } from "react-firebase-hooks/firestore";
 
 const Explore = () => {
   const [activeTab, setActiveTab] = useState("top");
@@ -6,6 +9,18 @@ const Explore = () => {
   const handleTabClick = (tabName: string) => {
     setActiveTab(tabName);
   };
+
+  // Get all user's tweets with the most interactions
+  // const tweetsRef = collection(db, "tweets");
+
+  // const tweetsQuery = query(tweetsRef, where("userId", "==", uid));
+
+  // const [tweetsListSnapshot, loading, error] = useCollection(tweetsQuery, {
+  //   snapshotListenOptions: { includeMetadataChanges: true },
+  // });
+  // const topTweets = tweetsListSnapshot?.docs;
+
+  // console.log(topTweets)
   return (
     <div className=" px-[1.90rem] pb-[9.615rem]">
       <ul className="mt-[3.3rem] space-y-[1.2rem] rounded-[.8rem] bg-white py-[2rem] text-[1.4rem] font-semibold leading-normal tracking-[0.049rem]  text-[#828282] shadow-sm">
