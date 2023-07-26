@@ -7,17 +7,13 @@ import { useRouter } from "next/router";
 
 const AppNav = () => {
   // should get route from client and pass in as default
-  const [activeTab, setActiveTab] = useState("tweets");
-
   const router = useRouter();
+  const page = router.pathname;
+  const [activeTab, setActiveTab] = useState(page);
+
   const handleTabClick = (tabName: string) => {
     setActiveTab(tabName);
-
-    if (tabName === "tweets") {
-      router.push("/");
-    } else {
-      router.push(`/${tabName}`);
-    }
+    router.push(tabName);
   };
   return (
     // Checkout little blue styling for active link
@@ -25,53 +21,53 @@ const AppNav = () => {
       <nav className="fixed bottom-0 flex w-full items-center justify-between bg-white pt-[2rem] shadow-md">
         <div className="relative ">
           <div
-            onClick={() => handleTabClick("tweets")}
+            onClick={() => handleTabClick("/")}
             className="mb-[1.6rem] rounded-[8px]  py-[1.091rem]  px-[5.0rem]  "
           >
             <AiFillHome
               className={`${
-                activeTab === "tweets" ? "text-[#2F80ED]" : "text-[#828282]"
+                activeTab === "/" ? "text-[#2F80ED]" : "text-[#828282]"
               }`}
             />
           </div>
 
           <div
             className={`${
-              activeTab === "tweets" ? "scale-x-100" : "scale-x-0"
+              activeTab === "/" ? "scale-x-100" : "scale-x-0"
             } absolute  left-1/2 bottom-0 h-[.3rem] w-[8rem]  -translate-x-1/2 transform rounded-t-[8px] bg-[#2F80ED]  transition-transform duration-200`}
           ></div>
         </div>
         <div className="relative ">
           <div
-            onClick={() => handleTabClick("explore")}
+            onClick={() => handleTabClick("/explore")}
             className="mb-[1.6rem] rounded-[8px]  py-[1.091rem]  px-[5.0rem]  "
           >
             <MdExplore
               className={`${
-                activeTab === "explore" ? "text-[#2F80ED]" : "text-[#828282]"
+                activeTab === "/explore" ? "text-[#2F80ED]" : "text-[#828282]"
               }`}
             />
           </div>
           <div
             className={`${
-              activeTab === "explore" ? "scale-x-100" : "scale-x-0"
+              activeTab === "/explore" ? "scale-x-100" : "scale-x-0"
             } absolute  left-1/2 bottom-0 h-[.3rem] w-[8rem]  -translate-x-1/2 transform rounded-t-[8px] bg-[#2F80ED]  transition-transform duration-200`}
           ></div>
         </div>
         <div className="relative ">
           <div
-            onClick={() => handleTabClick("bookmarks")}
+            onClick={() => handleTabClick("/bookmarks")}
             className="mb-[1.6rem] rounded-[8px]  py-[1.091rem]  px-[5.0rem]  "
           >
             <IoMdBookmark
               className={`${
-                activeTab === "bookmarks" ? "text-[#2F80ED]" : "text-[#828282]"
+                activeTab === "/bookmarks" ? "text-[#2F80ED]" : "text-[#828282]"
               }`}
             />
           </div>
           <div
             className={`  ${
-              activeTab === "bookmarks" ? "scale-x-100" : "scale-x-0"
+              activeTab === "/bookmarks" ? "scale-x-100" : "scale-x-0"
             } absolute  left-1/2 bottom-0 h-[.3rem] w-[8rem]  -translate-x-1/2 transform rounded-t-[8px] bg-[#2F80ED]  transition-transform duration-200`}
           ></div>
         </div>{" "}
