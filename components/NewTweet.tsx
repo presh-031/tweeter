@@ -76,7 +76,6 @@ const NewTweet = () => {
             };
 
             setUserInfo(userInfoData);
-            // setUserInfo(userDoc);
           }
         } catch (err) {
           console.error(err);

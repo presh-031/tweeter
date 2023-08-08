@@ -41,7 +41,6 @@ export type TweetProps = {
 export type AddCommentProps = {
   tweetId: string;
   setShowAddComment: React.Dispatch<React.SetStateAction<boolean>>;
-
   onKeyDown: (e: React.KeyboardEvent<HTMLInputElement>) => void;
 };
 
@@ -49,3 +48,5 @@ export type ExploreTabsProps = {
   activeTab: string;
   handleTabClick: (string) => void;
 };
+
+// add UserNavProps here.
