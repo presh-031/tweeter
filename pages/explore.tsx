@@ -1,6 +1,7 @@
 import ExploreTabs from "@/components/ExploreTabs";
 import LatestTweets from "@/components/LatestTweets";
 import TopTweets from "@/components/TopTweets";
+import WithAuthUser from "@/components/WithAuthUser";
 import React, { useEffect, useState } from "react";
 
 const Explore = () => {
@@ -28,4 +29,4 @@ const Explore = () => {
   );
 };
 
-export default Explore;
+export default WithAuthUser(Explore);
