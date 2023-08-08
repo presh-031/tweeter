@@ -1,7 +1,4 @@
-import AllTweets from "@/components/AllTweets";
-import NewTweet from "@/components/NewTweet";
-import WithAuthUser from "@/components/WithAuthUser";
-
+import { WithAuthUser, NewTweet, AllTweets } from "../index";
 const Home = () => {
   return (
     <div className=" px-[1.90rem] pb-[9.615rem]">

@@ -1,11 +1,8 @@
+import { MediaProps } from "@/typings";
 import Image from "next/image";
 import React from "react";
 
-interface MediaProps {
-  images: string[];
-}
-
-const Media: React.FC<MediaProps> = ({ images }) => {
+const Media = ({ images }: MediaProps) => {
   const numImages = images.length;
   return (
     <div className="flex flex-wrap">

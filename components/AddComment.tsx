@@ -1,7 +1,6 @@
 import { auth, db } from "@/config/firebase";
 import { addDoc, collection, doc, getDoc, Timestamp } from "firebase/firestore";
 import { useEffect, useRef, useState } from "react";
-
 import { AddCommentProps } from "@/typings";
 import Image from "next/image";
 import { useAuthState } from "react-firebase-hooks/auth";
@@ -9,7 +8,7 @@ import { toast } from "react-hot-toast";
 import { AiOutlineLoading3Quarters } from "react-icons/ai";
 
 const AddComment = ({ tweetId, setShowAddComment }: AddCommentProps) => {
-  // Logic to get info of auth user, for Id and profilePic
+  // For user Id and profilePic
   const [currentUser] = useAuthState(auth);
   const currentUserId = currentUser ? currentUser.uid : "";
 

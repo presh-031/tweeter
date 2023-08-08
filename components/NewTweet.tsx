@@ -1,7 +1,6 @@
 import { auth, db } from "@/config/firebase";
 import { addDoc, collection, doc, getDoc, Timestamp } from "firebase/firestore";
 import { useEffect, useState } from "react";
-
 import { userInfoType } from "@/typings";
 import Image from "next/image";
 import { useAuthState } from "react-firebase-hooks/auth";

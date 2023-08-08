@@ -2,7 +2,7 @@ import { collection, orderBy, query } from "firebase/firestore";
 
 import { db } from "@/config/firebase";
 import { useCollection } from "react-firebase-hooks/firestore";
-import Tweet from "./Tweet";
+import { Tweet } from "../index";
 
 const AllTweets = () => {
   const tweetsRef = collection(db, "tweets");

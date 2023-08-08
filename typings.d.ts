@@ -53,3 +53,7 @@ export type ExploreTabsProps = {
 type UserNavProps = {
   toggleShowUserNav: () => void;
 };
+
+type MediaProps = {
+  images: string[];
+};

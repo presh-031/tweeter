@@ -1,8 +1,5 @@
 import { doc, updateDoc } from "firebase/firestore";
-
 import { db } from "@/config/firebase";
-
-// post tweet
 
 // like tweet
 export const likeTweet = async (

@@ -18,8 +18,7 @@ import { AiOutlineHeart } from "react-icons/ai";
 import { FaRetweet } from "react-icons/fa";
 import { HiOutlineBookmark } from "react-icons/hi";
 import { MdOutlineModeComment } from "react-icons/md";
-import AddComment from "../AddComment";
-import TweetMedia from "./TweetMedia";
+import { TweetMedia, AddComment } from "../../index";
 
 const Tweet = ({
   tweetId,

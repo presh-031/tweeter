@@ -1,15 +1,14 @@
 import { auth, db } from "@/config/firebase";
 import { doc, getDoc } from "firebase/firestore";
 import { useEffect, useState } from "react";
-
 import { userInfoType } from "@/typings";
 import Image from "next/image";
 import { useRouter } from "next/router";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { RiArrowDownSFill, RiArrowUpSFill } from "react-icons/ri";
 import logo from "../assets/tweeter.svg";
-import AppNav from "./AppNav";
-import UserNav from "./UserNav";
+
+import { AppNav, UserNav } from "../index";
 
 const Navbar = () => {
   const [showUserNav, setShowUserNav] = useState(false);

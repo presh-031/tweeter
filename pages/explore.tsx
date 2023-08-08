@@ -1,7 +1,4 @@
-import ExploreTabs from "@/components/ExploreTabs";
-import LatestTweets from "@/components/LatestTweets";
-import TopTweets from "@/components/TopTweets";
-import WithAuthUser from "@/components/WithAuthUser";
+import { WithAuthUser, LatestTweets, TopTweets, ExploreTabs } from "../index";
 import React, { useEffect, useState } from "react";
 
 const Explore = () => {

@@ -8,8 +8,8 @@ export const formatDateForTweet = (timestamp: timestampType) => {
   return formattedDate;
 };
 
-export //   Logic to convert timestamp to timeAgo
-const formatDateToTimeAgo = (timestamp: timestampType) => {
+//   Logic to convert timestamp to timeAgo
+export const formatDateToTimeAgo = (timestamp: timestampType) => {
   const date = moment.unix(timestamp.seconds).utcOffset(1);
   return moment(date).fromNow();
 };
