@@ -131,7 +131,7 @@ const NewTweet = () => {
           className="rounded-[4px] bg-blueish px-[2.4rem] py-[.8rem] text-[1.2rem] font-medium leading-[1.6rem] tracking-[-3.5%] text-white"
           type="submit"
           value="Tweet"
-          // onClick={handleNewTweet}
+          onClick={handleNewTweet}
         />
       </div>
     </div>

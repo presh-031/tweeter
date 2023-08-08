@@ -1,22 +1,25 @@
-import { collection, orderBy, query } from "firebase/firestore";
-
 import { db } from "@/config/firebase";
+import { collection, limit, orderBy, query } from "firebase/firestore";
+import React from "react";
 import { useCollection } from "react-firebase-hooks/firestore";
 import Tweet from "./Tweet";
 
-const AllTweets = () => {
+const LatestTweets = () => {
   const tweetsRef = collection(db, "tweets");
-  const tweetsQuery = query(tweetsRef, orderBy("timestamp", "desc"));
-  const [allTweets, loading, error] = useCollection(tweetsQuery, {
+  const tweetsQuery = query(
+    tweetsRef,
+    orderBy("timestamp", "desc"),
+    limit(10) // This orders all tweets by timestamp in descending order
+  );
+  const [latestTweets, loading, error] = useCollection(tweetsQuery, {
     snapshotListenOptions: { includeMetadataChanges: true },
   });
 
-  // console.log(tweets?.docs[0].id);
   return (
     <div>
       {error && <strong>Error: {JSON.stringify(error)}</strong>}
       {loading && <span>Collection: Loading...</span>}
-      {allTweets?.docs.map((tweet) => (
+      {latestTweets?.docs.map((tweet) => (
         <Tweet
           key={tweet.id}
           tweetId={tweet.id}
@@ -32,4 +35,4 @@ const AllTweets = () => {
   );
 };
 
-export default AllTweets;
+export default LatestTweets;

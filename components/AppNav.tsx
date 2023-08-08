@@ -6,7 +6,6 @@ import { useState } from "react";
 import { useRouter } from "next/router";
 
 const AppNav = () => {
-  // Get route from client and pass in as default
   const router = useRouter();
   const page = router.pathname;
   const [activeTab, setActiveTab] = useState(page);

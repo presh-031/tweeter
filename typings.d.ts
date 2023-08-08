@@ -44,3 +44,8 @@ export type AddCommentProps = {
 
   onKeyDown: (e: React.KeyboardEvent<HTMLInputElement>) => void;
 };
+
+export type ExploreTabsProps = {
+  activeTab: string;
+  handleTabClick: (string) => void;
+};
