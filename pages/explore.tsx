@@ -1,10 +1,14 @@
 import ExploreTabs from "@/components/ExploreTabs";
 import LatestTweets from "@/components/LatestTweets";
 import TopTweets from "@/components/TopTweets";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 
 const Explore = () => {
-  const [activeTab, setActiveTab] = useState("top");
+  const storedValue = localStorage.getItem("activeTab");
+  const [activeTab, setActiveTab] = useState(storedValue || "top");
+  useEffect(() => {
+    localStorage.setItem("activeTab", activeTab);
+  }, [activeTab]);
 
   const handleTabClick = (tabName: string) => {
     setActiveTab(tabName);

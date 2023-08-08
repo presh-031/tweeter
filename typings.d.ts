@@ -50,3 +50,6 @@ export type ExploreTabsProps = {
 };
 
 // add UserNavProps here.
+type UserNavProps = {
+  toggleShowUserNav: () => void;
+};

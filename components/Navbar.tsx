@@ -13,6 +13,7 @@ import UserNav from "./UserNav";
 
 const Navbar = () => {
   const [showUserNav, setShowUserNav] = useState(false);
+
   const toggleShowUserNav = () => {
     setShowUserNav((prevShowUserNav) => !prevShowUserNav);
   };

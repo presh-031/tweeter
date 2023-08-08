@@ -17,25 +17,34 @@ const NewTweet = () => {
   const [newTweetText, setNewTweetText] = useState("");
   const [newTweetLoading, setNewTweetLoading] = useState(false);
 
+  const handleTweetChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setNewTweetText(e.target.value);
+  };
+
   const handleNewTweet = async (e: { preventDefault: () => void }) => {
     e.preventDefault();
-    try {
-      setNewTweetLoading(true);
-      await addDoc(collection(db, "tweets"), {
-        text: newTweetText,
-        userId: currentUserId,
-        timestamp: Timestamp.now(),
-        likes: [],
-        retweets: [],
-        media: [],
-        comments: [],
-      });
-      setNewTweetLoading(false);
+    if (newTweetText) {
+      try {
+        setNewTweetLoading(true);
+        await addDoc(collection(db, "tweets"), {
+          text: newTweetText,
+          userId: currentUserId,
+          timestamp: Timestamp.now(),
+          likes: [],
+          retweets: [],
+          media: [],
+          comments: [],
+        });
+        setNewTweetLoading(false);
+        toast.success("Posted!");
+        setNewTweetText("");
+      } catch (err) {
+        toast.success("Try again!");
+        alert(err);
+      }
+    } else {
+      // "success"?
       toast.success("Posted!");
-      setNewTweetText("");
-    } catch (err) {
-      toast.success("Try again!");
-      alert(err);
     }
   };
 
@@ -109,11 +118,8 @@ const NewTweet = () => {
           type="text"
           placeholder="What's happening?"
           value={newTweetText}
-          onChange={(e) => {
-            setNewTweetText(e.target.value);
-          }}
+          onChange={handleTweetChange}
         />
-        {/* Loading spinner */}
         {newTweetLoading && (
           <AiOutlineLoading3Quarters className="animate-spin text-4xl text-blueish" />
         )}
