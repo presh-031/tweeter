@@ -80,8 +80,21 @@ const Tweet = ({
 
   const handleTweetClick = (e: any) => {
     e.preventDefault();
+    router.push(`/tweet/${tweetId}`);
+  };
 
-    router.push(`/tweets/${tweetId}`);
+  const retweet = (e: any) => {
+    e.stopPropagation();
+    retweets.includes(currentUserId)
+      ? unRetweetTweet(tweetId, currentUserId, retweets)
+      : retweetTweet(tweetId, currentUserId, retweets);
+  };
+
+  const like = (e: any) => {
+    e.stopPropagation();
+    likes.includes(currentUserId)
+      ? unlikeTweet(tweetId, currentUserId, likes)
+      : likeTweet(tweetId, currentUserId, likes);
   };
 
   return (
@@ -132,6 +145,7 @@ const Tweet = ({
           <div>
             <TweetMedia images={media} />
           </div>
+
           <div className="mt-[1.4rem] mb-[0.651rem] flex justify-end gap-[1.6rem]">
             <span className="tweet-stats">
               {likes.length} {likes.length > 1 ? "Likes" : "Like"}
@@ -152,30 +166,14 @@ const Tweet = ({
             <MdOutlineModeComment className="tweet-icons" />
             <span className="hidden">Comment</span>
           </button>
-          <button
-            onClick={(e) => {
-              e.stopPropagation();
-              retweets.includes(currentUserId)
-                ? unRetweetTweet(tweetId, currentUserId, retweets)
-                : retweetTweet(tweetId, currentUserId, retweets);
-            }}
-            className="tweet-icons-btn"
-          >
+          <button onClick={retweet} className="tweet-icons-btn">
             <FaRetweet
               style={retweets.includes(currentUserId) ? { color: "red" } : {}}
               className="tweet-icons"
             />
             <span className="hidden">Retweet</span>
           </button>
-          <button
-            onClick={(e) => {
-              e.stopPropagation();
-              likes.includes(currentUserId)
-                ? unlikeTweet(tweetId, currentUserId, likes)
-                : likeTweet(tweetId, currentUserId, likes);
-            }}
-            className="tweet-icons-btn"
-          >
+          <button onClick={like} className="tweet-icons-btn">
             <AiOutlineHeart
               className="tweet-icons"
               style={likes.includes(currentUserId) ? { color: "red" } : {}}

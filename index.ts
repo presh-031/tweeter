@@ -9,3 +9,4 @@ export { default as UserNav } from "./components/UserNav";
 export { default as Tweet } from "./components/Tweet/index";
 export { default as AddComment } from "./components/AddComment";
 export { default as TweetMedia } from "./components/Tweet/TweetMedia";
+export { default as Comment } from "./components/Comment";

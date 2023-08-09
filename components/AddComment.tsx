@@ -22,12 +22,12 @@ const AddComment = ({ tweetId, setShowAddComment }: AddCommentProps) => {
     };
 
     getUser();
-    // }, [currentUserId]
-  }, [userRef]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   // Logic to handle comment creation
   const inputRef = useRef<HTMLInputElement>(null);
-  const [newCommentLoading, setNewCommentLoading] = useState<boolean>(false);
+  const [newCommentLoading, setNewCommentLoading] = useState(false);
 
   const handleKeyDown = async (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.key == "Enter") {
@@ -37,7 +37,7 @@ const AddComment = ({ tweetId, setShowAddComment }: AddCommentProps) => {
         try {
           setNewCommentLoading(true);
           await addDoc(collection(db, "comments"), {
-            // id will be automatically generated for each new comment in the firebase
+            // id will be automatically generated for each new comment in the firestore
             comment,
             tweetId,
             userId: currentUserId,
@@ -49,7 +49,7 @@ const AddComment = ({ tweetId, setShowAddComment }: AddCommentProps) => {
           inputRef.current.value = "";
           setShowAddComment(false);
         } catch (err) {
-          alert(err);
+          console.log(err);
         }
       }
     }
