@@ -1,7 +1,9 @@
 import { auth, db } from "@/config/firebase";
 import {
+  bookmarkTweet,
   likeTweet,
   retweetTweet,
+  unbookmarkTweet,
   unlikeTweet,
   unRetweetTweet,
 } from "@/services/tweetServices";
@@ -98,6 +100,13 @@ const Tweet = ({
       : likeTweet(tweetId, currentUserId, likes);
   };
 
+  const bookmark = (e: any) => {
+    e.stopPropagation();
+    bookmarkedBy.includes(currentUserId)
+      ? unbookmarkTweet(tweetId, currentUserId, bookmarkedBy)
+      : bookmarkTweet(tweetId, currentUserId, bookmarkedBy);
+  };
+
   return (
     <div onClick={handleTweetClick} className="my-[2.317rem]">
       {/* <p>Daniel Jensen Retweeted</p> */}
@@ -181,13 +190,13 @@ const Tweet = ({
             />
             <span className="hidden">Likes</span>
           </button>
-          <button
-            onClick={(e) => {
-              e.stopPropagation();
-            }}
-            className="tweet-icons-btn"
-          >
-            <HiOutlineBookmark className="tweet-icons" />
+          <button onClick={bookmark} className="tweet-icons-btn">
+            <HiOutlineBookmark
+              className="tweet-icons"
+              style={
+                bookmarkedBy.includes(currentUserId) ? { color: "blue" } : {}
+              }
+            />
             <span className="hidden">Save</span>
           </button>
         </div>

@@ -69,3 +69,42 @@ export const unRetweetTweet = async (
     alert(err);
   }
 };
+
+// bookmarkTweet
+export const bookmarkTweet = async (
+  tweetId: string,
+  currentUserId: string,
+  bookmarkedBy: string[]
+) => {
+  const tweetDocRef = doc(db, "tweets", tweetId);
+
+  try {
+    await updateDoc(tweetDocRef, {
+      bookmarkedBy: [...bookmarkedBy, currentUserId],
+    });
+  } catch (err) {
+    alert(err);
+  }
+};
+
+// unbookmark tweet
+export const unbookmarkTweet = async (
+  tweetId: string,
+  currentUserId: string,
+  bookmarkedBy: string[]
+) => {
+  const tweetDocRef = doc(db, "tweets", tweetId);
+
+  // retweets still not adding up in tweets list
+  try {
+    await updateDoc(tweetDocRef, {
+      bookmarkedBy: bookmarkedBy.filter(
+        (bookmarker) => bookmarker !== currentUserId
+      ),
+    });
+  } catch (err) {
+    alert(err);
+  }
+};
+
+// unbookmark tweet
