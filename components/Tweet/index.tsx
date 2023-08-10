@@ -28,6 +28,7 @@ const Tweet = ({
   text,
   timestamp,
   userId,
+  bookmarkedBy,
 }: TweetProps) => {
   const router = useRouter();
   // Logic to get info about the user with userId for each tweet
@@ -157,7 +158,7 @@ const Tweet = ({
               {tweetComments.length}{" "}
               {tweetComments.length > 1 ? "Comments" : "Comment"}
             </span>
-            <span className="tweet-stats">234 Saved</span>
+            <span className="tweet-stats">{bookmarkedBy.length} Saved</span>
           </div>
         </div>
 

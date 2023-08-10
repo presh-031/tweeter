@@ -11,7 +11,7 @@ const AllTweets = () => {
     snapshotListenOptions: { includeMetadataChanges: true },
   });
 
-  // console.log(tweets?.docs[0].id);
+  console.log(allTweets?.docs[2].data());
   return (
     <div>
       {error && <strong>Error: {JSON.stringify(error)}</strong>}
@@ -26,6 +26,7 @@ const AllTweets = () => {
           text={tweet.data().text}
           timestamp={tweet.data().timestamp}
           userId={tweet.data().userId}
+          bookmarkedBy={tweet.data().bookmarkedBy}
         />
       ))}
     </div>

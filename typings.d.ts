@@ -36,6 +36,7 @@ export type TweetProps = {
   text: string;
   timestamp: timestampType;
   userId: string;
+  bookmarkedBy: string[];
 };
 
 export type AddCommentProps = {

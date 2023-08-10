@@ -29,7 +29,7 @@ const TweetInfo = () => {
       snapshotListenOptions: { includeMetadataChanges: true },
     }
   );
-  console.log(comments?.docs[0]?.data());
+  // console.log(comments?.docs[0]?.data());
 
   // still yet to order comments by timestamp.
   return (
