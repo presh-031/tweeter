@@ -45,6 +45,7 @@ const TweetInfo = () => {
           text={tweet.data()?.text}
           timestamp={tweet.data()?.timestamp}
           userId={tweet.data()?.userId}
+          bookmarkedBy={tweet.data()?.bookmarkedBy}
         />
       )}
 
