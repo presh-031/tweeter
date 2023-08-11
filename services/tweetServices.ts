@@ -95,7 +95,6 @@ export const unbookmarkTweet = async (
 ) => {
   const tweetDocRef = doc(db, "tweets", tweetId);
 
-  // retweets still not adding up in tweets list
   try {
     await updateDoc(tweetDocRef, {
       bookmarkedBy: bookmarkedBy.filter(
@@ -106,5 +105,3 @@ export const unbookmarkTweet = async (
     alert(err);
   }
 };
-
-// unbookmark tweet
