@@ -7,7 +7,7 @@ import { WithAuthUser, Comment, Tweet } from "../../index";
 const TweetInfo = () => {
   const router = useRouter();
   const { id } = router.query;
-  const routeId = `${id ? id : ""}`;
+  const routeId = id ? id.toString() : "";
 
   const [tweet, tweetLoading, tweetError] = useDocument(
     doc(db, "tweets", routeId),

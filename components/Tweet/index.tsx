@@ -21,6 +21,11 @@ import { FaRetweet } from "react-icons/fa";
 import { HiOutlineBookmark } from "react-icons/hi";
 import { MdOutlineModeComment } from "react-icons/md";
 import { TweetMedia, AddComment } from "../../index";
+import {
+  handleBookmarks,
+  handleLikes,
+  handleRetweets,
+} from "@/helpers/tweetHelpers";
 
 const Tweet = ({
   tweetId,
@@ -86,25 +91,19 @@ const Tweet = ({
     router.push(`/tweet/${tweetId}`);
   };
 
-  const retweet = (e: any) => {
+  const handleLikeBtn = (e: any) => {
     e.stopPropagation();
-    retweets.includes(currentUserId)
-      ? unRetweetTweet(tweetId, currentUserId, retweets)
-      : retweetTweet(tweetId, currentUserId, retweets);
+    handleLikes(tweetId, currentUserId, likes);
   };
 
-  const like = (e: any) => {
+  const handleRetweetBtn = (e: any) => {
     e.stopPropagation();
-    likes.includes(currentUserId)
-      ? unlikeTweet(tweetId, currentUserId, likes)
-      : likeTweet(tweetId, currentUserId, likes);
+    handleRetweets(tweetId, currentUserId, retweets);
   };
 
-  const bookmark = (e: any) => {
+  const handleBookmarkBtn = (e: any) => {
     e.stopPropagation();
-    bookmarkedBy.includes(currentUserId)
-      ? unbookmarkTweet(tweetId, currentUserId, bookmarkedBy)
-      : bookmarkTweet(tweetId, currentUserId, bookmarkedBy);
+    handleBookmarks(tweetId, currentUserId, bookmarkedBy);
   };
 
   return (
@@ -176,21 +175,21 @@ const Tweet = ({
             <MdOutlineModeComment className="tweet-icons" />
             <span className="hidden">Comment</span>
           </button>
-          <button onClick={retweet} className="tweet-icons-btn">
+          <button onClick={handleRetweetBtn} className="tweet-icons-btn">
             <FaRetweet
               style={retweets.includes(currentUserId) ? { color: "red" } : {}}
               className="tweet-icons"
             />
             <span className="hidden">Retweet</span>
           </button>
-          <button onClick={like} className="tweet-icons-btn">
+          <button onClick={handleLikeBtn} className="tweet-icons-btn">
             <AiOutlineHeart
               className="tweet-icons"
               style={likes.includes(currentUserId) ? { color: "red" } : {}}
             />
             <span className="hidden">Likes</span>
           </button>
-          <button onClick={bookmark} className="tweet-icons-btn">
+          <button onClick={handleBookmarkBtn} className="tweet-icons-btn">
             <HiOutlineBookmark
               className="tweet-icons"
               style={
