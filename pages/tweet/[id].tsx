@@ -1,4 +1,4 @@
-import { collection, doc, query, where } from "firebase/firestore";
+import { collection, doc, orderBy, query, where } from "firebase/firestore";
 import { useCollection, useDocument } from "react-firebase-hooks/firestore";
 import { db } from "@/config/firebase";
 import { useRouter } from "next/router";
@@ -16,12 +16,13 @@ const TweetInfo = () => {
     }
   );
 
-  // Logic to get tweet comments
+  //Tweet comments
   const commentsRef = collection(db, "comments");
+  // still yet to order comments by timestamp.
   const commentsQuery = query(
     commentsRef,
-    // orderBy("timestamp", "desc"),
     where("tweetId", "==", id)
+    // orderBy("timestamp", "desc")
   );
   const [comments, commentsLoading, commentsError] = useCollection(
     commentsQuery,
@@ -29,9 +30,7 @@ const TweetInfo = () => {
       snapshotListenOptions: { includeMetadataChanges: true },
     }
   );
-  // console.log(comments?.docs[0]?.data());
 
-  // still yet to order comments by timestamp.
   return (
     <div className="px-[1.90rem] pb-[9.615rem]">
       {tweetError && <strong>Error: {JSON.stringify(tweetError)}</strong>}
@@ -49,7 +48,7 @@ const TweetInfo = () => {
         />
       )}
 
-      <p className="mb-4 text-[1.8rem] font-medium">Comments</p>
+      <p className="my-2 text-[1.8rem] font-medium">Comments</p>
       {commentsError && <strong>Error: {JSON.stringify(commentsError)}</strong>}
       {commentsLoading && <span>Collection: Loading...</span>}
       {comments ? (
