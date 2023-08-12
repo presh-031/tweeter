@@ -28,13 +28,6 @@
   visibility: hidden;
 }
 
-/* @media (prefers-color-scheme: dark) {
-  :root {
-    --bg: hsl(var(--hue), 90%, 10%);
-    --fg: hsl(var(--hue), 90%, 90%);
-  }
-} */
-
 @keyframes eye1 {
   from {
     transform: rotate(-260deg) translate(0, -56px);
