@@ -24,14 +24,14 @@ const Bookmarks = () => {
   const bookmarkedTweetsIds = userInfo?.bookmarkedTweets;
 
   // Simply fetching all tweets and filtering on the FE.
-  const tweetsRef = collection(db, "tweets");
-  const [tweetSnapshots, loading, error] = useCollection(tweetsRef, {
-    snapshotListenOptions: { includeMetadataChanges: true },
-  });
+  // const tweetsRef = collection(db, "tweets");
+  // const [tweetSnapshots, loading, error] = useCollection(tweetsRef, {
+  //   snapshotListenOptions: { includeMetadataChanges: true },
+  // });
 
-  const bookmarkedTweets = tweetSnapshots?.docs.filter((doc) =>
-    bookmarkedTweetsIds.includes(doc.id)
-  );
+  // const bookmarkedTweets = tweetSnapshots?.docs.filter((doc) =>
+  //   bookmarkedTweetsIds.includes(doc.id)
+  // );
 
   // const tweetsRef = collection(db, "tweets");
 
