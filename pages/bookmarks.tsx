@@ -54,7 +54,7 @@ const Bookmarks = () => {
   return (
     <div className=" px-[1.90rem] pb-[9.615rem]">
       bookmarks
-      {bookmarkedTweets?.map((tweet) => {
+      {/* {bookmarkedTweets?.map((tweet) => {
         return (
           <Tweet
             key={tweet.id}
@@ -68,7 +68,7 @@ const Bookmarks = () => {
             bookmarkedBy={tweet.data()?.bookmarkedBy}
           />
         );
-      })}
+      })} */}
     </div>
   );
 };
