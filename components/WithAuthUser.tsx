@@ -1,4 +1,4 @@
-import { ReactNode } from "react";
+import { ReactNode, useState, useEffect } from "react";
 import { auth } from "@/config/firebase";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { useRouter } from "next/router";
@@ -11,9 +11,21 @@ const WithAuthUser = (Component: React.ComponentType<any>) => {
   const AuthenticatedComponent = ({ children }: WithAuthUserProps) => {
     const router = useRouter();
     const [user, loading, error] = useAuthState(auth);
+    const [authStatusKnown, setAuthStatusKnown] = useState(false);
 
-    if (loading) {
-      return <p>Loading...</p>;
+    useEffect(() => {
+      if (!loading) {
+        setAuthStatusKnown(true);
+      }
+    }, [loading]);
+
+    if (!authStatusKnown) {
+      return <p>Loading...</p>; // Show loading message until authentication status is known
+    }
+
+    if (error) {
+      console.error("Authentication error:", error);
+      return <p>An error occurred while checking authentication status.</p>;
     }
 
     if (!user) {
