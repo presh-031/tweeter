@@ -11,7 +11,7 @@ const AllTweets = () => {
     snapshotListenOptions: { includeMetadataChanges: true },
   });
 
-  console.log(allTweets?.docs[2].data());
+  // console.log(allTweets?.docs[2].data());
   return (
     <div>
       {error && <strong>Error: {JSON.stringify(error)}</strong>}

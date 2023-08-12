@@ -13,6 +13,8 @@ import { IconContext } from "react-icons";
 import { FaFacebookSquare } from "react-icons/fa";
 import { IoMdLock } from "react-icons/io";
 import { MdEmail } from "react-icons/md";
+import Image from "next/image";
+import logo from "../assets/tweeter.svg";
 
 const SignIn = () => {
   const [signInWithGoogle, user, loading, error] = useSignInWithGoogle(auth);
@@ -59,72 +61,59 @@ const SignIn = () => {
 
   if (user) {
     createNewUser();
-
     router.push("/");
   }
 
   return (
     <IconContext.Provider value={{ className: "react-icons" }}>
-      <div className="p-8">
-        <p className="mb-12 text-4xl">
-          Join thousands of users around the world
-        </p>
-        <p className="mb-12 text-xl">
-          Welcome to Tweeter, the social network where every tweet counts! Join
-          millions of users worldwide and share your thoughts, opinions, and
-          experiences with the world. From breaking news to hilarious memes,
-          Tweeter has it all. Sign in now and let your voice be heard!
+      <div className="bg-white py-24 px-20">
+        <Image src={logo} alt="logo" />
+        <p className="mb-12 mt-8 text-2xl">
+          Join thousands of users around the world.
         </p>
 
-        <form className="flex flex-col gap-3">
-          <div className="flex items-center gap-4 overflow-hidden rounded-xl border-[1px] border-gray-800 pl-4">
+        <form className="flex flex-col gap-6">
+          <div className="flex items-center gap-4 overflow-hidden rounded-xl bg-gray-100  pl-4">
             <MdEmail />
             <input
               type="text"
               placeholder="Email"
-              className="w-full  py-3 text-2xl outline-none"
+              className="w-full bg-transparent py-4 text-2xl outline-none"
             />
           </div>
-          <div className="flex items-center gap-4 overflow-hidden rounded-xl border-[1px] border-gray-800 pl-4">
+          <div className="flex items-center gap-4 overflow-hidden rounded-xl  bg-gray-100 pl-4">
             <IoMdLock />
             <input
               placeholder="Password"
               type="password"
-              className="w-full  py-3 text-2xl outline-none"
+              className="w-full bg-transparent py-4 text-2xl outline-none"
             />
           </div>
           <input
             type="submit"
             value="Start tweeting now"
-            className="mt-2 w-full rounded-xl border py-3 text-2xl"
+            className="mt-2 w-full rounded-xl border bg-blueish py-4 text-2xl font-medium text-white"
           />
-          {loading ? <p>Loading...</p> : <p>{error?.message}</p>}
+          {/* {loading ? <p>Loading...</p> : <p>{error?.message}</p>} */}
         </form>
 
-        <p className="mt-16 text-center">
-          or continue with these social profile
+        <p className="my-6 text-center text-xl">or</p>
+        <button
+          onClick={() => {
+            signInWithGoogle();
+          }}
+          className="mb-6 flex w-full items-center justify-center gap-6 rounded-xl border-[1px] border-gray-800 p-4 text-center text-lg"
+        >
+          <AiOutlineGoogle /> <span>continue with Google</span>
+          {/* loader */}
+        </button>
+        <button className="w-full rounded-xl border-[1px] border-gray-800 p-4 text-center text-lg">
+          continue as guest
+          {/* loader */}
+        </button>
+        <p className="mt-12 text-center text-lg">
+          Already a member? <span className="text-blueish">Login</span>
         </p>
-
-        <div className="mt-8 flex  justify-center gap-8">
-          <div
-            onClick={() => {
-              signInWithGoogle();
-            }}
-            className="grid items-center rounded-full border-[1px] border-gray-800 p-4"
-          >
-            <AiOutlineGoogle />
-          </div>
-          <div className="grid items-center rounded-full border-[1px] border-gray-800 p-4">
-            <FaFacebookSquare />
-          </div>
-          <div className="grid items-center rounded-full border-[1px] border-gray-800 p-4">
-            <AiOutlineTwitter />
-          </div>
-          <div className="grid items-center rounded-full border-[1px] border-gray-800 p-4">
-            <AiFillGithub />
-          </div>
-        </div>
-        <p className="mt-16 text-center">Already a member? Login</p>
       </div>
     </IconContext.Provider>
   );
