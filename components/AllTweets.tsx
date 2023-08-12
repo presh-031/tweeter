@@ -16,7 +16,7 @@ const AllTweets = () => {
     <div>
       {error && <strong>Error: {JSON.stringify(error)}</strong>}
       {loading && <span>Collection: Loading...</span>}
-      {allTweets?.docs.map((tweet) => (
+      {allTweets?.docs?.map((tweet) => (
         <Tweet
           key={tweet.id}
           tweetId={tweet.id}

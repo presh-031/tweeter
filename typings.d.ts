@@ -50,11 +50,10 @@ export type ExploreTabsProps = {
   handleTabClick: (string) => void;
 };
 
-// add UserNavProps here.
-type UserNavProps = {
+export type UserNavProps = {
   toggleShowUserNav: () => void;
 };
 
-type MediaProps = {
+export type MediaProps = {
   images: string[];
 };

@@ -8,8 +8,8 @@ const TopTweets = () => {
   const tweetsRef = collection(db, "tweets");
   const tweetsQuery = query(
     tweetsRef,
-    orderBy("likes", "desc"), // Order by the number of likes in descending order
-    limit(10) // Retrieve the top 10 tweets based on likes
+    orderBy("likes", "desc"),
+    limit(10) //top 10 tweets based on likes
   );
   const [topTweets, loading, error] = useCollection(tweetsQuery, {
     snapshotListenOptions: { includeMetadataChanges: true },
