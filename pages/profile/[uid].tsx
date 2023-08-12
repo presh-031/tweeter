@@ -21,7 +21,7 @@ const Profile = () => {
 
   const router = useRouter();
   const { uid } = router.query;
-  const routeId = `${uid ? uid : ""}`;
+  const routeId = uid ? uid.toString() : "";
 
   const [userInfo, userInfoLoading, userInfoError] = useDocumentData(
     doc(db, "users", routeId),

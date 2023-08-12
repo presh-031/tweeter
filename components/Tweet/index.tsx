@@ -60,19 +60,14 @@ const Tweet = ({
   const [currentUser] = useAuthState(auth);
   const currentUserId = currentUser ? currentUser.uid : "";
 
-  // Logic to handle rendering of commenting component
   const [showAddComment, setShowAddComment] = useState<boolean>(false);
-
   const handleCommentBtnClick = (e: any) => {
     e.stopPropagation();
     setShowAddComment((prevState) => !prevState);
   };
 
-  // Logic to handle fetching of tweet comments
   // Still querying for all comments then filtering with uid and storing in userTweets state, should use a more specific query.
-
   const commentsRef = collection(db, "comments");
-
   const [commentsListSnapshot, loading, error] = useCollection(commentsRef, {
     snapshotListenOptions: { includeMetadataChanges: true },
   });
@@ -86,22 +81,23 @@ const Tweet = ({
     (comment: any) => comment.tweetId === tweetId
   );
 
-  const handleTweetClick = (e: any) => {
+  // tweetHelpers for tweet interactions.
+  const handleTweetClick = (e: { preventDefault: () => void }) => {
     e.preventDefault();
     router.push(`/tweet/${tweetId}`);
   };
 
-  const handleLikeBtn = (e: any) => {
+  const handleLikeBtn = (e: { stopPropagation: () => void }) => {
     e.stopPropagation();
     handleLikes(tweetId, currentUserId, likes);
   };
 
-  const handleRetweetBtn = (e: any) => {
+  const handleRetweetBtn = (e: { stopPropagation: () => void }) => {
     e.stopPropagation();
     handleRetweets(tweetId, currentUserId, retweets);
   };
 
-  const handleBookmarkBtn = (e: any) => {
+  const handleBookmarkBtn = (e: { stopPropagation: () => void }) => {
     e.stopPropagation();
     handleBookmarks(tweetId, currentUserId, bookmarkedBy);
   };
@@ -202,11 +198,7 @@ const Tweet = ({
 
         {/* Add comment */}
         {showAddComment && (
-          <AddComment
-            tweetId={tweetId}
-            onKeyDown={() => {}}
-            setShowAddComment={setShowAddComment}
-          />
+          <AddComment tweetId={tweetId} setShowAddComment={setShowAddComment} />
         )}
       </div>
     </div>
