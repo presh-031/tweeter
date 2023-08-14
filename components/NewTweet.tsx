@@ -8,6 +8,7 @@ import { toast } from "react-hot-toast";
 import { AiOutlineLoading3Quarters } from "react-icons/ai";
 import { BiWorld } from "react-icons/bi";
 import { MdOutlineImage } from "react-icons/md";
+import { GeneralLoader } from "..";
 
 const NewTweet = () => {
   const [currentUser] = useAuthState(auth);

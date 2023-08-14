@@ -146,7 +146,6 @@ const Tweet = ({
         </div>
 
         <div>
-          {/* Clicking the media should show you the images better */}
           <div>
             <TweetMedia images={media} />
           </div>
