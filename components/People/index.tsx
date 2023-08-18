@@ -39,6 +39,7 @@ const People = () => {
             headerImageUrl={user.data().headerImageUrl}
             profilePictureUrl={user.data().profilePictureUrl}
             userName={user.data().userName}
+            bookmarkedTweets={[]}
           />
         ))}
       </div>

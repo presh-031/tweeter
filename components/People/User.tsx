@@ -12,6 +12,7 @@ const User = ({
   headerImageUrl,
   profilePictureUrl,
   userName,
+  bookmarkedTweets,
 }: userInfoType) => {
   return (
     <div className=" bg-white  px-[1.523rem] pt-[2rem] shadow-[2px_2px_4px_rgba(0,0,0,0.05)]  hover:cursor-pointer">
