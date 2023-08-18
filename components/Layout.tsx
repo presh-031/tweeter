@@ -13,15 +13,15 @@ const poppins = Poppins({
 
 const Layout = ({ children }: LayoutProps) => {
   const router = useRouter();
-  const isHomePage = router.pathname === "/sign-in";
+  const isSignInPage = router.pathname === "/sign-in";
   return (
     <div
       className={`${poppins.className} min-h-screen bg-[#eee] bg-opacity-40`}
     >
       <Toaster />
-      {!isHomePage && <Navbar />}
+      {!isSignInPage && <Navbar />}
       {children}
-      {!isHomePage && <AppNav />}
+      {!isSignInPage && <AppNav />}
     </div>
   );
 };

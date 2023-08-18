@@ -12,3 +12,4 @@ export { default as TweetMedia } from "./components/Tweet/TweetMedia";
 export { default as Comment } from "./components/Comment";
 export { default as GeneralLoader } from "./components/Loaders/GeneralLoader/index";
 export { default as SignInLoader } from "./components/Loaders/SignInLoader/index";
+export { default as SignInForm } from "./components/SignInForm";
