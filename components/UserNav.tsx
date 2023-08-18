@@ -20,7 +20,7 @@ const UserNav = ({ toggleShowUserNav }: UserNavProps) => {
   };
 
   const handleMyAccountClick = () => {
-    router.push("/edit");
+    router.push("/edit-profile");
     toggleShowUserNav();
   };
 
