@@ -18,7 +18,6 @@ const TweetInfo = () => {
 
   //Tweet comments
   const commentsRef = collection(db, "comments");
-  // still yet to order comments by timestamp.
   const commentsQuery = query(
     commentsRef,
     where("tweetId", "==", id)
