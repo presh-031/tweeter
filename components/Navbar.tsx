@@ -19,21 +19,9 @@ const Navbar = () => {
     setShowUserNav((prevShowUserNav) => !prevShowUserNav);
   };
 
-  // const [userInfo, setUserInfo] = useState<userInfoType>({
-  //   bio: "",
-  //   createdAt: "",
-  //   displayName: "",
-  //   email: "",
-  //   followers: [],
-  //   following: [],
-  //   headerImageUrl: "",
-  //   profilePictureUrl: "",
-  //   userName: "",
-  // });
-
   // Logic to get current user info for navbar
-  const [currentUser, loading, error] = useAuthState(auth);
-  const currentUserId = currentUser ? currentUser.uid : "";
+  const [user] = useAuthState(auth);
+  const currentUserId = user ? user.uid : "";
 
   const [userInfo, userInfoLoading, userInfoError] = useDocumentData(
     doc(db, "users", currentUserId),
@@ -41,42 +29,7 @@ const Navbar = () => {
       snapshotListenOptions: { includeMetadataChanges: true },
     }
   );
-  // useEffect(() => {
-  //   if (currentUserId) {
-  //     const getUser = async () => {
-  //       // loading
-  //       const userRef = doc(db, "users", currentUserId);
-
-  //       try {
-  //         const userSnap = await getDoc(userRef);
-  //         // console.log(userSnap.data());
-  //         const userDoc = userSnap.data();
-
-  //         if (userDoc) {
-  //           const userInfoData: userInfoType = {
-  //             bio: userDoc.bio,
-  //             createdAt: userDoc.createdAt,
-  //             displayName: userDoc.displayName,
-  //             email: userDoc.email,
-  //             followers: userDoc.followers,
-  //             following: userDoc.following,
-  //             headerImageUrl: userDoc.headerImageUrl,
-  //             profilePictureUrl: userDoc.profilePictureUrl,
-  //             userName: userDoc.userName,
-  //           };
-
-  //           setUserInfo(userInfoData);
-  //           // setUserInfo(userDoc);
-  //         }
-  //       } catch (err) {
-  //         console.error(err);
-  //       }
-  //     };
-
-  //     getUser();
-  //   }
-  //   // }, [currentUser]);
-  // }, [currentUserId]);
+  // console.log(userInfo);
 
   return (
     <div className="flex justify-between  bg-white px-[1.7rem] py-[2rem] shadow-[0px_2px_2px_rgba(0,0,0,0.05)]">
@@ -93,7 +46,7 @@ const Navbar = () => {
       </div>
 
       <div onClick={toggleShowUserNav} className="flex items-center gap-4 ">
-        <Image
+        {/* <Image
           src={
             userInfo?.profilePictureUrl
               ? userInfo.profilePictureUrl
@@ -109,7 +62,7 @@ const Navbar = () => {
           {userInfo?.displayName
             ? `@${userInfo.displayName}`
             : userInfo?.userName}
-        </p>
+        </p> */}
 
         {showUserNav ? (
           <RiArrowUpSFill className="text-3xl" />
