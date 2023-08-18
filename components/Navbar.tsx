@@ -8,70 +8,75 @@ import { useAuthState } from "react-firebase-hooks/auth";
 import { RiArrowDownSFill, RiArrowUpSFill } from "react-icons/ri";
 import logo from "../assets/tweeter.svg";
 import userPlaceholder from "../assets/user-placeholder.png";
-
 import { AppNav, UserNav } from "../index";
+import { useDocumentData } from "react-firebase-hooks/firestore";
 
 const Navbar = () => {
-  const [showUserNav, setShowUserNav] = useState(false);
+  const router = useRouter();
 
+  const [showUserNav, setShowUserNav] = useState(false);
   const toggleShowUserNav = () => {
     setShowUserNav((prevShowUserNav) => !prevShowUserNav);
   };
 
-  const router = useRouter();
-
-  const [userInfo, setUserInfo] = useState<userInfoType>({
-    bio: "",
-    createdAt: "",
-    displayName: "",
-    email: "",
-    followers: [],
-    following: [],
-    headerImageUrl: "",
-    profilePictureUrl: "",
-    userName: "",
-  });
+  // const [userInfo, setUserInfo] = useState<userInfoType>({
+  //   bio: "",
+  //   createdAt: "",
+  //   displayName: "",
+  //   email: "",
+  //   followers: [],
+  //   following: [],
+  //   headerImageUrl: "",
+  //   profilePictureUrl: "",
+  //   userName: "",
+  // });
 
   // Logic to get current user info for navbar
   const [currentUser, loading, error] = useAuthState(auth);
-  const currentUserId = currentUser?.uid;
+  const currentUserId = currentUser ? currentUser.uid : "";
 
-  useEffect(() => {
-    if (currentUserId) {
-      const getUser = async () => {
-        // loading
-        const userRef = doc(db, "users", currentUserId);
-
-        try {
-          const userSnap = await getDoc(userRef);
-          // console.log(userSnap.data());
-          const userDoc = userSnap.data();
-
-          if (userDoc) {
-            const userInfoData: userInfoType = {
-              bio: userDoc.bio,
-              createdAt: userDoc.createdAt,
-              displayName: userDoc.displayName,
-              email: userDoc.email,
-              followers: userDoc.followers,
-              following: userDoc.following,
-              headerImageUrl: userDoc.headerImageUrl,
-              profilePictureUrl: userDoc.profilePictureUrl,
-              userName: userDoc.userName,
-            };
-
-            setUserInfo(userInfoData);
-            // setUserInfo(userDoc);
-          }
-        } catch (err) {
-          console.error(err);
-        }
-      };
-
-      getUser();
+  const [userInfo, userInfoLoading, userInfoError] = useDocumentData(
+    doc(db, "users", currentUserId),
+    {
+      snapshotListenOptions: { includeMetadataChanges: true },
     }
-    // }, [currentUser]);
-  }, [currentUserId]);
+  );
+  // useEffect(() => {
+  //   if (currentUserId) {
+  //     const getUser = async () => {
+  //       // loading
+  //       const userRef = doc(db, "users", currentUserId);
+
+  //       try {
+  //         const userSnap = await getDoc(userRef);
+  //         // console.log(userSnap.data());
+  //         const userDoc = userSnap.data();
+
+  //         if (userDoc) {
+  //           const userInfoData: userInfoType = {
+  //             bio: userDoc.bio,
+  //             createdAt: userDoc.createdAt,
+  //             displayName: userDoc.displayName,
+  //             email: userDoc.email,
+  //             followers: userDoc.followers,
+  //             following: userDoc.following,
+  //             headerImageUrl: userDoc.headerImageUrl,
+  //             profilePictureUrl: userDoc.profilePictureUrl,
+  //             userName: userDoc.userName,
+  //           };
+
+  //           setUserInfo(userInfoData);
+  //           // setUserInfo(userDoc);
+  //         }
+  //       } catch (err) {
+  //         console.error(err);
+  //       }
+  //     };
+
+  //     getUser();
+  //   }
+  //   // }, [currentUser]);
+  // }, [currentUserId]);
 
   return (
     <div className="flex justify-between  bg-white px-[1.7rem] py-[2rem] shadow-[0px_2px_2px_rgba(0,0,0,0.05)]">
@@ -90,7 +95,7 @@ const Navbar = () => {
       <div onClick={toggleShowUserNav} className="flex items-center gap-4 ">
         <Image
           src={
-            userInfo.profilePictureUrl
+            userInfo?.profilePictureUrl
               ? userInfo.profilePictureUrl
               : userPlaceholder
           }
@@ -101,9 +106,9 @@ const Navbar = () => {
         />
 
         <p className="text-lg">
-          {userInfo.displayName
+          {userInfo?.displayName
             ? `@${userInfo.displayName}`
-            : userInfo.userName}
+            : userInfo?.userName}
         </p>
 
         {showUserNav ? (
@@ -112,7 +117,6 @@ const Navbar = () => {
           <RiArrowDownSFill className="text-3xl" />
         )}
       </div>
-
       {showUserNav && <UserNav toggleShowUserNav={toggleShowUserNav} />}
     </div>
   );
