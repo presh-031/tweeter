@@ -1,4 +1,10 @@
-import { WithAuthUser, LatestTweets, TopTweets, ExploreTabs } from "../index";
+import {
+  WithAuthUser,
+  LatestTweets,
+  TopTweets,
+  ExploreTabs,
+  People,
+} from "../index";
 import React, { useEffect, useState } from "react";
 
 const Explore = () => {
@@ -19,7 +25,7 @@ const Explore = () => {
       <div>
         {activeTab === "top" && <TopTweets />}
         {activeTab === "latest" && <LatestTweets />}
-        {/* {activeTab === "latest" && <People/> } */}
+        {activeTab === "people" && <People />}
         {/* {activeTab === "latest" && <MediaTweets/> } */}
       </div>
     </div>

@@ -1,12 +1,5 @@
 import { auth, db } from "@/config/firebase";
-import {
-  bookmarkTweet,
-  likeTweet,
-  retweetTweet,
-  unbookmarkTweet,
-  unlikeTweet,
-  unRetweetTweet,
-} from "@/services/tweetServices";
+
 import { collection, doc, getDoc } from "firebase/firestore";
 import { useEffect, useState } from "react";
 

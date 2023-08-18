@@ -5,7 +5,7 @@ import { collection, doc, query, where } from "firebase/firestore";
 import { useCollection, useDocumentData } from "react-firebase-hooks/firestore";
 import { SlUserFollow, SlUserUnfollow } from "react-icons/sl";
 
-import Tweet from "@/components/Tweet";
+import { Tweet, UnFollow, Follow } from "../../index";
 import WithAuthUser from "@/components/WithAuthUser";
 import Image from "next/image";
 import { useRouter } from "next/router";
@@ -113,29 +113,14 @@ const Profile = () => {
                 </p>
               </div>
 
-              {/* Follow button only shows if the profile page is being visited by another user*/}
-              {/* Clicking btn should follow user */}
               {currentUserIsProfileOwner || (
-                <button
-                  onClick={() => {
-                    userInfo.followers.includes(currentUserId)
-                      ? unFollow(routeId, currentUserId, userInfo, authUserInfo)
-                      : follow(routeId, currentUserId, userInfo, authUserInfo);
-                  }}
-                  className="mx-auto flex items-center gap-[.4rem] rounded-[4px] bg-[#2F80ED] py-[.80rem]  px-[2.4rem] text-[1.2rem] font-medium leading-[1.6rem] tracking-[-3.5%] text-white outline"
-                >
+                <>
                   {userInfo.followers.includes(currentUserId) ? (
-                    <>
-                      <SlUserUnfollow />
-                      <span>UnFollow</span>
-                    </>
+                    <UnFollow />
                   ) : (
-                    <>
-                      <SlUserFollow />
-                      <span>Follow</span>
-                    </>
+                    <Follow />
                   )}
-                </button>
+                </>
               )}
             </div>
 

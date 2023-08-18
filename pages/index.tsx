@@ -14,4 +14,3 @@ const Home = () => {
 };
 
 export default WithAuthUser(Home);
-// export default index;

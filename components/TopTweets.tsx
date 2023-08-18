@@ -9,10 +9,10 @@ const TopTweets = () => {
   const tweetsRef = collection(db, "tweets");
   const tweetsQuery = query(
     tweetsRef,
-    orderBy("likes", "desc"),
+    orderBy("likesCount", "desc"),
     limit(10) //top 10 tweets based on likes
   );
-  const [topTweets, loading, error] = useCollection(tweetsQuery, {
+  const [tweets, loading, error] = useCollection(tweetsQuery, {
     snapshotListenOptions: { includeMetadataChanges: true },
   });
 
@@ -24,7 +24,7 @@ const TopTweets = () => {
           <GeneralLoader />
         </div>
       )}
-      {topTweets?.docs.map((tweet) => (
+      {tweets?.docs.map((tweet) => (
         <Tweet
           key={tweet.id}
           tweetId={tweet.id}
