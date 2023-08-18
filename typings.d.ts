@@ -22,6 +22,18 @@ export type userInfoType = {
   headerImageUrl: string;
   profilePictureUrl: string;
   userName: string;
+  bookmarkedTweets: string[];
+};
+
+export type profileTweetsProps = {
+  profileOwnerId: string;
+};
+
+export type userServicesProps = {
+  routeId: string;
+  currentUserId: string;
+  userInfo: DocumentData;
+  authUserInfo: DocumentData;
 };
 
 export type LayoutProps = {

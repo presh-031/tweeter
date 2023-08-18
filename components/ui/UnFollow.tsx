@@ -1,11 +1,13 @@
-import { db } from "@/config/firebase";
 import { unFollow } from "@/services/userServices";
-import { doc } from "firebase/firestore";
-import React from "react";
-import { useDocumentData } from "react-firebase-hooks/firestore";
+import { userServicesProps } from "@/typings";
 import { SlUserUnfollow } from "react-icons/sl";
 
-const UnFollow = ({ userInfo, routeId, currentUserId, authUserInfo }) => {
+const UnFollow = ({
+  userInfo,
+  routeId,
+  currentUserId,
+  authUserInfo,
+}: userServicesProps) => {
   return (
     <button
       onClick={() => {

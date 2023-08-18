@@ -3,8 +3,9 @@ import Tweet from "./Tweet";
 import { collection, query, where } from "firebase/firestore";
 import { db } from "@/config/firebase";
 import { useCollection } from "react-firebase-hooks/firestore";
+import { profileTweetsProps } from "@/typings";
 
-const ProfileTweets = ({ profileOwnerId }) => {
+const ProfileTweets = ({ profileOwnerId }: profileTweetsProps) => {
   const tweetsRef = collection(db, "tweets");
   const tweetsQuery = query(tweetsRef, where("userId", "==", profileOwnerId));
   const [tweetsListSnapshot, loading, error] = useCollection(tweetsQuery, {

@@ -1,10 +1,13 @@
-import { db } from "@/config/firebase";
 import { follow } from "@/services/userServices";
-import { doc } from "firebase/firestore";
-import { useDocumentData } from "react-firebase-hooks/firestore";
+import { userServicesProps } from "@/typings";
 import { SlUserFollow } from "react-icons/sl";
 
-const Follow = ({ userInfo, routeId, currentUserId, authUserInfo }) => {
+const Follow = ({
+  userInfo,
+  routeId,
+  currentUserId,
+  authUserInfo,
+}: userServicesProps) => {
   return (
     <button
       onClick={() => {
