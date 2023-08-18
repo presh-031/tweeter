@@ -1,13 +1,8 @@
 import { AiOutlineGoogle } from "react-icons/ai";
 import { auth } from "../config/firebase";
 import { useRouter } from "next/router";
-import {
-  useSignInWithEmailAndPassword,
-  useSignInWithGoogle,
-} from "react-firebase-hooks/auth";
+import { useSignInWithGoogle } from "react-firebase-hooks/auth";
 import { IconContext } from "react-icons";
-import { IoMdLock } from "react-icons/io";
-import { MdEmail } from "react-icons/md";
 import Image from "next/image";
 import logo from "../assets/tweeter.svg";
 import { SignInForm, SignInLoader } from "../index";
@@ -22,6 +17,8 @@ const SignIn = () => {
     createNewUserInDb(user);
     router.push("/");
   }
+
+  const disabled = true;
 
   return (
     <IconContext.Provider value={{ className: "react-icons sign-in-icons" }}>
@@ -47,8 +44,10 @@ const SignIn = () => {
         </button>
 
         <button
-          disabled
-          className="flex w-full items-center justify-center gap-2 rounded-xl border-[1px] border-gray-800 p-4 text-center text-xl"
+          disabled={disabled}
+          className={` ${
+            disabled ? "opacity-20" : ""
+          } flex w-full items-center justify-center gap-2 rounded-xl border-[1px] border-gray-800 p-4 text-center text-xl`}
         >
           <FaUser />
           <span> continue as guest</span>

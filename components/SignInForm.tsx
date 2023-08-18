@@ -44,8 +44,6 @@ const SignInForm = () => {
     createNewUserInDb(user);
     router.push("/");
   }
-  console.log(loading);
-  console.log(error);
 
   return (
     <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-6">
