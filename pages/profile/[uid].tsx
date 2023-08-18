@@ -26,10 +26,10 @@ const Profile = () => {
     }
   );
 
-  const [authUserInfo, authUserInfoLoading, authUserInfoError] =
-    useDocumentData(doc(db, "users", currentUserId), {
-      snapshotListenOptions: { includeMetadataChanges: true },
-    });
+  // const [authUserInfo, authUserInfoLoading, authUserInfoError] =
+  //   useDocumentData(doc(db, "users", currentUserId), {
+  //     snapshotListenOptions: { includeMetadataChanges: true },
+  //   });
 
   // determine if the profile page is being visited by the current user or another user
   if (currentUserId === uid) {
