@@ -53,7 +53,11 @@ const Profile = () => {
               alt="header-photo"
               width={375}
               height={168}
-              className="h-[16.8rem] w-[37.5rem] border-y-[1px] border-blueish "
+              className={` ${
+                profileOwnerInfo.headerImageUrl
+                  ? ""
+                  : "border-y-[1px] border-blueish"
+              } h-[16.8rem] w-[37.5rem] `}
             />
           </div>
           <div className="px-[1.90rem] ">
