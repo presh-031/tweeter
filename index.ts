@@ -13,3 +13,5 @@ export { default as Comment } from "./components/Comment";
 export { default as GeneralLoader } from "./components/Loaders/GeneralLoader/index";
 export { default as SignInLoader } from "./components/Loaders/SignInLoader/index";
 export { default as SignInForm } from "./components/SignInForm";
+export { default as GoogleBtn } from "./components/ui/GoogleBtn";
+export { default as AppleBtn } from "./components/ui/AppleBtn";
