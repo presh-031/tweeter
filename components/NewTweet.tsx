@@ -9,6 +9,7 @@ import { AiOutlineLoading3Quarters } from "react-icons/ai";
 import { BiWorld } from "react-icons/bi";
 import { MdOutlineImage } from "react-icons/md";
 import { GeneralLoader } from "..";
+import userPlaceholder from "../assets/user-placeholder.png";
 
 const NewTweet = () => {
   const [currentUser] = useAuthState(auth);
@@ -34,6 +35,8 @@ const NewTweet = () => {
           retweets: [],
           media: [],
           comments: [],
+          bookmarkedBy: [],
+          likesCount: 0,
         });
         setNewTweetLoading(false);
         toast.success("Posted!");
@@ -105,8 +108,7 @@ const NewTweet = () => {
           src={
             userInfo.profilePictureUrl
               ? userInfo.profilePictureUrl
-              : // Default image shown should be a placeholder, actually
-                "https://picsum.photos/id/1/40/40"
+              : userPlaceholder
           }
           width={40}
           height={40}

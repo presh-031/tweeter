@@ -6,6 +6,7 @@ import { Tweet, WithAuthUser } from "../../index";
 import Image from "next/image";
 import { useRouter } from "next/router";
 import { useAuthState } from "react-firebase-hooks/auth";
+import userPlaceholder from "../../assets/user-placeholder.png";
 
 let currentUserIsProfileOwner;
 
@@ -71,8 +72,7 @@ const Profile = () => {
                   src={
                     userInfo.profilePictureUrl
                       ? userInfo.profilePictureUrl
-                      : // Default image shown should be a placeholder, actually
-                        "https://picsum.photos/id/1/40/40"
+                      : userPlaceholder
                   }
                   alt="profile-pic"
                   width={116}

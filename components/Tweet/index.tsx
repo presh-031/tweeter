@@ -20,6 +20,8 @@ import {
   handleRetweets,
 } from "@/helpers/tweetHelpers";
 
+import userPlaceholder from "../../assets/user-placeholder.png";
+
 const Tweet = ({
   tweetId,
   likes,
@@ -109,10 +111,7 @@ const Tweet = ({
         >
           <Image
             src={
-              user.profilePictureUrl
-                ? user.profilePictureUrl
-                : // Default image shown should be a placeholder, actually
-                  "https://picsum.photos/id/1/40/40"
+              user.profilePictureUrl ? user.profilePictureUrl : userPlaceholder
             }
             alt="profile-pic"
             width={40}

@@ -1,7 +1,7 @@
 import { userInfoType } from "@/typings";
 import Image from "next/image";
 import React from "react";
-
+import userPlaceholder from "../../assets/user-placeholder.png";
 const User = ({
   bio,
   createdAt,
@@ -24,12 +24,7 @@ const User = ({
           className="flex w-fit gap-[.635rem] "
         >
           <Image
-            src={
-              profilePictureUrl
-                ? profilePictureUrl
-                : // Default image shown should be a placeholder, actually
-                  "https://picsum.photos/id/1/40/40"
-            }
+            src={profilePictureUrl ? profilePictureUrl : userPlaceholder}
             alt="profile-pic"
             width={40}
             height={40}

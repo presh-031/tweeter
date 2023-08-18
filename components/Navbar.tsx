@@ -7,6 +7,7 @@ import { useRouter } from "next/router";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { RiArrowDownSFill, RiArrowUpSFill } from "react-icons/ri";
 import logo from "../assets/tweeter.svg";
+import userPlaceholder from "../assets/user-placeholder.png";
 
 import { AppNav, UserNav } from "../index";
 
@@ -91,8 +92,7 @@ const Navbar = () => {
           src={
             userInfo.profilePictureUrl
               ? userInfo.profilePictureUrl
-              : // Default image shown should be a placeholder, actually
-                "https://picsum.photos/id/1/40/40"
+              : userPlaceholder
           }
           alt="profile-pic"
           width={32}
