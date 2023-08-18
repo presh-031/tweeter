@@ -1,8 +1,6 @@
 import { auth, db } from "@/config/firebase";
-
 import { collection, doc, getDoc } from "firebase/firestore";
 import { useEffect, useState } from "react";
-
 import { TweetProps } from "@/typings";
 import { formatDateForTweet } from "@/utils/formatDate";
 import Image from "next/image";
@@ -19,7 +17,6 @@ import {
   handleLikes,
   handleRetweets,
 } from "@/helpers/tweetHelpers";
-
 import userPlaceholder from "../../assets/user-placeholder.png";
 
 const Tweet = ({

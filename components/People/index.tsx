@@ -15,7 +15,7 @@ const People = () => {
     snapshotListenOptions: { includeMetadataChanges: true },
   });
 
-  console.log(topUsers);
+  // console.log(topUsers);
   return (
     <div>
       {error && <strong>Error: {JSON.stringify(error)}</strong>}

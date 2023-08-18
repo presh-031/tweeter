@@ -1,68 +1,59 @@
 import { auth, db } from "@/config/firebase";
-import { collection, doc, query, where } from "firebase/firestore";
-import { useCollection, useDocumentData } from "react-firebase-hooks/firestore";
-import { SlUserFollow, SlUserUnfollow } from "react-icons/sl";
-import { Tweet, WithAuthUser } from "../../index";
+import { doc } from "firebase/firestore";
+import { useDocumentData } from "react-firebase-hooks/firestore";
+import { Follow, UnFollow, WithAuthUser } from "../../index";
 import Image from "next/image";
 import { useRouter } from "next/router";
 import { useAuthState } from "react-firebase-hooks/auth";
 import userPlaceholder from "../../assets/user-placeholder.png";
+import ProfileTweets from "@/components/ProfileTweets";
 
-let currentUserIsProfileOwner;
+let authUserIsProfileOwner;
 
 const Profile = () => {
-  // check if incoming id is same as auth user id.
-
-  const [currentUser] = useAuthState(auth);
-  const currentUserId = currentUser ? currentUser.uid : "";
-
   const router = useRouter();
   const { uid } = router.query;
-  const routeId = uid ? uid.toString() : "";
+  const [authUser] = useAuthState(auth);
 
-  const [userInfo, userInfoLoading, userInfoError] = useDocumentData(
-    doc(db, "users", routeId),
-    {
+  const authUserId = authUser ? authUser.uid : "";
+  const profileOwnerId = uid ? uid.toString() : "";
+
+  const [profileOwnerInfo, profileOwnerInfoLoading, profileOwnerInfoError] =
+    useDocumentData(doc(db, "users", profileOwnerId), {
       snapshotListenOptions: { includeMetadataChanges: true },
-    }
-  );
+    });
 
-  // const [authUserInfo, authUserInfoLoading, authUserInfoError] =
-  //   useDocumentData(doc(db, "users", currentUserId), {
-  //     snapshotListenOptions: { includeMetadataChanges: true },
-  //   });
+  // here to prevent rerenders
+  const [authUserInfo, authUserInfoLoading, authUserInfoError] =
+    useDocumentData(doc(db, "users", authUserId), {
+      snapshotListenOptions: { includeMetadataChanges: true },
+    });
 
-  // determine if the profile page is being visited by the current user or another user
-  if (currentUserId === uid) {
-    currentUserIsProfileOwner = true;
+  // determine if the profile page is being visited by the authuser or profileowner
+  if (authUserId === profileOwnerId) {
+    authUserIsProfileOwner = true;
+    console.log(authUserIsProfileOwner);
   } else {
-    currentUserIsProfileOwner = false;
+    authUserIsProfileOwner = false;
+    console.log(authUserIsProfileOwner);
   }
-
-  // Get all user's tweets with the uid
-  const tweetsRef = collection(db, "tweets");
-  const tweetsQuery = query(tweetsRef, where("userId", "==", uid));
-  const [tweetsListSnapshot, loading, error] = useCollection(tweetsQuery, {
-    snapshotListenOptions: { includeMetadataChanges: true },
-  });
-  const userTweets = tweetsListSnapshot?.docs;
 
   return (
     <>
-      {userInfo && (
+      {profileOwnerInfo && (
         <div className="pb-[9.615rem]">
           <div className=" ">
             <Image
               src={
-                userInfo.headerImageUrl
-                  ? userInfo.headerImageUrl
+                profileOwnerInfo.headerImageUrl
+                  ? profileOwnerInfo.headerImageUrl
                   : // Default image shown should be a placeholder, actually
                     "https://picsum.photos/id/220/375/168"
               }
               alt="header-photo"
               width={375}
               height={168}
-              className="h-[16.8rem] w-[37.5rem]"
+              className="h-[16.8rem] w-[37.5rem] border-y-[1px] border-blueish "
             />
           </div>
           <div className="px-[1.90rem] ">
@@ -70,8 +61,8 @@ const Profile = () => {
               <div className="absolute top-[-8.7rem] left-[50%] translate-x-[-50%] overflow-hidden rounded-[8px] p-[.8rem] ">
                 <Image
                   src={
-                    userInfo.profilePictureUrl
-                      ? userInfo.profilePictureUrl
+                    profileOwnerInfo.profilePictureUrl
+                      ? profileOwnerInfo.profilePictureUrl
                       : userPlaceholder
                   }
                   alt="profile-pic"
@@ -83,51 +74,51 @@ const Profile = () => {
               <div className="">
                 <div>
                   <h1 className="text-[2.4rem] font-semibold leading-[3.6rem] tracking-[-3.5%] text-[#333333]">
-                    {userInfo.userName}
+                    {profileOwnerInfo.userName}
                   </h1>
                   <div className="mt-[.4rem] mb-[1.4rem] flex items-center justify-center gap-8 text-[1.2rem] font-medium leading-[1.8rem] tracking-[-3.5%] text-[#828282] ">
                     <p>
                       <span className="font-semibold text-[#333333]">
-                        {userInfo.following.length}
+                        {profileOwnerInfo.following.length}
                       </span>{" "}
                       Following
                     </p>
                     <p>
                       <span className="font-semibold text-[#333333]">
-                        {userInfo.followers.length}
+                        {profileOwnerInfo.followers.length}
                       </span>{" "}
                       Followers
                     </p>
                   </div>
                 </div>
                 <p className="mb-[2.563rem] text-[1.8rem] font-normal leading-[2.4rem] tracking-[-3.5%] text-[#828282]">
-                  {userInfo.bio}
+                  {profileOwnerInfo.bio}
                 </p>
               </div>
 
-              {/* {currentUserIsProfileOwner ? <UnFollow /> : <Follow />} */}
-            </div>
-
-            {/* User's Tweets */}
-            <div>
-              {userTweets?.length ? (
-                userTweets.map((tweet) => (
-                  <Tweet
-                    key={tweet.id}
-                    tweetId={tweet.id}
-                    likes={tweet.data().likes}
-                    retweets={tweet.data().retweets}
-                    media={tweet.data().media}
-                    text={tweet.data().text}
-                    timestamp={tweet.data().timestamp}
-                    userId={tweet.data().userId}
-                    bookmarkedBy={tweet.data().bookmarkedBy}
-                  />
-                ))
-              ) : (
-                <p>No tweets yet</p>
+              {!authUserIsProfileOwner && (
+                <>
+                  {profileOwnerInfo.followers.includes(authUserId) ? (
+                    <UnFollow
+                      userInfo={profileOwnerInfo}
+                      routeId={profileOwnerId}
+                      currentUserId={authUserId}
+                      authUserInfo={authUserInfo}
+                    />
+                  ) : (
+                    <Follow
+                      userInfo={profileOwnerInfo}
+                      routeId={profileOwnerId}
+                      currentUserId={authUserId}
+                      authUserInfo={authUserInfo}
+                    />
+                  )}
+                </>
               )}
             </div>
+
+            {/* Profile owner's Tweets */}
+            <ProfileTweets profileOwnerId={profileOwnerId} />
           </div>
         </div>
       )}
