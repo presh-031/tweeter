@@ -1,12 +1,8 @@
-/* eslint-disable react-hooks/rules-of-hooks */
 import { auth, db } from "@/config/firebase";
-import { follow, unFollow } from "@/services/userServices";
 import { collection, doc, query, where } from "firebase/firestore";
 import { useCollection, useDocumentData } from "react-firebase-hooks/firestore";
 import { SlUserFollow, SlUserUnfollow } from "react-icons/sl";
-
-import { Tweet, UnFollow, Follow } from "../../index";
-import WithAuthUser from "@/components/WithAuthUser";
+import { Tweet, WithAuthUser } from "../../index";
 import Image from "next/image";
 import { useRouter } from "next/router";
 import { useAuthState } from "react-firebase-hooks/auth";
@@ -35,20 +31,16 @@ const Profile = () => {
       snapshotListenOptions: { includeMetadataChanges: true },
     });
 
-  // Compare the two user IDs to determine if the profile page is being visited by the current user or another user
+  // determine if the profile page is being visited by the current user or another user
   if (currentUserId === uid) {
-    // The profile page is being visited by the current user
     currentUserIsProfileOwner = true;
   } else {
-    // The profile page is being visited by another user
     currentUserIsProfileOwner = false;
   }
 
   // Get all user's tweets with the uid
   const tweetsRef = collection(db, "tweets");
-
   const tweetsQuery = query(tweetsRef, where("userId", "==", uid));
-
   const [tweetsListSnapshot, loading, error] = useCollection(tweetsQuery, {
     snapshotListenOptions: { includeMetadataChanges: true },
   });
@@ -113,15 +105,7 @@ const Profile = () => {
                 </p>
               </div>
 
-              {currentUserIsProfileOwner || (
-                <>
-                  {userInfo.followers.includes(currentUserId) ? (
-                    <UnFollow />
-                  ) : (
-                    <Follow />
-                  )}
-                </>
-              )}
+              {/* {currentUserIsProfileOwner ? <UnFollow /> : <Follow />} */}
             </div>
 
             {/* User's Tweets */}
