@@ -10,6 +10,7 @@ import { MdEmail } from "react-icons/md";
 import { IoMdLock } from "react-icons/io";
 import { createNewUserInDb } from "@/helpers/authHelpers";
 import { useRouter } from "next/router";
+import SignInLoader from "./Loaders/SignInLoader";
 
 const schema = yup.object().shape({
   email: yup
@@ -39,11 +40,12 @@ const SignInForm = () => {
   const onSubmit = (data: FormData) =>
     createUserWithEmailAndPassword(data.email, data.password);
 
-  //   console.log(user);
   if (user) {
     createNewUserInDb(user);
     router.push("/");
   }
+  console.log(loading);
+  console.log(error);
 
   return (
     <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-6">
@@ -58,6 +60,7 @@ const SignInForm = () => {
           />
         </div>
         <p className="text-red-600">{errors.email?.message}</p>
+        {error && <p className="text-red-600">Email already being used</p>}
       </div>
 
       <div>
@@ -73,11 +76,22 @@ const SignInForm = () => {
         <p className="text-red-600">{errors.password?.message}</p>
       </div>
 
-      <input
-        type="submit"
-        value="Start tweeting now"
-        className="mt-2 w-full rounded-xl border bg-blueish py-4 text-2xl font-medium text-white"
-      />
+      <div className="relative flex items-center">
+        <input
+          type="submit"
+          disabled={loading}
+          value="Start tweeting now"
+          className={`${
+            loading ? "bg-opacity-30" : ""
+          } mt-2 w-full rounded-xl border bg-blueish py-4 text-2xl font-medium text-white`}
+        />
+
+        {loading && (
+          <div className="absolute right-10">
+            <SignInLoader />
+          </div>
+        )}
+      </div>
     </form>
   );
 };
