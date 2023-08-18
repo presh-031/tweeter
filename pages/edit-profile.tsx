@@ -25,7 +25,7 @@ const schema = yup.object({
 type FormData = yup.InferType<typeof schema>;
 
 const Edit = () => {
-  return <div></div>;
+  return <div>Nothing here yet</div>;
   // const {
   //   register,
   //   handleSubmit,
