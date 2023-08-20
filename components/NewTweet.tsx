@@ -93,13 +93,13 @@ const NewTweet = () => {
             alt="Selected"
             width={100}
             height={100}
-            className="mt-[1rem] h-auto max-h-[50rem] w-auto max-w-full rounded-[8px]"
+            className="mt-[1rem] h-auto max-h-[50rem] w-auto max-w-full rounded-[8px] "
           />
           <div
             onClick={() => {
               setSelectedImage(null);
             }}
-            className="absolute top-[1rem] right-[1rem] flex h-[2.2rem] w-[2.2rem] items-center justify-center rounded-full bg-black bg-opacity-50 opacity-80"
+            className="absolute top-[2rem] right-[1rem] flex h-[2.2rem] w-[2.2rem] items-center justify-center rounded-full bg-black bg-opacity-50 opacity-80"
           >
             <MdClose className="text-4xl text-white" />
           </div>
