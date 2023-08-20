@@ -118,11 +118,10 @@ const Profile = () => {
                 </>
               )}
             </div>
+            <ProfileTweets profileOwnerId={profileOwnerId} />
           </div>
         </div>
       )}
-      {/* Profile owner's Tweets  */}
-      {<ProfileTweets profileOwnerId={profileOwnerId} />}
     </>
   );
 };
