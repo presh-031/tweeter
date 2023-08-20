@@ -71,7 +71,7 @@ const Profile = () => {
                   alt="profile-pic"
                   width={116}
                   height={116}
-                  className="h-[11.6rem] w-[11.6rem]"
+                  className="h-[11.6rem] w-[11.6rem] rounded-[8px]"
                 />
               </div>
               <div className="">

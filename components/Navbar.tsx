@@ -1,5 +1,5 @@
 import { auth, db } from "@/config/firebase";
-import { doc, getDoc } from "firebase/firestore";
+import { collection, doc, getDoc, query, where } from "firebase/firestore";
 import { useEffect, useState } from "react";
 import { userInfoType } from "@/typings";
 import Image from "next/image";
@@ -9,26 +9,29 @@ import { RiArrowDownSFill, RiArrowUpSFill } from "react-icons/ri";
 import logo from "../assets/tweeter.svg";
 import userPlaceholder from "../assets/user-placeholder.png";
 import { AppNav, UserNav } from "../index";
-import { useDocumentData } from "react-firebase-hooks/firestore";
+import { useDocument, useDocumentData } from "react-firebase-hooks/firestore";
 
 const Navbar = () => {
   const router = useRouter();
+  const [authUser] = useAuthState(auth);
+  const authUserId = authUser ? authUser.uid : "";
+
+  // firebase hooks breaks stuff here.
+  const [user, setUser] = useState<any>({});
+  useEffect(() => {
+    const getUser = async () => {
+      const userSnap = await getDoc(doc(db, "users", authUserId));
+      setUser(userSnap.data());
+    };
+
+    getUser();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   const [showUserNav, setShowUserNav] = useState(false);
   const toggleShowUserNav = () => {
     setShowUserNav((prevShowUserNav) => !prevShowUserNav);
   };
-
-  // Logic to get current user info for navbar
-  // const [currentUser] = useAuthState(auth);
-  // const currentUserId = currentUser ? currentUser.uid : "";
-  // const [userInfo, userInfoLoading, userInfoError] = useDocumentData(
-  //   doc(db, "users", currentUserId),
-  //   {
-  //     snapshotListenOptions: { includeMetadataChanges: true },
-  //   }
-  // );
-  // console.log(userInfo);
 
   return (
     <div className="flex justify-between  bg-white px-[1.7rem] py-[2rem] shadow-[0px_2px_2px_rgba(0,0,0,0.05)]">
@@ -45,11 +48,9 @@ const Navbar = () => {
       </div>
 
       <div onClick={toggleShowUserNav} className="flex items-center gap-4 ">
-        {/* <Image
+        <Image
           src={
-            userInfo?.profilePictureUrl
-              ? userInfo.profilePictureUrl
-              : userPlaceholder
+            user?.profilePictureUrl ? user.profilePictureUrl : userPlaceholder
           }
           alt="profile-pic"
           width={32}
@@ -58,10 +59,8 @@ const Navbar = () => {
         />
 
         <p className="text-lg">
-          {userInfo?.displayName
-            ? `@${userInfo.displayName}`
-            : userInfo?.userName}
-        </p> */}
+          {user?.displayName ? `@${user.displayName}` : user?.userName}
+        </p>
 
         {showUserNav ? (
           <RiArrowUpSFill className="text-3xl" />
