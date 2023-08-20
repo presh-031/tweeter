@@ -7,11 +7,12 @@ import { useAuthState } from "react-firebase-hooks/auth";
 import { toast } from "react-hot-toast";
 import { AiOutlineLoading3Quarters } from "react-icons/ai";
 import { BiWorld } from "react-icons/bi";
-import { MdOutlineImage } from "react-icons/md";
+import { MdClose, MdOutlineImage } from "react-icons/md";
 import { GeneralLoader } from "..";
 import userPlaceholder from "../assets/user-placeholder.png";
 import { useDocumentData } from "react-firebase-hooks/firestore";
 import { newTweet } from "@/services/tweetServices";
+import { GrClose, GrFormClose } from "react-icons/gr";
 
 const NewTweet = () => {
   const [authUser] = useAuthState(auth);
@@ -92,10 +93,15 @@ const NewTweet = () => {
             alt="Selected"
             width={100}
             height={100}
-            className="mt-[1rem] h-auto max-h-[80vh] w-auto max-w-full rounded-[8px]"
+            className="mt-[1rem] h-auto max-h-[50rem] w-auto max-w-full rounded-[8px]"
           />
-          <div className="absolute top-[1rem] right-[1rem] flex h-[2rem] w-[2rem] items-center justify-center rounded-full border border-red-800">
-            X
+          <div
+            onClick={() => {
+              setSelectedImage(null);
+            }}
+            className="absolute top-[1rem] right-[1rem] flex h-[2.2rem] w-[2.2rem] items-center justify-center rounded-full bg-black bg-opacity-50 opacity-80"
+          >
+            <MdClose className="text-4xl text-white" />
           </div>
         </div>
       )}
