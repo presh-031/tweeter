@@ -12,7 +12,7 @@ import { useAuthState } from "react-firebase-hooks/auth";
 import toast from "react-hot-toast";
 import { useForm } from "react-hook-form";
 
-const schema = yup.object({
+const schema = yup.object().shape({
   userName: yup.string().required("You must add a name"),
   email: yup.string().required("You must add an email"),
   displayName: yup.string().required("You must add a displayName"),
@@ -20,46 +20,52 @@ const schema = yup.object({
   headerImageUrl: yup.string().required("You must add a header image"),
   bio: yup.string(),
 });
-
 type FormData = yup.InferType<typeof schema>;
+
 const EditProfileForm = () => {
-  const router = useRouter();
+  // const router = useRouter();
 
-  const [currentUser] = useAuthState(auth);
-  const currentUserId = currentUser ? currentUser.uid : "";
-  const [loading, setLoading] = useState<boolean>(false);
+  // const [currentUser] = useAuthState(auth);
+  // const currentUserId = currentUser ? currentUser.uid : "";
+  // const [loading, setLoading] = useState<boolean>(false);
 
-  const {
-    register,
-    handleSubmit,
-    formState: { errors },
-  } = useForm<FormData>({ resolver: yupResolver(schema) });
+  // const {
+  //   register,
+  //   handleSubmit,
+  //   formState: { errors },
+  // } = useForm<FormData>({
+  //   resolver: yupResolver(schema),
+  // });
 
-  const onSubmit = async (data: FormData) => {
-    setLoading(true);
-    const userDocRef = doc(db, "users", currentUserId);
-    try {
-      await updateDoc(userDocRef, {
-        userName: data.userName,
-        email: data.email,
-        displayName: data.displayName,
-        profilePictureUrl: data.profilePictureUrl,
-        headerImageUrl: data.headerImageUrl,
-        bio: data.bio,
-      });
-      setLoading(false);
-      toast.success("Successfully edited.");
-      router.push("/");
-    } catch (err) {
-      toast.error("Try again.");
-      router.push("/");
-      alert(err);
-    }
-  };
+  // const onSubmit = async (data: FormData) => {
+  //   setLoading(true);
+  //   const userDocRef = doc(db, "users", currentUserId);
+  //   try {
+  //     await updateDoc(userDocRef, {
+  //       userName: data.userName,
+  //       email: data.email,
+  //       displayName: data.displayName,
+  //       profilePictureUrl: data.profilePictureUrl,
+  //       headerImageUrl: data.headerImageUrl,
+  //       bio: data.bio,
+  //     });
+  //     setLoading(false);
+  //     toast.success("Successfully edited.");
+  //     router.push("/");
+  //   } catch (err) {
+  //     toast.error("Try again.");
+  //     router.push("/");
+  //     alert(err);
+  //   }
+  // };
+  return <div>Nothing here yet</div>;
+};
 
-  return (
-    <form className=" text-2xl " onSubmit={handleSubmit(onSubmit)}>
-      <label className="mb-4 text-[#333333] " htmlFor="name">
+export default EditProfileForm;
+// return (
+// <form className=" text-2xl " onSubmit={handleSubmit(onSubmit)}>
+// {
+/* <label className="mb-4 text-[#333333] " htmlFor="name">
         <span>Name </span>
         <span>*</span>
       </label>
@@ -136,9 +142,6 @@ const EditProfileForm = () => {
         {loading && (
           <AiOutlineLoading3Quarters className="animate-spin text-4xl text-blueish" />
         )}
-      </div>
-    </form>
-  );
-};
-
-export default EditProfileForm;
+      </div> */
+// }
+// </form>
