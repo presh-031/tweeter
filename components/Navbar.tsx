@@ -20,15 +20,15 @@ const Navbar = () => {
   };
 
   // Logic to get current user info for navbar
-  const [user] = useAuthState(auth);
-  const currentUserId = user ? user.uid : "";
+  // const [user] = useAuthState(auth);
+  // const currentUserId = user ? user.uid : "";
 
-  const [userInfo, userInfoLoading, userInfoError] = useDocumentData(
-    doc(db, "users", currentUserId),
-    {
-      snapshotListenOptions: { includeMetadataChanges: true },
-    }
-  );
+  // const [userInfo, userInfoLoading, userInfoError] = useDocumentData(
+  //   doc(db, "users", currentUserId),
+  //   {
+  //     snapshotListenOptions: { includeMetadataChanges: true },
+  //   }
+  // );
   // console.log(userInfo);
 
   return (
