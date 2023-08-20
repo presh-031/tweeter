@@ -11,7 +11,6 @@ import { MdOutlineImage } from "react-icons/md";
 import { GeneralLoader } from "..";
 import userPlaceholder from "../assets/user-placeholder.png";
 import { useDocumentData } from "react-firebase-hooks/firestore";
-import ImagePicker from "./ImagePicker";
 import { newTweet } from "@/services/tweetServices";
 
 const NewTweet = () => {
