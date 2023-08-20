@@ -20,14 +20,14 @@ const Navbar = () => {
   };
 
   // Logic to get current user info for navbar
-  const [currentUser] = useAuthState(auth);
-  const currentUserId = currentUser ? currentUser.uid : "";
-  const [userInfo, userInfoLoading, userInfoError] = useDocumentData(
-    doc(db, "users", currentUserId),
-    {
-      snapshotListenOptions: { includeMetadataChanges: true },
-    }
-  );
+  // const [currentUser] = useAuthState(auth);
+  // const currentUserId = currentUser ? currentUser.uid : "";
+  // const [userInfo, userInfoLoading, userInfoError] = useDocumentData(
+  //   doc(db, "users", currentUserId),
+  //   {
+  //     snapshotListenOptions: { includeMetadataChanges: true },
+  //   }
+  // );
   // console.log(userInfo);
 
   return (
@@ -45,7 +45,7 @@ const Navbar = () => {
       </div>
 
       <div onClick={toggleShowUserNav} className="flex items-center gap-4 ">
-        <Image
+        {/* <Image
           src={
             userInfo?.profilePictureUrl
               ? userInfo.profilePictureUrl
@@ -61,7 +61,7 @@ const Navbar = () => {
           {userInfo?.displayName
             ? `@${userInfo.displayName}`
             : userInfo?.userName}
-        </p>
+        </p> */}
 
         {showUserNav ? (
           <RiArrowUpSFill className="text-3xl" />
