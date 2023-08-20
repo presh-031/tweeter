@@ -56,60 +56,13 @@ const NewTweet = () => {
     }
   };
 
-  // Logic to get current user info for navbar
-  // const [userInfo, setUserInfo] = useState<userInfoType>({
-  //   bio: "",
-  //   createdAt: "",
-  //   displayName: "",
-  //   email: "",
-  //   followers: [],
-  //   following: [],
-  //   headerImageUrl: "",
-  //   profilePictureUrl: "",
-  //   userName: "",
-  // });
-
-  // useEffect(() => {
-  //   if (currentUserId) {
-  //     const getUser = async () => {
-  //       // loading
-  //       const userRef = doc(db, "users", currentUserId);
-
-  //       try {
-  //         const userSnap = await getDoc(userRef);
-  //         const userDoc = userSnap.data();
-
-  //         if (userDoc) {
-  //           const userInfoData: userInfoType = {
-  //             bio: userDoc.bio,
-  //             createdAt: userDoc.createdAt,
-  //             displayName: userDoc.displayName,
-  //             email: userDoc.email,
-  //             followers: userDoc.followers,
-  //             following: userDoc.following,
-  //             headerImageUrl: userDoc.headerImageUrl,
-  //             profilePictureUrl: userDoc.profilePictureUrl,
-  //             userName: userDoc.userName,
-  //           };
-
-  //           setUserInfo(userInfoData);
-  //         }
-  //       } catch (err) {
-  //         console.error(err);
-  //       }
-  //     };
-
-  //     getUser();
-  //   }
-  //   // eslint-disable-next-line react-hooks/exhaustive-deps
-  // }, [currentUser]);
   return (
     <div className="mt-[1.469rem] rounded-[12px] bg-white py-[1.091rem] px-[1.39rem] shadow-[0_2px_2px_rgba(0,0,0,0.05)] ">
       <p className="border-b-[1px] border-[#f2f2f2] pb-[.74rem] text-[1.2rem] font-semibold leading-[1.8rem] tracking-[-3.5%] text-[#4F4F4F]">
         Tweet something
       </p>
       <form onSubmit={handleNewTweet} className="flex items-center">
-        {/* <Image
+        <Image
           src={
             userInfo?.profilePictureUrl
               ? userInfo.profilePictureUrl
@@ -119,7 +72,7 @@ const NewTweet = () => {
           height={40}
           alt="profile-pic"
           className="h-[4rem] w-[4rem] outline "
-        /> */}
+        />
         <input
           className="w-full overflow-hidden pl-[1.2rem] text-[1.6rem] font-medium leading-[2.179rem] tracking-[-3.5%]  outline-none placeholder:text-[#bdbdbd]"
           type="text"
