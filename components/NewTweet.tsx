@@ -87,7 +87,7 @@ const NewTweet = () => {
       </form>
 
       {selectedImage && (
-        <div className="relative">
+        <div className="relative flex justify-end">
           <Image
             src={selectedImage}
             alt="Selected"
