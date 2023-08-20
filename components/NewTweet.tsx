@@ -15,12 +15,12 @@ import { useDocumentData } from "react-firebase-hooks/firestore";
 const NewTweet = () => {
   const [currentUser] = useAuthState(auth);
   const currentUserId = currentUser ? currentUser.uid : "";
-  // const [userInfo, userInfoLoading, userInfoError] = useDocumentData(
-  //   doc(db, "users", currentUserId),
-  //   {
-  //     snapshotListenOptions: { includeMetadataChanges: true },
-  //   }
-  // );
+  const [userInfo, userInfoLoading, userInfoError] = useDocumentData(
+    doc(db, "users", currentUserId),
+    {
+      snapshotListenOptions: { includeMetadataChanges: true },
+    }
+  );
 
   const [newTweetText, setNewTweetText] = useState("");
   const [newTweetLoading, setNewTweetLoading] = useState(false);

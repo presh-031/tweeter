@@ -4,9 +4,8 @@ const Home = () => {
     <>
       <div className=" px-[1.90rem] pb-[9.615rem]">
         <div>
-          All tweets
-          {/* <NewTweet /> */}
-          {/* <AllTweets /> */}
+          <NewTweet />
+          <AllTweets />
         </div>
         <div></div>
       </div>

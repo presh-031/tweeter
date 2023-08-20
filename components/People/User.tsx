@@ -53,12 +53,6 @@ const User = ({
         </p>
       </div>
 
-      {/* <div>
-          <div>
-            <TweetMedia images={media} />
-          </div>
-        </div> */}
-
       <div className="border-b-[1px] border-[#F2F2F2] "></div>
     </div>
   );

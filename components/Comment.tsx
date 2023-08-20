@@ -15,14 +15,15 @@ const Comment = ({ text, timestamp, userId }: CommentProps) => {
   //  Logic to Get info about user that made the comment
   const [user, setUser] = useState<any>({});
 
-  // useEffect(() => {
-  //   const getUser = async () => {
-  //     const userSnap = await getDoc(doc(db, "users", userId));
-  //     setUser(userSnap.data());
-  //   };
+  useEffect(() => {
+    const getUser = async () => {
+      const userSnap = await getDoc(doc(db, "users", userId));
+      setUser(userSnap.data());
+    };
 
-  //   getUser();
-  // }, []);
+    getUser();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   const timeAgo = formatDateToTimeAgo(timestamp);
 

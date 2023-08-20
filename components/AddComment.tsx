@@ -9,21 +9,21 @@ import { AiOutlineLoading3Quarters } from "react-icons/ai";
 
 const AddComment = ({ tweetId, setShowAddComment }: AddCommentProps) => {
   // For user Id and profilePic
-  // const [currentUser] = useAuthState(auth);
-  // const currentUserId = currentUser ? currentUser.uid : "";
+  const [currentUser] = useAuthState(auth);
+  const currentUserId = currentUser ? currentUser.uid : "";
 
-  // const userRef = doc(db, "users", currentUserId);
-  // const [user, setUser] = useState<any>({});
+  const userRef = doc(db, "users", currentUserId);
+  const [user, setUser] = useState<any>({});
 
-  // useEffect(() => {
-  //   const getUser = async () => {
-  //     const userSnap = await getDoc(userRef);
-  //     setUser(userSnap.data());
-  //   };
+  useEffect(() => {
+    const getUser = async () => {
+      const userSnap = await getDoc(userRef);
+      setUser(userSnap.data());
+    };
 
-  //   getUser();
-  //   // eslint-disable-next-line react-hooks/exhaustive-deps
-  // }, []);
+    getUser();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   // Logic to handle comment creation
   const inputRef = useRef<HTMLInputElement>(null);
@@ -62,7 +62,7 @@ const AddComment = ({ tweetId, setShowAddComment }: AddCommentProps) => {
     >
       {/* Image here is that of the currently auth user */}
       <div className=" h-[4rem] w-[4rem]">
-        {/* {user.profilePictureUrl && (
+        {user.profilePictureUrl && (
           <Image
             src={user.profilePictureUrl}
             alt="profile-pic"
@@ -71,7 +71,7 @@ const AddComment = ({ tweetId, setShowAddComment }: AddCommentProps) => {
             loading="eager"
             className="h-[4rem] w-[4rem] rounded-[8px]"
           />
-        )} */}
+        )}
       </div>
 
       <input

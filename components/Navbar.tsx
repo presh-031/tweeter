@@ -21,7 +21,7 @@ const Navbar = () => {
 
   // Logic to get current user info for navbar
   // const [user] = useAuthState(auth);
-  // const currentUserId = user ? user.uid : "";
+  // const currentUserId = user ? user.id : "";
 
   // const [userInfo, userInfoLoading, userInfoError] = useDocumentData(
   //   doc(db, "users", currentUserId),

@@ -20,8 +20,7 @@ const Layout = ({ children }: LayoutProps) => {
     >
       <Toaster />
       {!isSignInPage && <Navbar />}
-      {/* {children} */}
-      Holla
+      {children}
       {!isSignInPage && <AppNav />}
     </div>
   );

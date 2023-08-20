@@ -11,46 +11,43 @@ import ProfileTweets from "@/components/ProfileTweets";
 let authUserIsProfileOwner;
 
 const Profile = () => {
-  // const router = useRouter();
-  // const { uid } = router.query;
-  // const [authUser] = useAuthState(auth);
+  const router = useRouter();
+  const { uid } = router.query;
+  const [authUser] = useAuthState(auth);
 
-  // const authUserId = authUser ? authUser.uid : "";
-  // const profileOwnerId = uid ? uid.toString() : "";
+  const authUserId = authUser ? authUser.uid : "";
+  const profileOwnerId = uid ? uid.toString() : "";
 
-  // const [profileOwnerInfo, profileOwnerInfoLoading, profileOwnerInfoError] =
-  //   useDocumentData(doc(db, "users", profileOwnerId), {
-  //     snapshotListenOptions: { includeMetadataChanges: true },
-  //   });
+  const [profileOwnerInfo, profileOwnerInfoLoading, profileOwnerInfoError] =
+    useDocumentData(doc(db, "users", profileOwnerId), {
+      snapshotListenOptions: { includeMetadataChanges: true },
+    });
 
-  // // here to prevent rerenders
-  // const [authUserInfo, authUserInfoLoading, authUserInfoError] =
-  //   useDocumentData(doc(db, "users", authUserId), {
-  //     snapshotListenOptions: { includeMetadataChanges: true },
-  //   });
+  // here to prevent rerenders
+  const [authUserInfo, authUserInfoLoading, authUserInfoError] =
+    useDocumentData(doc(db, "users", authUserId), {
+      snapshotListenOptions: { includeMetadataChanges: true },
+    });
 
   // determine if the profile page is being visited by the authuser or profileowner
-  // if (authUserId === profileOwnerId) {
-  //   authUserIsProfileOwner = true;
-  //   console.log(authUserIsProfileOwner);
-  // } else {
-  //   authUserIsProfileOwner = false;
-  //   console.log(authUserIsProfileOwner);
-  // }
+  if (authUserId === profileOwnerId) {
+    authUserIsProfileOwner = true;
+    console.log(authUserIsProfileOwner);
+  } else {
+    authUserIsProfileOwner = false;
+    console.log(authUserIsProfileOwner);
+  }
 
-  return <>Bookmark</>;
-};
-
-export default WithAuthUser(Profile);
-/* {profileOwnerInfo && (
+  return (
+    <>
+      {profileOwnerInfo && (
         <div className="pb-[9.615rem]">
-          <div className=" ">
+          <div className="">
             <Image
               src={
                 profileOwnerInfo.headerImageUrl
                   ? profileOwnerInfo.headerImageUrl
-                  : // Default image shown should be a placeholder, actually
-                    "https://picsum.photos/id/220/375/168"
+                  : "https://picsum.photos/id/220/375/168"
               }
               alt="header-photo"
               width={375}
@@ -101,7 +98,6 @@ export default WithAuthUser(Profile);
                   {profileOwnerInfo.bio}
                 </p>
               </div>
-
               {!authUserIsProfileOwner && (
                 <>
                   {profileOwnerInfo.followers.includes(authUserId) ? (
@@ -120,12 +116,15 @@ export default WithAuthUser(Profile);
                     />
                   )}
                 </>
-        //       )}
-        //     </div>
+              )}
+            </div>
+          </div>
+        </div>
+      )}
+      {/* Profile owner's Tweets  */}
+      {<ProfileTweets profileOwnerId={profileOwnerId} />}
+    </>
+  );
+};
 
-        //     {/* Profile owner's Tweets */
-
-/* {<ProfileTweets profileOwnerId={profileOwnerId} />
-        //   </div>
-        // </div>*/
-// )}}}}}}}}}}
+export default WithAuthUser(Profile);
