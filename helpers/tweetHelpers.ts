@@ -7,7 +7,7 @@ import {
   unlikeTweet,
 } from "@/services/tweetServices";
 
-export const handleLikes = (
+export const handleLike = (
   tweetId: string,
   currentUserId: string,
   likes: string[]
@@ -17,7 +17,7 @@ export const handleLikes = (
     : likeTweet(tweetId, currentUserId, likes);
 };
 
-export const handleRetweets = (
+export const handleRetweet = (
   tweetId: string,
   currentUserId: string,
   retweets: string[]
@@ -27,7 +27,7 @@ export const handleRetweets = (
     : retweetTweet(tweetId, currentUserId, retweets);
 };
 
-export const handleBookmarks = (
+export const handleBookmark = (
   tweetId: string,
   currentUserId: string,
   bookmarkedBy: string[]

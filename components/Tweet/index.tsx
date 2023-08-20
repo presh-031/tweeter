@@ -13,9 +13,9 @@ import { HiOutlineBookmark } from "react-icons/hi";
 import { MdOutlineModeComment } from "react-icons/md";
 import { TweetMedia, AddComment } from "../../index";
 import {
-  handleBookmarks,
-  handleLikes,
-  handleRetweets,
+  handleBookmark,
+  handleLike,
+  handleRetweet,
 } from "@/helpers/tweetHelpers";
 import userPlaceholder from "../../assets/user-placeholder.png";
 
@@ -81,17 +81,17 @@ const Tweet = ({
 
   const handleLikeBtn = (e: { stopPropagation: () => void }) => {
     e.stopPropagation();
-    handleLikes(tweetId, currentUserId, likes);
+    handleLike(tweetId, currentUserId, likes);
   };
 
   const handleRetweetBtn = (e: { stopPropagation: () => void }) => {
     e.stopPropagation();
-    handleRetweets(tweetId, currentUserId, retweets);
+    handleRetweet(tweetId, currentUserId, retweets);
   };
 
   const handleBookmarkBtn = (e: { stopPropagation: () => void }) => {
     e.stopPropagation();
-    handleBookmarks(tweetId, currentUserId, bookmarkedBy);
+    handleBookmark(tweetId, currentUserId, bookmarkedBy);
   };
 
   return (

@@ -1,6 +1,6 @@
 import { auth, db } from "@/config/firebase";
 import { addDoc, collection, doc, getDoc, Timestamp } from "firebase/firestore";
-import { useEffect, useState } from "react";
+import { useEffect, useState, ChangeEvent } from "react";
 import { userInfoType } from "@/typings";
 import Image from "next/image";
 import { useAuthState } from "react-firebase-hooks/auth";
@@ -11,48 +11,49 @@ import { MdOutlineImage } from "react-icons/md";
 import { GeneralLoader } from "..";
 import userPlaceholder from "../assets/user-placeholder.png";
 import { useDocumentData } from "react-firebase-hooks/firestore";
+import ImagePicker from "./ImagePicker";
+import { newTweet } from "@/services/tweetServices";
 
 const NewTweet = () => {
-  const [currentUser] = useAuthState(auth);
-  const currentUserId = currentUser ? currentUser.uid : "";
-  const [userInfo, userInfoLoading, userInfoError] = useDocumentData(
-    doc(db, "users", currentUserId),
-    {
+  const [authUser] = useAuthState(auth);
+  const authUserId = authUser ? authUser.uid : "";
+  const [authUserInfo, authUserInfoLoading, authUserInfoError] =
+    useDocumentData(doc(db, "users", authUserId), {
       snapshotListenOptions: { includeMetadataChanges: true },
-    }
-  );
+    });
 
   const [newTweetText, setNewTweetText] = useState("");
   const [newTweetLoading, setNewTweetLoading] = useState(false);
   const handleTweetChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setNewTweetText(e.target.value);
   };
-  const handleNewTweet = async (e: { preventDefault: () => void }) => {
+
+  const handleNewTweetSumbit = (e: { preventDefault: () => void }) => {
     e.preventDefault();
     if (newTweetText) {
       try {
         setNewTweetLoading(true);
-        await addDoc(collection(db, "tweets"), {
-          text: newTweetText,
-          userId: currentUserId,
-          timestamp: Timestamp.now(),
-          likes: [],
-          retweets: [],
-          media: [],
-          comments: [],
-          bookmarkedBy: [],
-          likesCount: 0,
-        });
-        setNewTweetLoading(false);
+        newTweet(newTweetText, authUserId);
         toast.success("Posted!");
         setNewTweetText("");
+        setSelectedImage(null);
+        setNewTweetLoading(false);
       } catch (err) {
         toast.success("Try again!");
-        alert(err);
+        console.log(err);
       }
     } else {
-      // "success"?
-      toast.success("Posted!");
+      toast.error("That's empty");
+    }
+  };
+
+  // image picker
+  const [selectedImage, setSelectedImage] = useState<string | null>(null);
+
+  const handleImageChange = (event: ChangeEvent<HTMLInputElement>) => {
+    const selectedFile = event.target.files?.[0];
+    if (selectedFile) {
+      setSelectedImage(URL.createObjectURL(selectedFile));
     }
   };
 
@@ -61,11 +62,11 @@ const NewTweet = () => {
       <p className="border-b-[1px] border-[#f2f2f2] pb-[.74rem] text-[1.2rem] font-semibold leading-[1.8rem] tracking-[-3.5%] text-[#4F4F4F]">
         Tweet something
       </p>
-      <form onSubmit={handleNewTweet} className="flex items-center">
+      <form onSubmit={handleNewTweetSumbit} className="flex items-center">
         <Image
           src={
-            userInfo?.profilePictureUrl
-              ? userInfo.profilePictureUrl
+            authUserInfo?.profilePictureUrl
+              ? authUserInfo.profilePictureUrl
               : userPlaceholder
           }
           width={40}
@@ -84,9 +85,36 @@ const NewTweet = () => {
           <AiOutlineLoading3Quarters className="animate-spin text-4xl text-blueish" />
         )}
       </form>
+
+      {selectedImage && (
+        <div className="relative">
+          <Image
+            src={selectedImage}
+            alt="Selected"
+            width={100}
+            height={100}
+            className="mt-[1rem] h-auto max-h-[80vh] w-auto max-w-full rounded-[8px]"
+          />
+          <div className="absolute top-[1rem] right-[1rem] flex h-[2rem] w-[2rem] items-center justify-center rounded-full border border-red-800">
+            X
+          </div>
+        </div>
+      )}
+
       <div className="mt-[3rem] flex justify-between text-blueish">
         <div className=" flex items-center gap-[.71rem] ">
-          <MdOutlineImage className="mr-[.673] h-[1.5rem] w-[1.5rem] " />
+          <div>
+            <label htmlFor="picker">
+              <MdOutlineImage className="mr-[.673] h-[1.5rem] w-[1.5rem] " />
+            </label>
+            <input
+              type="file"
+              id="picker"
+              accept="image/*"
+              onChange={handleImageChange}
+              className="hidden"
+            />
+          </div>
           <BiWorld className="h-[1.6rem] w-[1.6rem]" />
           <p className="text-[1.2rem] font-medium leading-[1.6rem] tracking-[-3.5%]">
             Everyone can reply
@@ -96,7 +124,7 @@ const NewTweet = () => {
           className="rounded-[4px] bg-blueish px-[2.4rem] py-[.8rem] text-[1.2rem] font-medium leading-[1.6rem] tracking-[-3.5%] text-white"
           type="submit"
           value="Tweet"
-          onClick={handleNewTweet}
+          onClick={handleNewTweetSumbit}
         />
       </div>
     </div>

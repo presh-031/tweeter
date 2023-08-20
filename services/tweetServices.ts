@@ -1,6 +1,27 @@
 import { doc, updateDoc } from "firebase/firestore";
 import { db } from "@/config/firebase";
 
+import { Timestamp, addDoc, collection } from "firebase/firestore";
+
+// new tweet
+export const newTweet = async (newTweetText: string, authUserId: string) => {
+  try {
+    await addDoc(collection(db, "tweets"), {
+      text: newTweetText,
+      userId: authUserId,
+      timestamp: Timestamp.now(),
+      likes: [],
+      retweets: [],
+      media: [],
+      comments: [],
+      bookmarkedBy: [],
+      likesCount: 0,
+    });
+  } catch (err) {
+    alert(err);
+  }
+};
+
 // like tweet
 export const likeTweet = async (
   tweetId: string,
