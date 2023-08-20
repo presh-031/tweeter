@@ -5,34 +5,35 @@ import { useRouter } from "next/router";
 import { WithAuthUser, Comment, Tweet } from "../../index";
 
 const TweetInfo = () => {
-  const router = useRouter();
-  const { id } = router.query;
-  const routeId = id ? id.toString() : "";
+  // const router = useRouter();
+  // const { id } = router.query;
+  // const routeId = id ? id.toString() : "";
 
-  const [tweet, tweetLoading, tweetError] = useDocument(
-    doc(db, "tweets", routeId),
-    {
-      snapshotListenOptions: { includeMetadataChanges: true },
-    }
-  );
+  // const [tweet, tweetLoading, tweetError] = useDocument(
+  //   doc(db, "tweets", routeId),
+  //   {
+  //     snapshotListenOptions: { includeMetadataChanges: true },
+  //   }
+  // );
 
-  //Tweet comments
-  const commentsRef = collection(db, "comments");
-  const commentsQuery = query(
-    commentsRef,
-    where("tweetId", "==", id)
-    // orderBy("timestamp", "desc")
-  );
-  const [comments, commentsLoading, commentsError] = useCollection(
-    commentsQuery,
-    {
-      snapshotListenOptions: { includeMetadataChanges: true },
-    }
-  );
+  // //Tweet comments
+  // const commentsRef = collection(db, "comments");
+  // const commentsQuery = query(
+  //   commentsRef,
+  //   where("tweetId", "==", id)
+  //   // orderBy("timestamp", "desc")
+  // );
+  // const [comments, commentsLoading, commentsError] = useCollection(
+  //   commentsQuery,
+  //   {
+  //     snapshotListenOptions: { includeMetadataChanges: true },
+  //   }
+  // );
 
   return (
     <div className="px-[1.90rem] pb-[9.615rem]">
-      {tweetError && <strong>Error: {JSON.stringify(tweetError)}</strong>}
+      tweetid
+      {/* {tweetError && <strong>Error: {JSON.stringify(tweetError)}</strong>}
       {tweetLoading && <span>Collection: Loading...</span>}
       {tweet && (
         <Tweet
@@ -63,7 +64,7 @@ const TweetInfo = () => {
         })
       ) : (
         <p>No comments to see</p>
-      )}
+      )} */}
     </div>
   );
 };

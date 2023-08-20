@@ -4,8 +4,9 @@ const Home = () => {
     <>
       <div className=" px-[1.90rem] pb-[9.615rem]">
         <div>
-          <NewTweet />
-          <AllTweets />
+          All tweets
+          {/* <NewTweet /> */}
+          {/* <AllTweets /> */}
         </div>
         <div></div>
       </div>
@@ -14,3 +15,4 @@ const Home = () => {
 };
 
 export default WithAuthUser(Home);
+// export default Home;

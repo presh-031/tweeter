@@ -11,18 +11,19 @@ import { Tweet } from "..";
 
 const Bookmarks = () => {
   // Get current user info
-  const [currentUser, loadingCurrentUser, errorCurrentUser] =
-    useAuthState(auth);
-  const currentUserId = currentUser ? currentUser.uid : "";
+  // const [currentUser, loadingCurrentUser, errorCurrentUser] =
+  //   useAuthState(auth);
+  // const currentUserId = currentUser ? currentUser.uid : "";
 
-  const [userInfo, userInfoLoading, userInfoError] = useDocumentData(
-    doc(db, "users", currentUserId),
-    {
-      snapshotListenOptions: { includeMetadataChanges: true },
-    }
-  );
-  const bookmarkedTweetsIds = userInfo?.bookmarkedTweets;
+  // const [userInfo, userInfoLoading, userInfoError] = useDocumentData(
+  //   doc(db, "users", ""),
+  //   {
+  //     snapshotListenOptions: { includeMetadataChanges: true },
+  //   }
+  // );
+  // const bookmarkedTweetsIds = userInfo?.bookmarkedTweets;
 
+  // console.log(userInfo?.bookmarkedTweets);
   // Simply fetching all tweets and filtering on the FE.
   // const tweetsRef = collection(db, "tweets");
   // const [tweetSnapshots, loading, error] = useCollection(tweetsRef, {

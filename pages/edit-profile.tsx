@@ -13,16 +13,16 @@ import toast from "react-hot-toast";
 import { AiOutlineLoading3Quarters } from "react-icons/ai";
 import { useForm } from "react-hook-form";
 
-const schema = yup.object({
-  userName: yup.string().required("You must add a name"),
-  email: yup.string().required("You must add an email"),
-  displayName: yup.string().required("You must add a displayName"),
-  profilePictureUrl: yup.string().required("You must add a profile picture"),
-  headerImageUrl: yup.string().required("You must add a header image"),
-  bio: yup.string(),
-});
+// const schema = yup.object({
+//   userName: yup.string().required("You must add a name"),
+//   email: yup.string().required("You must add an email"),
+//   displayName: yup.string().required("You must add a displayName"),
+//   profilePictureUrl: yup.string().required("You must add a profile picture"),
+//   headerImageUrl: yup.string().required("You must add a header image"),
+//   bio: yup.string(),
+// });
 
-type FormData = yup.InferType<typeof schema>;
+// type FormData = yup.InferType<typeof schema>;
 
 const Edit = () => {
   return <div>Nothing here yet</div>;
