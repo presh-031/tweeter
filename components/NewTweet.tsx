@@ -102,12 +102,12 @@ const NewTweet = () => {
       <div className="mt-[3rem] flex justify-between text-blueish">
         <div className=" flex items-center gap-[.71rem] ">
           <div>
-            <label htmlFor="picker">
+            <label htmlFor="tweet-img-picker">
               <MdOutlineImage className="mr-[.673] h-[1.5rem] w-[1.5rem] " />
             </label>
             <input
               type="file"
-              id="picker"
+              id="tweet-img-picker"
               accept="image/*"
               onChange={handleImageChange}
               className="hidden"

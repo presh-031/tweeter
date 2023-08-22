@@ -10,14 +10,14 @@ const EditCoverImage = () => {
   return (
     <div className="relative h-[10rem] w-full rounded-[.8rem] bg-[#777777] bg-opacity-80">
       <label
-        htmlFor="picker"
+        htmlFor="cover-picker"
         className="absolute top-[1rem] left-[1rem] block w-fit rounded-full bg-black bg-opacity-50 p-2"
       >
         <MdOutlineBrokenImage className=" text-3xl text-white" />
       </label>
       <input
         type="file"
-        id="picker"
+        id="cover-picker"
         accept="image/*"
         onChange={handleImageChange}
         className="hidden"
@@ -41,17 +41,17 @@ const EditProfilePic = () => {
     useSelectedImage();
 
   return (
-    <div className="relative mt-8 h-[5rem] w-[5rem] overflow-hidden rounded-[.8rem] bg-black bg-opacity-20">
+    <div className="relative mt-8 flex h-[5rem] w-[5rem] items-center justify-center overflow-hidden rounded-[.8rem] bg-black bg-opacity-20">
       <label
-        htmlFor="picker"
-        className="absolute top-1/2 left-1/2 block w-fit -translate-x-1/2 -translate-y-1/2 transform rounded-full bg-black bg-opacity-60 p-2"
+        htmlFor="profile-picker"
+        className="absolute top-1/2 left-1/2 z-[100] block w-fit -translate-x-1/2 -translate-y-1/2 transform rounded-full bg-black bg-opacity-60 p-2"
       >
         <MdOutlineBrokenImage className=" text-3xl text-white" />
       </label>
 
       <input
         type="file"
-        id="picker"
+        id="profile-picker"
         accept="image/*"
         onChange={handleImageChange}
         className="hidden"

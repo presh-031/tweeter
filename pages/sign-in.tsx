@@ -19,6 +19,8 @@ const SignIn = () => {
 
         <p className="my-6 text-center text-xl">or</p>
         <GoogleBtn />
+
+        {/* to remove apple btn */}
         <AppleBtn />
         <GuestBtn />
 
