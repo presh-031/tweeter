@@ -15,9 +15,9 @@ import Image from "next/image";
 import { useDocumentData } from "react-firebase-hooks/firestore";
 
 const schema = yup.object().shape({
-  userName: yup.string().required("required"),
-  displayName: yup.string().required("required"),
-  bio: yup.string().required("required"),
+  userName: yup.string().required(""),
+  displayName: yup.string().required(""),
+  bio: yup.string().required(""),
 });
 type FormData = yup.InferType<typeof schema>;
 
@@ -39,27 +39,24 @@ const EditProfileForm = () => {
     });
 
   // console.log(authUserInfo);
-  // const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(false);
 
   const onSubmit = async (data: FormData) => {
-    // console.log(data);
-    console.log("sumitted");
-    //   setLoading(true);
-    //   const userDocRef = doc(db, "users", currentUserId);
-    //   try {
-    //     await updateDoc(userDocRef, {
-    //       userName: data.userName,
-    //       displayName: data.displayName,
-    //       bio: data.bio,
-    //     });
-    //     setLoading(false);
-    //     toast.success("Successfully edited.");
-    //     router.push("/");
-    //   } catch (err) {
-    //     toast.error("Try again.");
-    //     router.push("/");
-    //     alert(err);
-    //   }
+    setLoading(true);
+    const userDocRef = doc(db, "users", authUserId);
+    try {
+      await updateDoc(userDocRef, {
+        userName: data.userName,
+        displayName: data.displayName,
+        bio: data.bio,
+      });
+      setLoading(false);
+      toast.success("Successfully edited.");
+      router.push("/");
+    } catch (err) {
+      toast.error("Try again.");
+      console.log(err);
+    }
   };
 
   return (
@@ -69,37 +66,42 @@ const EditProfileForm = () => {
           User Name
         </label>
         <input
-          {...(register("userName"), { defaultValue: authUserInfo?.userName })}
+          {
+            ...register("userName")
+            // { defaultValue: authUserInfo?.userName }
+          }
           className="mb-8 block w-full rounded-xl border-[1px] border-[#333333] bg-transparent p-4 outline-none"
           type="text"
           id="userName"
         />
-        <p style={{ color: "red" }}>{errors.userName?.message}</p>
 
         <label className="mb-4  text-[#333333]" htmlFor="displayName">
           Display Name
         </label>
         <input
-          {...(register("displayName"),
-          { defaultValue: authUserInfo?.displayName })}
+          {
+            ...register("displayName")
+            // { defaultValue: authUserInfo?.displayName }
+          }
           className="mb-8 block w-full rounded-xl border-[1px] border-[#333333] bg-transparent p-4 outline-none"
           type="text"
           id="displayName"
         />
-        <p style={{ color: "red" }}>{errors.displayName?.message}</p>
 
         <label className="mb-4  text-[#333333]" htmlFor="bio">
           Bio
         </label>
         <textarea
-          {...(register("bio"), { defaultValue: authUserInfo?.bio })}
+          {
+            ...register("bio")
+            // { defaultValue: authUserInfo?.bio }
+          }
           className="mb-8 block w-full rounded-xl border-[1px] border-[#333333] bg-transparent p-4 outline-none"
           name="bio"
           id="bio"
           cols={20}
           rows={5}
         ></textarea>
-        <p style={{ color: "red" }}>{errors.bio?.message}</p>
 
         <div className="flex items-center justify-between gap-4">
           <button

@@ -13,6 +13,7 @@ import userPlaceholder from "../assets/user-placeholder.png";
 import { useDocumentData } from "react-firebase-hooks/firestore";
 import { newTweet } from "@/services/tweetServices";
 import { GrClose, GrFormClose } from "react-icons/gr";
+import useSelectedImage from "@/hooks/useSelectedImage";
 
 const NewTweet = () => {
   const [authUser] = useAuthState(auth);
@@ -28,6 +29,10 @@ const NewTweet = () => {
     setNewTweetText(e.target.value);
   };
 
+  // image picker
+  const { selectedImage, handleImageChange, deleteSelectedImage } =
+    useSelectedImage();
+
   const handleNewTweetSumbit = (e: { preventDefault: () => void }) => {
     e.preventDefault();
     if (newTweetText) {
@@ -36,7 +41,7 @@ const NewTweet = () => {
         newTweet(newTweetText, authUserId);
         toast.success("Posted!");
         setNewTweetText("");
-        setSelectedImage(null);
+        deleteSelectedImage();
         setNewTweetLoading(false);
       } catch (err) {
         toast.success("Try again!");
@@ -44,16 +49,6 @@ const NewTweet = () => {
       }
     } else {
       toast.error("That's empty");
-    }
-  };
-
-  // image picker
-  const [selectedImage, setSelectedImage] = useState<string | null>(null);
-
-  const handleImageChange = (event: ChangeEvent<HTMLInputElement>) => {
-    const selectedFile = event.target.files?.[0];
-    if (selectedFile) {
-      setSelectedImage(URL.createObjectURL(selectedFile));
     }
   };
 
@@ -96,9 +91,7 @@ const NewTweet = () => {
             className="mt-[1rem] h-auto max-h-[50rem] w-auto max-w-full rounded-[8px] "
           />
           <div
-            onClick={() => {
-              setSelectedImage(null);
-            }}
+            onClick={deleteSelectedImage}
             className="absolute top-[2rem] right-[1rem] flex h-[2.2rem] w-[2.2rem] items-center justify-center rounded-full bg-black bg-opacity-50 opacity-80"
           >
             <MdClose className="text-4xl text-white" />
