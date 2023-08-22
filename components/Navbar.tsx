@@ -17,16 +17,16 @@ const Navbar = () => {
   const authUserId = authUser ? authUser.uid : "";
 
   // firebase hooks breaks stuff here.
-  const [user, setUser] = useState<any>({});
-  useEffect(() => {
-    const getUser = async () => {
-      const userSnap = await getDoc(doc(db, "users", authUserId));
-      setUser(userSnap.data());
-    };
+  // const [user, setUser] = useState<any>({});
+  // useEffect(() => {
+  //   const getUser = async () => {
+  //     const userSnap = await getDoc(doc(db, "users", authUserId));
+  //     setUser(userSnap.data());
+  //   };
 
-    getUser();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  //   getUser();
+  //   // eslint-disable-next-line react-hooks/exhaustive-deps
+  // }, []);
 
   const [showUserNav, setShowUserNav] = useState(false);
   const toggleShowUserNav = () => {
@@ -48,7 +48,7 @@ const Navbar = () => {
       </div>
 
       <div onClick={toggleShowUserNav} className="flex items-center gap-4 ">
-        <Image
+        {/* <Image
           src={
             user?.profilePictureUrl ? user.profilePictureUrl : userPlaceholder
           }
@@ -60,7 +60,7 @@ const Navbar = () => {
 
         <p className="text-lg">
           {user?.displayName ? `@${user.displayName}` : user?.userName}
-        </p>
+        </p> */}
 
         {showUserNav ? (
           <RiArrowUpSFill className="text-3xl" />
