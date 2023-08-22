@@ -15,9 +15,9 @@ import Image from "next/image";
 import { useDocumentData } from "react-firebase-hooks/firestore";
 
 const schema = yup.object().shape({
-  userName: yup.string().required("Please input a User Name."),
-  displayName: yup.string().required("Please input a Display Name."),
-  bio: yup.string().required("Please add something about you."),
+  userName: yup.string().required("required"),
+  displayName: yup.string().required("required"),
+  bio: yup.string().required("required"),
 });
 type FormData = yup.InferType<typeof schema>;
 
@@ -38,20 +38,18 @@ const EditProfileForm = () => {
       snapshotListenOptions: { includeMetadataChanges: true },
     });
 
+  // console.log(authUserInfo);
   // const [loading, setLoading] = useState(false);
-  console.log(authUserInfo);
 
   const onSubmit = async (data: FormData) => {
-    console.log(data);
+    // console.log(data);
+    console.log("sumitted");
     //   setLoading(true);
     //   const userDocRef = doc(db, "users", currentUserId);
     //   try {
     //     await updateDoc(userDocRef, {
     //       userName: data.userName,
-    //       email: data.email,
     //       displayName: data.displayName,
-    //       profilePictureUrl: data.profilePictureUrl,
-    //       headerImageUrl: data.headerImageUrl,
     //       bio: data.bio,
     //     });
     //     setLoading(false);
