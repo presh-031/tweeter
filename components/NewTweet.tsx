@@ -88,7 +88,7 @@ const NewTweet = () => {
             alt="Selected"
             width={100}
             height={100}
-            className="mt-[1rem] h-auto max-h-[50rem] w-auto max-w-full rounded-[8px] "
+            className="mt-[1rem] h-auto max-h-[50rem] w-auto max-w-full rounded-[8px] object-cover "
           />
           <div
             onClick={deleteSelectedImage}
