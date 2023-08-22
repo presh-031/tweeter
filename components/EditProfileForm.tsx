@@ -91,7 +91,7 @@ const EditProfileForm = () => {
         </label>
         <input
           // {...register("userName")}
-          className="mb-8 block w-full rounded-xl border-[1px] p-4 outline-none"
+          className="mb-8 block w-full rounded-xl border-[1px] border-[#333333] bg-transparent p-4 outline-none"
           type="text"
           id="userName"
         />
@@ -102,7 +102,7 @@ const EditProfileForm = () => {
         </label>
         <input
           // {...register("displayName")}
-          className="mb-8 block w-full rounded-xl border-[1px] p-4 outline-none"
+          className="mb-8 block w-full rounded-xl border-[1px] border-[#333333] bg-transparent p-4 outline-none"
           type="text"
           id="displayName"
         />
@@ -113,11 +113,11 @@ const EditProfileForm = () => {
         </label>
         <textarea
           // {...register("bio")}
-          className="mb-8 block w-full rounded-xl border-[1px] p-4 outline-none"
+          className="mb-8 block w-full rounded-xl border-[1px] border-[#333333] bg-transparent p-4 outline-none"
           name="bio"
           id="bio"
           cols={20}
-          rows={10}
+          rows={5}
         ></textarea>
         {/* <p style={{ color: "red" }}>{errors.bio?.message}</p>  */}
 
