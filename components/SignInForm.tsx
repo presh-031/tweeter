@@ -45,7 +45,7 @@ const SignInForm = () => {
     setFullName(data.fullName);
   };
 
-  if (user) {
+  if (user?.user) {
     createNewUserInDb(user, fullName);
     router.push("/");
   }

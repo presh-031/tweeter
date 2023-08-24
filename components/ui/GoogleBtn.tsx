@@ -11,7 +11,7 @@ const GoogleBtn = () => {
 
   const [signInWithGoogle, user, loading, error] = useSignInWithGoogle(auth);
 
-  if (user) {
+  if (user?.user) {
     const fullName: string | null = user.user?.displayName;
 
     createNewUserInDb(user, fullName);

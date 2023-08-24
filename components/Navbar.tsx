@@ -1,5 +1,5 @@
 import { auth, db } from "@/config/firebase";
-import { collection, doc, getDoc, query, where } from "firebase/firestore";
+import { doc, getDoc } from "firebase/firestore";
 import { useEffect, useState } from "react";
 import { userInfoType } from "@/typings";
 import Image from "next/image";
@@ -9,15 +9,14 @@ import { RiArrowDownSFill, RiArrowUpSFill } from "react-icons/ri";
 import logo from "../assets/tweeter.svg";
 import userPlaceholder from "../assets/user-placeholder.png";
 import { AppNav, UserNav } from "../index";
-import { useDocument, useDocumentData } from "react-firebase-hooks/firestore";
 
-const Navbar = () => {
+const NavBar = () => {
   const router = useRouter();
   const [authUser] = useAuthState(auth);
   const authUserId = authUser ? authUser.uid : "";
 
   // firebase hooks breaks stuff here.
-  const [user, setUser] = useState<any>({});
+  const [user, setUser] = useState<any>(null);
   useEffect(() => {
     const getUser = async () => {
       const userSnap = await getDoc(doc(db, "users", authUserId));
@@ -25,8 +24,7 @@ const Navbar = () => {
     };
 
     getUser();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [authUserId]);
 
   const [showUserNav, setShowUserNav] = useState(false);
   const toggleShowUserNav = () => {
@@ -47,7 +45,7 @@ const Navbar = () => {
         <AppNav />
       </div>
 
-      <div onClick={toggleShowUserNav} className="flex items-center gap-4 ">
+      <div onClick={toggleShowUserNav} className="flex items-center">
         <Image
           src={
             user?.profilePictureUrl ? user.profilePictureUrl : userPlaceholder
@@ -58,8 +56,8 @@ const Navbar = () => {
           className="h-[3.2rem] w-[3.2rem] rounded-[8px] outline"
         />
 
-        <p className="text-lg">
-          {user?.displayName ? `@${user.displayName}` : user?.userName}
+        <p className="w-12 border border-red-800 text-lg">
+          {user?.displayName}
         </p>
 
         {showUserNav ? (
@@ -73,4 +71,4 @@ const Navbar = () => {
   );
 };
 
-export default Navbar;
+export default NavBar;

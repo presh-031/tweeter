@@ -4,6 +4,7 @@ import logo from "../assets/tweeter.svg";
 import { GoogleBtn, SignInForm, SignInLoader } from "../index";
 import { FaUser } from "react-icons/fa";
 import GuestBtn from "@/components/ui/GuestBtn";
+import Link from "next/link";
 
 const SignIn = () => {
   return (
@@ -21,7 +22,10 @@ const SignIn = () => {
         <GuestBtn />
 
         <p className="mt-12 text-center text-xl">
-          Already a member? <span className="text-blueish">Login</span>
+          Already a member?{" "}
+          <Link href="/log-in" className="text-blueish">
+            Login
+          </Link>
         </p>
       </div>
     </IconContext.Provider>

@@ -1,9 +1,10 @@
 import { db } from "@/config/firebase";
+import { generateDefaultDisplayName } from "@/utils/displayName";
 import { UserCredential } from "firebase/auth";
 import { Timestamp, doc, getDoc, setDoc } from "firebase/firestore";
 
 export const createNewUserInDb = async (
-  user: UserCredential | undefined,
+  user: UserCredential,
   fullName: string | null
 ) => {
   const newId = user ? user.user.uid : "";
