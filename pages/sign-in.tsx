@@ -19,6 +19,8 @@ const SignIn = () => {
         <SignInForm />
         <p className="my-6 text-center text-xl">or</p>
         <GoogleBtn />
+
+        {/* add functionality to guest btn */}
         <GuestBtn />
 
         <p className="mt-12 text-center text-xl">
