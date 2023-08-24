@@ -11,6 +11,7 @@ import { IoMdLock } from "react-icons/io";
 import { createNewUserInDb } from "@/helpers/authHelpers";
 import { useRouter } from "next/router";
 import SignInLoader from "./Loaders/SignInLoader";
+import { useState } from "react";
 
 const schema = yup.object().shape({
   email: yup
@@ -21,6 +22,7 @@ const schema = yup.object().shape({
     .string()
     .min(8, "Password must be at least 8 characters long")
     .required("Password is required"),
+  fullName: yup.string().required("Full name is required"),
 });
 type FormData = yup.InferType<typeof schema>;
 
@@ -37,16 +39,33 @@ const SignInForm = () => {
     resolver: yupResolver(schema),
   });
 
-  const onSubmit = (data: FormData) =>
+  const [fullName, setFullName] = useState("");
+  const onSubmit = (data: FormData) => {
     createUserWithEmailAndPassword(data.email, data.password);
+    setFullName(data.fullName);
+  };
 
   if (user) {
-    createNewUserInDb(user);
+    createNewUserInDb(user, fullName);
     router.push("/");
   }
 
   return (
     <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-6">
+      <div>
+        <div className="flex items-center gap-4 overflow-hidden rounded-xl  bg-gray-100  pl-4">
+          {/* <MdEmail /> */}
+          <input
+            type="text"
+            {...register("fullName")}
+            placeholder="Full name"
+            className="w-full bg-transparent py-4 text-2xl outline-none"
+          />
+        </div>
+        <p className="text-red-600">{errors.fullName?.message}</p>
+        {/* {error && <p className="text-red-600">Email already being used</p>} */}
+      </div>
+
       <div>
         <div className="flex items-center gap-4 overflow-hidden rounded-xl  bg-gray-100  pl-4">
           <MdEmail />

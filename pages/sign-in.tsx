@@ -1,7 +1,7 @@
 import { IconContext } from "react-icons";
 import Image from "next/image";
 import logo from "../assets/tweeter.svg";
-import { AppleBtn, GoogleBtn, SignInForm, SignInLoader } from "../index";
+import { GoogleBtn, SignInForm, SignInLoader } from "../index";
 import { FaUser } from "react-icons/fa";
 import GuestBtn from "@/components/ui/GuestBtn";
 
@@ -16,12 +16,8 @@ const SignIn = () => {
         </p>
 
         <SignInForm />
-
         <p className="my-6 text-center text-xl">or</p>
         <GoogleBtn />
-
-        {/* to remove apple btn */}
-        <AppleBtn />
         <GuestBtn />
 
         <p className="mt-12 text-center text-xl">

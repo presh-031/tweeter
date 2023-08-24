@@ -14,7 +14,6 @@ export { default as GeneralLoader } from "./components/Loaders/GeneralLoader/ind
 export { default as SignInLoader } from "./components/Loaders/SignInLoader/index";
 export { default as SignInForm } from "./components/SignInForm";
 export { default as GoogleBtn } from "./components/ui/GoogleBtn";
-export { default as AppleBtn } from "./components/ui/AppleBtn";
 export { default as Follow } from "./components/ui/Follow";
 export { default as UnFollow } from "./components/ui/UnFollow";
 export { default as People } from "./components/People/index";

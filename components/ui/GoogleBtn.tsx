@@ -12,7 +12,9 @@ const GoogleBtn = () => {
   const [signInWithGoogle, user, loading, error] = useSignInWithGoogle(auth);
 
   if (user) {
-    createNewUserInDb(user);
+    const fullName: string | null = user.user?.displayName;
+
+    createNewUserInDb(user, fullName);
     router.push("/");
   }
 

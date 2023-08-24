@@ -58,17 +58,19 @@ const NewTweet = () => {
         Tweet something
       </p>
       <form onSubmit={handleNewTweetSumbit} className="flex items-center">
-        <Image
-          src={
-            authUserInfo?.profilePictureUrl
-              ? authUserInfo.profilePictureUrl
-              : userPlaceholder
-          }
-          width={40}
-          height={40}
-          alt="profile-pic"
-          className="h-[4rem] w-[4rem] outline "
-        />
+        {authUserInfo && (
+          <Image
+            src={
+              authUserInfo?.profilePictureUrl
+                ? authUserInfo.profilePictureUrl
+                : userPlaceholder
+            }
+            width={40}
+            height={40}
+            alt="profile-pic"
+            className="h-[4rem] w-[4rem] outline "
+          />
+        )}
         <input
           className="w-full overflow-hidden pl-[1.2rem] text-[1.6rem] font-medium leading-[2.179rem] tracking-[-3.5%]  outline-none placeholder:text-[#bdbdbd]"
           type="text"
