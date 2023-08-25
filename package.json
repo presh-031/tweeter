@@ -25,9 +25,11 @@
     "react-hot-toast": "^2.4.0",
     "react-icons": "^4.8.0",
     "typescript": "4.9.5",
+    "uuid": "^9.0.0",
     "yup": "^1.2.0"
   },
   "devDependencies": {
+    "@types/uuid": "^9.0.2",
     "autoprefixer": "^10.4.13",
     "postcss": "^8.4.21",
     "prettier": "^2.8.4",

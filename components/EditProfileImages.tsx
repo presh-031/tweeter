@@ -2,37 +2,61 @@ import { MdOutlineBrokenImage } from "react-icons/md";
 import Image from "next/image";
 import userPlaceholder from "../assets/user-placeholder.png";
 import useSelectedImage from "@/hooks/useSelectedImage";
+import { useState } from "react";
+import { v4 } from "uuid";
+import { ref } from "firebase/storage";
+import { useUploadFile } from "react-firebase-hooks/storage";
+import { storage } from "@/config/firebase";
 
 const EditCoverImage = () => {
   const { selectedImage, handleImageChange, deleteSelectedImage } =
     useSelectedImage();
 
-  return (
-    <div className="relative h-[10rem] w-full rounded-[.8rem] bg-[#777777] bg-opacity-80">
-      <label
-        htmlFor="cover-picker"
-        className="absolute top-[1rem] left-[1rem] block w-fit rounded-full bg-black bg-opacity-50 p-2"
-      >
-        <MdOutlineBrokenImage className=" text-3xl text-white" />
-      </label>
-      <input
-        type="file"
-        id="cover-picker"
-        accept="image/*"
-        onChange={handleImageChange}
-        className="hidden"
-      />
+  const [uploadFile, uploading, snapshot, error] = useUploadFile();
+  const imageRef = ref(storage, `images/${selectedImage?.name + v4()}`);
 
-      {selectedImage && (
-        <Image
-          src={selectedImage}
-          alt="Selected"
-          width={80}
-          height={80}
-          className="mt-[1rem] h-full w-full max-w-full rounded-[8px] object-cover "
+  const upload = async () => {
+    if (selectedImage) {
+      const result = await uploadFile(imageRef, selectedImage, {
+        contentType: "image/jpeg",
+      });
+      alert(`Result: ${JSON.stringify(result)}`);
+    }
+  };
+  return (
+    <>
+      {error && <strong>Error: {error.message}</strong>}
+      {uploading && <span>Uploading file...</span>}
+      {snapshot && <span>Snapshot: {JSON.stringify(snapshot)}</span>}
+      {selectedImage && <span>Selected file: {selectedImage.name}</span>}
+
+      <div className="relative h-[10rem] w-full rounded-[.8rem] bg-[#777777] bg-opacity-80">
+        <label
+          htmlFor="cover-picker"
+          className="absolute top-[1rem] left-[1rem] block w-fit rounded-full bg-black bg-opacity-50 p-2"
+        >
+          <MdOutlineBrokenImage className=" text-3xl text-white" />
+        </label>
+        <input
+          type="file"
+          id="cover-picker"
+          accept="image/*"
+          onChange={handleImageChange}
+          className="hidden"
         />
-      )}
-    </div>
+
+        {/* {selectedImage && (
+          <Image
+            src={selectedImage.name}
+            alt="Selected"
+            width={80}
+            height={80}
+            className="mt-[1rem] h-full w-full max-w-full rounded-[8px] object-cover "
+          />
+        )} */}
+      </div>
+      <button onClick={upload}>Save</button>
+    </>
   );
 };
 

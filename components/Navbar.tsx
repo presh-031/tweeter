@@ -56,9 +56,7 @@ const NavBar = () => {
           className="h-[3.2rem] w-[3.2rem] rounded-[8px] outline"
         />
 
-        <p className="w-12 border border-red-800 text-lg">
-          {user?.displayName}
-        </p>
+        <p className="w-12 truncate text-lg">{user?.displayName}</p>
 
         {showUserNav ? (
           <RiArrowUpSFill className="text-3xl" />

@@ -11,7 +11,7 @@ import { MdClose, MdOutlineImage } from "react-icons/md";
 import { GeneralLoader } from "..";
 import userPlaceholder from "../assets/user-placeholder.png";
 import { useDocumentData } from "react-firebase-hooks/firestore";
-import { newTweet } from "@/services/tweetServices";
+import { postNewTweet } from "@/services/tweetServices";
 import { GrClose, GrFormClose } from "react-icons/gr";
 import useSelectedImage from "@/hooks/useSelectedImage";
 
@@ -38,8 +38,9 @@ const NewTweet = () => {
     if (newTweetText) {
       try {
         setNewTweetLoading(true);
-        newTweet(newTweetText, authUserId);
+        postNewTweet(newTweetText, authUserId);
         toast.success("Posted!");
+
         setNewTweetText("");
         deleteSelectedImage();
         setNewTweetLoading(false);

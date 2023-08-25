@@ -1,12 +1,12 @@
 import { ChangeEvent, useState } from "react";
 
 const useSelectedImage = () => {
-  const [selectedImage, setSelectedImage] = useState<string | null>(null);
+  const [selectedImage, setSelectedImage] = useState<File | null>(null);
 
   const handleImageChange = (event: ChangeEvent<HTMLInputElement>) => {
-    const selectedFile = event.target.files?.[0];
+    const selectedFile = event.target.files ? event.target.files[0] : undefined;
     if (selectedFile) {
-      setSelectedImage(URL.createObjectURL(selectedFile));
+      setSelectedImage(selectedFile);
     }
   };
   const deleteSelectedImage = () => {

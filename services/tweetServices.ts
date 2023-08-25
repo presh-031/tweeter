@@ -4,7 +4,10 @@ import { db } from "@/config/firebase";
 import { Timestamp, addDoc, collection } from "firebase/firestore";
 
 // new tweet
-export const newTweet = async (newTweetText: string, authUserId: string) => {
+export const postNewTweet = async (
+  newTweetText: string,
+  authUserId: string
+) => {
   try {
     await addDoc(collection(db, "tweets"), {
       text: newTweetText,
