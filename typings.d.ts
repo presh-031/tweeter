@@ -68,3 +68,11 @@ export type UserNavProps = {
 export type MediaProps = {
   images: string[];
 };
+
+export type EditProfileImagesProps = {
+  authUserId: string;
+};
+
+export type CoverImageProps = {
+  coverImg: string | undefined;
+};

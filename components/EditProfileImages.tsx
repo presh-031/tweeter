@@ -2,33 +2,30 @@ import { MdOutlineBrokenImage } from "react-icons/md";
 import Image from "next/image";
 import userPlaceholder from "../assets/user-placeholder.png";
 import useSelectedImage from "@/hooks/useSelectedImage";
-import { useState } from "react";
 import { v4 } from "uuid";
 import { ref } from "firebase/storage";
 import { useUploadFile } from "react-firebase-hooks/storage";
 import { db, storage } from "@/config/firebase";
 import { addDoc, collection } from "firebase/firestore";
+import { EditProfileImagesProps } from "@/typings";
+import useImageUploader from "@/hooks/useImageUploader";
 
-const EditCoverImage = ({ authUserId }) => {
+const EditCoverImage = ({ authUserId }: EditProfileImagesProps) => {
   const { selectedImage, handleImageChange, deleteSelectedImage } =
     useSelectedImage();
-
   const [uploadFile, uploading, snapshot, error] = useUploadFile();
   const imageRef = ref(storage, `cover-images/${selectedImage?.name + v4()}`);
 
+  const uploadImage = useImageUploader();
   const upload = async () => {
-    if (selectedImage) {
-      const result = await uploadFile(imageRef, selectedImage, {
-        contentType: "image/jpeg",
-      });
-
-      if (result?.metadata) {
-        const fullPath = result.metadata.fullPath;
-        saveImageMetaData(fullPath);
-      }
-    }
+    await uploadImage(
+      selectedImage,
+      imageRef,
+      uploadFile,
+      saveCoverImageMetaData
+    );
   };
-  const saveImageMetaData = async (fullPath: string) => {
+  const saveCoverImageMetaData = async (fullPath: string) => {
     const metaData = {
       fullPath,
       userId: authUserId,
@@ -40,6 +37,7 @@ const EditCoverImage = ({ authUserId }) => {
       alert(err);
     }
   };
+
   return (
     <>
       {error && <strong>Error: {error.message}</strong>}
@@ -98,7 +96,7 @@ const EditProfilePic = () => {
         className="hidden"
       />
 
-      {selectedImage ? (
+      {/* {selectedImage ? (
         <Image
           src={selectedImage}
           alt="Selected"
@@ -114,12 +112,12 @@ const EditProfilePic = () => {
           height={50}
           className="opacity-30 "
         />
-      )}
+      )} */}
     </div>
   );
 };
 
-const EditProfileImages = ({ authUserId }) => {
+const EditProfileImages = ({ authUserId }: EditProfileImagesProps) => {
   return (
     <>
       <EditCoverImage authUserId={authUserId} />

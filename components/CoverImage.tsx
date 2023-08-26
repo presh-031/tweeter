@@ -1,10 +1,7 @@
 import Image from "next/image";
-import React from "react";
-
 import userPlaceholder from "../assets/user-placeholder.png";
-type CoverImageProps = {
-  coverImg: string | undefined;
-};
+import { CoverImageProps } from "@/typings";
+
 const CoverImage = ({ coverImg }: CoverImageProps) => {
   return (
     <div className="">
