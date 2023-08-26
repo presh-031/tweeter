@@ -15,6 +15,7 @@ import CoverImage from "@/components/CoverImage";
 import { useDownloadURL } from "react-firebase-hooks/storage";
 import { getDownloadURL, ref } from "firebase/storage";
 import { useEffect, useState } from "react";
+import useImageDownloadURL from "@/hooks/useImageDownloadURL";
 
 let authUserIsProfileOwner;
 
@@ -40,13 +41,11 @@ const Profile = () => {
   // determine if the profile page is being visited by the authuser or profileowner
   if (authUserId === profileOwnerId) {
     authUserIsProfileOwner = true;
-    console.log(authUserIsProfileOwner);
   } else {
     authUserIsProfileOwner = false;
-    console.log(authUserIsProfileOwner);
   }
 
-  // testing image downloads.
+  // Image downloads.
   // use userId to fetch img metadata
   const metaDataRef = collection(db, "cover-images");
   const metaDataQuery = query(metaDataRef, where("userId", "==", authUserId));
@@ -59,23 +58,7 @@ const Profile = () => {
   const metaData = metaDataSnapshot;
 
   // use fullPath in metadata to get imageURL
-  const fullPath = metaData && metaData.length ? metaData[0].fullPath : "";
-
-  const [imageURL, setImageURL] = useState("");
-  async function getDownloadUrlForFile(fullPath: string) {
-    try {
-      const imageRef = ref(storage, fullPath ? fullPath : "");
-      const downloadURL = await getDownloadURL(imageRef);
-
-      setImageURL(downloadURL);
-    } catch (error) {
-      console.error("Error getting download URL:", error);
-    }
-  }
-
-  useEffect(() => {
-    getDownloadUrlForFile(fullPath);
-  }, [fullPath]);
+  const imageURL = useImageDownloadURL(metaData);
 
   return (
     <>

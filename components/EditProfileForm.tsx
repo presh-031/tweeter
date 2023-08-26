@@ -42,6 +42,7 @@ const EditProfileForm = () => {
   const [loading, setLoading] = useState(false);
 
   const onSubmit = async (data: FormData) => {
+    //get whichever input field has a value and update that. Thats what the user wants to change.
     // setLoading(true);
     // const userDocRef = doc(db, "users", authUserId);
     // try {
