@@ -6,21 +6,38 @@ import { useState } from "react";
 import { v4 } from "uuid";
 import { ref } from "firebase/storage";
 import { useUploadFile } from "react-firebase-hooks/storage";
-import { storage } from "@/config/firebase";
+import { db, storage } from "@/config/firebase";
+import { addDoc, collection } from "firebase/firestore";
 
-const EditCoverImage = () => {
+const EditCoverImage = ({ authUserId }) => {
   const { selectedImage, handleImageChange, deleteSelectedImage } =
     useSelectedImage();
 
   const [uploadFile, uploading, snapshot, error] = useUploadFile();
-  const imageRef = ref(storage, `images/${selectedImage?.name + v4()}`);
+  const imageRef = ref(storage, `cover-images/${selectedImage?.name + v4()}`);
 
   const upload = async () => {
     if (selectedImage) {
       const result = await uploadFile(imageRef, selectedImage, {
         contentType: "image/jpeg",
       });
-      alert(`Result: ${JSON.stringify(result)}`);
+
+      if (result) {
+        const fullPath = result.metadata.fullPath;
+        saveImageMetaData(fullPath);
+      }
+    }
+  };
+  const saveImageMetaData = async (fullPath: string) => {
+    const metaData = {
+      fullPath,
+      userId: authUserId,
+    };
+
+    try {
+      await addDoc(collection(db, "cover-images"), metaData);
+    } catch (err) {
+      alert(err);
     }
   };
   return (
@@ -102,10 +119,10 @@ const EditProfilePic = () => {
   );
 };
 
-const EditProfileImages = () => {
+const EditProfileImages = ({ authUserId }) => {
   return (
     <>
-      <EditCoverImage />
+      <EditCoverImage authUserId={authUserId} />
       <EditProfilePic />
     </>
   );

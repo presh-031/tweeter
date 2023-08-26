@@ -31,32 +31,32 @@ const EditProfileForm = () => {
     resolver: yupResolver(schema),
   });
 
-  const [authUser] = useAuthState(auth);
-  const authUserId = authUser ? authUser.uid : "";
-  const [authUserInfo, authUserInfoLoading, authUserInfoError] =
-    useDocumentData(doc(db, "users", authUserId), {
-      snapshotListenOptions: { includeMetadataChanges: true },
-    });
+  // const [authUser] = useAuthState(auth);
+  // const authUserId = authUser ? authUser.uid : "";
+  // const [authUserInfo, authUserInfoLoading, authUserInfoError] =
+  //   useDocumentData(doc(db, "users", authUserId), {
+  //     snapshotListenOptions: { includeMetadataChanges: true },
+  //   });
 
   // console.log(authUserInfo);
   const [loading, setLoading] = useState(false);
 
   const onSubmit = async (data: FormData) => {
-    setLoading(true);
-    const userDocRef = doc(db, "users", authUserId);
-    try {
-      await updateDoc(userDocRef, {
-        userName: data.userName,
-        displayName: data.displayName,
-        bio: data.bio,
-      });
-      setLoading(false);
-      toast.success("Successfully edited.");
-      router.push("/");
-    } catch (err) {
-      toast.error("Try again.");
-      console.log(err);
-    }
+    // setLoading(true);
+    // const userDocRef = doc(db, "users", authUserId);
+    // try {
+    //   await updateDoc(userDocRef, {
+    //     userName: data.userName,
+    //     displayName: data.displayName,
+    //     bio: data.bio,
+    //   });
+    //   setLoading(false);
+    //   toast.success("Successfully edited.");
+    //   router.push("/");
+    // } catch (err) {
+    //   toast.error("Try again.");
+    //   console.log(err);
+    // }
   };
 
   return (
