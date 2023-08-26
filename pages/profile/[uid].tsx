@@ -1,6 +1,10 @@
-import { auth, db } from "@/config/firebase";
-import { doc } from "firebase/firestore";
-import { useDocumentData } from "react-firebase-hooks/firestore";
+import { auth, db, storage } from "@/config/firebase";
+import { collection, doc, query, where } from "firebase/firestore";
+import {
+  useCollection,
+  useCollectionData,
+  useDocumentData,
+} from "react-firebase-hooks/firestore";
 import { Follow, UnFollow, WithAuthUser } from "../../index";
 import Image from "next/image";
 import { useRouter } from "next/router";
@@ -8,6 +12,8 @@ import { useAuthState } from "react-firebase-hooks/auth";
 import userPlaceholder from "../../assets/user-placeholder.png";
 import ProfileTweets from "@/components/ProfileTweets";
 import CoverImage from "@/components/CoverImage";
+import { useDownloadURL } from "react-firebase-hooks/storage";
+import { getDownloadURL, ref } from "firebase/storage";
 
 let authUserIsProfileOwner;
 
@@ -39,11 +45,49 @@ const Profile = () => {
     console.log(authUserIsProfileOwner);
   }
 
+  // testing image downloads.
+  // use userId to fetch img metadata
+  const metaDataRef = collection(db, "cover-images");
+  const metaDataQuery = query(metaDataRef, where("userId", "==", authUserId));
+  const [metaDataSnapshot, loadingmetaData, metaDataError] = useCollectionData(
+    metaDataQuery,
+    {
+      snapshotListenOptions: { includeMetadataChanges: true },
+    }
+  );
+  const metaData = metaDataSnapshot;
+
+  // use fullPath in metadata to get imageURL
+  const fullPath = metaData && metaData.length ? metaData[0].fullPath : null;
+  // console.log(fullPath);
+
+  // const imageRef = ref(storage, fullPath ? fullPath : null);
+
+  // const [imageURL, loadingImage, ImageError] = useDownloadURL(imageRef);
+  // console.log(imageURL);
+
+  // testing raw getDownloadURL
+  // async function getDownloadUrlForFile(fullPath) {
+  //   try {
+  //     // Create a reference to the file
+  //     const imageRef = ref(storage, fullPath ? fullPath : null);
+
+  //     // Get the download URL asynchronously
+  //     const downloadURL = await getDownloadURL(imageRef);
+
+  //     console.log("Download URL:", downloadURL);
+  //     return downloadURL; // You can return the URL if needed
+  //   } catch (error) {
+  //     console.error("Error getting download URL:", error);
+  //     throw error; // Rethrow the error if needed
+  //   }
+  // }
+
   return (
     <>
       {profileOwnerInfo && (
         <div className="pb-[9.615rem]">
-          <CoverImage coverImg={profileOwnerInfo.headerImageUrl} />
+          <CoverImage coverImg={imageURL} />
           <div className="px-[1.90rem] ">
             <div className="relative rounded-[1.2rem] px-[1.6rem] pb-[2.316rem] pt-[4.388rem] text-center shadow-[0_2px_4px_rgba(0,0,0,0.05)]">
               <div className="absolute top-[-8.7rem] left-[50%] translate-x-[-50%] overflow-hidden rounded-[8px] p-[.8rem] ">

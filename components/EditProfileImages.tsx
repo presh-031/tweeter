@@ -22,7 +22,7 @@ const EditCoverImage = ({ authUserId }) => {
         contentType: "image/jpeg",
       });
 
-      if (result) {
+      if (result?.metadata) {
         const fullPath = result.metadata.fullPath;
         saveImageMetaData(fullPath);
       }
