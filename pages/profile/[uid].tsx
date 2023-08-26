@@ -14,6 +14,7 @@ import ProfileTweets from "@/components/ProfileTweets";
 import CoverImage from "@/components/CoverImage";
 import { useDownloadURL } from "react-firebase-hooks/storage";
 import { getDownloadURL, ref } from "firebase/storage";
+import { useEffect, useState } from "react";
 
 let authUserIsProfileOwner;
 
@@ -58,30 +59,23 @@ const Profile = () => {
   const metaData = metaDataSnapshot;
 
   // use fullPath in metadata to get imageURL
-  const fullPath = metaData && metaData.length ? metaData[0].fullPath : null;
-  // console.log(fullPath);
+  const fullPath = metaData && metaData.length ? metaData[0].fullPath : "";
 
-  // const imageRef = ref(storage, fullPath ? fullPath : null);
+  const [imageURL, setImageURL] = useState("");
+  async function getDownloadUrlForFile(fullPath: string) {
+    try {
+      const imageRef = ref(storage, fullPath ? fullPath : "");
+      const downloadURL = await getDownloadURL(imageRef);
 
-  // const [imageURL, loadingImage, ImageError] = useDownloadURL(imageRef);
-  // console.log(imageURL);
+      setImageURL(downloadURL);
+    } catch (error) {
+      console.error("Error getting download URL:", error);
+    }
+  }
 
-  // testing raw getDownloadURL
-  // async function getDownloadUrlForFile(fullPath) {
-  //   try {
-  //     // Create a reference to the file
-  //     const imageRef = ref(storage, fullPath ? fullPath : null);
-
-  //     // Get the download URL asynchronously
-  //     const downloadURL = await getDownloadURL(imageRef);
-
-  //     console.log("Download URL:", downloadURL);
-  //     return downloadURL; // You can return the URL if needed
-  //   } catch (error) {
-  //     console.error("Error getting download URL:", error);
-  //     throw error; // Rethrow the error if needed
-  //   }
-  // }
+  useEffect(() => {
+    getDownloadUrlForFile(fullPath);
+  }, [fullPath]);
 
   return (
     <>
