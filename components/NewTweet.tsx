@@ -86,13 +86,13 @@ const NewTweet = () => {
 
       {selectedImage && (
         <div className="relative flex justify-end">
-          <Image
+          {/* <Image
             src={selectedImage}
             alt="Selected"
             width={100}
             height={100}
             className="mt-[1rem] h-auto max-h-[50rem] w-auto max-w-full rounded-[8px] object-cover "
-          />
+          /> */}
           <div
             onClick={deleteSelectedImage}
             className="absolute top-[2rem] right-[1rem] flex h-[2.2rem] w-[2.2rem] items-center justify-center rounded-full bg-black bg-opacity-50 opacity-80"
