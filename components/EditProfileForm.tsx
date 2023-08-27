@@ -43,6 +43,8 @@ const EditProfileForm = () => {
 
   const onSubmit = async (data: FormData) => {
     //get whichever input field has a value and update that. Thats what the user wants to change.
+
+    console.log("form submitted");
     // setLoading(true);
     // const userDocRef = doc(db, "users", authUserId);
     // try {
@@ -57,6 +59,8 @@ const EditProfileForm = () => {
     // } catch (err) {
     //   toast.error("Try again.");
     //   console.log(err);
+    // } finally{
+    // router.push('/')}
     // }
   };
 

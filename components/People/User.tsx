@@ -62,7 +62,7 @@ const User = ({
         </p>
       </div>
 
-      <div className="mb-[1.4rem] w-fit border border-red-800">
+      <div className="mb-[1.4rem] w-fit">
         {profileOwnerInfo.followers.includes(authUserId) ? (
           <UnFollow
             profileOwnerInfo={profileOwnerInfo}
