@@ -5,6 +5,7 @@ import {
   useCollection,
   useCollectionData,
   useDocumentData,
+  useDocumentDataOnce,
 } from "react-firebase-hooks/firestore";
 import { GeneralLoader, User } from "../..";
 import { useAuthState } from "react-firebase-hooks/auth";
@@ -27,6 +28,7 @@ const People = () => {
     useDocumentData(doc(db, "users", authUserId), {
       snapshotListenOptions: { includeMetadataChanges: true },
     });
+
   return (
     <div>
       {error && <strong>Error: {JSON.stringify(error)}</strong>}
