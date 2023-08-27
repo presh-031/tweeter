@@ -74,16 +74,16 @@ const Profile = () => {
                 <>
                   {profileOwnerInfo.followers.includes(authUserId) ? (
                     <UnFollow
-                      userInfo={profileOwnerInfo}
-                      routeId={profileOwnerId}
-                      currentUserId={authUserId}
+                      profileOwnerInfo={profileOwnerInfo}
+                      profileOwnerId={profileOwnerId}
+                      authUserId={authUserId}
                       authUserInfo={authUserInfo}
                     />
                   ) : (
                     <Follow
-                      userInfo={profileOwnerInfo}
-                      routeId={profileOwnerId}
-                      currentUserId={authUserId}
+                      profileOwnerInfo={profileOwnerInfo}
+                      profileOwnerId={profileOwnerId}
+                      authUserId={authUserId}
                       authUserInfo={authUserInfo}
                     />
                   )}

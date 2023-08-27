@@ -19,8 +19,6 @@ export type userInfoType = {
   email: string;
   followers: string[];
   following: string[];
-  headerImageUrl: string;
-  profilePictureUrl: string;
   userName: string;
   bookmarkedTweets: string[];
 };
@@ -30,9 +28,9 @@ export type profileTweetsProps = {
 };
 
 export type userServicesProps = {
-  routeId: string;
-  currentUserId: string;
-  userInfo: DocumentData;
+  profileOwnerId: string;
+  authUserId: string;
+  profileOwnerInfo: DocumentData;
   authUserInfo: DocumentData;
 };
 

@@ -17,8 +17,10 @@ export const createNewUserInDb = async (
     const email = user?.user.email;
     const bio = "Human";
     const defaultDisplayName = generateDefaultDisplayName(email);
+    const uid = user?.user.uid;
 
     const newUserInfo = {
+      uid,
       userName: fullName || "",
       displayName: defaultDisplayName || "",
       email,
@@ -26,8 +28,6 @@ export const createNewUserInDb = async (
       followers: [],
       following: [],
       bio,
-      headerImageUrl: "",
-      profilePictureUrl: "",
     };
 
     try {

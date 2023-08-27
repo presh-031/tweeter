@@ -1,7 +1,10 @@
 import { db } from "@/config/firebase";
 import { collection, limit, orderBy, query } from "firebase/firestore";
 import React from "react";
-import { useCollection } from "react-firebase-hooks/firestore";
+import {
+  useCollection,
+  useCollectionData,
+} from "react-firebase-hooks/firestore";
 import { GeneralLoader, User } from "../..";
 
 const People = () => {
@@ -9,13 +12,12 @@ const People = () => {
   const usersQuery = query(
     usersRef,
     orderBy("followers", "desc"),
-    limit(10) //top 10 tweets based on likes
+    limit(10) //top 10 users based on followers
   );
-  const [topUsers, loading, error] = useCollection(usersQuery, {
+  const [topUsers, loading, error] = useCollectionData(usersQuery, {
     snapshotListenOptions: { includeMetadataChanges: true },
   });
 
-  // console.log(topUsers);
   return (
     <div>
       {error && <strong>Error: {JSON.stringify(error)}</strong>}
@@ -26,19 +28,17 @@ const People = () => {
       )}
 
       <div className=" mt-16 overflow-hidden rounded-[8px]">
-        {topUsers?.docs.map((user) => (
+        {topUsers?.map((user) => (
           <User
-            key={user.id}
-            // userId={user.id}
-            bio={user.data().bio}
-            createdAt={user.data().createdAt}
-            displayName={user.data().displayName}
-            email={user.data().email}
-            followers={user.data().followers}
-            following={user.data().following}
-            headerImageUrl={user.data().headerImageUrl}
-            profilePictureUrl={user.data().profilePictureUrl}
-            userName={user.data().userName}
+            key={user.uid}
+            userId={user.uid}
+            bio={user.bio}
+            createdAt={user.createdAt}
+            displayName={user.displayName}
+            email={user.email}
+            followers={user.followers}
+            following={user.following}
+            userName={user.userName}
             bookmarkedTweets={[]}
           />
         ))}

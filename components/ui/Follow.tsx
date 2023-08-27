@@ -3,15 +3,15 @@ import { userServicesProps } from "@/typings";
 import { SlUserFollow } from "react-icons/sl";
 
 const Follow = ({
-  userInfo,
-  routeId,
-  currentUserId,
+  profileOwnerInfo,
+  profileOwnerId,
+  authUserId,
   authUserInfo,
 }: userServicesProps) => {
   return (
     <button
       onClick={() => {
-        follow(routeId, currentUserId, userInfo, authUserInfo);
+        follow(profileOwnerId, authUserId, profileOwnerInfo, authUserInfo);
       }}
       className="mx-auto flex items-center gap-[.4rem] rounded-[4px] bg-[#2F80ED] py-[.80rem]  px-[2.4rem] text-[1.2rem] font-medium leading-[1.6rem] tracking-[-3.5%] text-white outline"
     >
