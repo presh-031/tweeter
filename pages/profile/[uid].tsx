@@ -48,7 +48,7 @@ const Profile = () => {
           )}
           <div className="px-[1.90rem] ">
             <div className="relative rounded-[1.2rem]  px-[1.6rem] pb-[2.316rem] pt-[4.388rem] text-center shadow-[0_2px_4px_rgba(0,0,0,0.05)]">
-              <div className="absolute top-[-8.7rem] left-[50%] translate-x-[-50%] overflow-hidden rounded-[8px] p-[.8rem] ">
+              <div className="absolute top-[-8.7rem] left-[50%] flex h-[12.4rem] w-[12.4rem] translate-x-[-50%] items-center overflow-hidden rounded-[8px]  p-[.8rem] ">
                 {authUserIsProfileOwner ? (
                   <ProfilePicture
                     userId={authUserId}

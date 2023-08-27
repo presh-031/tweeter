@@ -27,7 +27,7 @@ const ProfilePicture = ({ userId, height, width }: ProfilePictureProps) => {
       alt="profile-pic"
       width={width}
       height={height}
-      className={`h-[${height}px] w-[${width}px] rounded-[8px] object-cover`}
+      className={` aspect-auto min-h-[${height}px] overflow-hidden  w-[${width}px] rounded-[8px] object-cover`}
     />
   );
 };

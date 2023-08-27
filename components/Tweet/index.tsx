@@ -105,8 +105,9 @@ const Tweet = ({
           }}
           className="flex w-fit gap-[.635rem]"
         >
-          <ProfilePicture userId={userId} width={40} height={40} />
-
+          <div className="flex h-[4rem] w-[4rem] items-center">
+            <ProfilePicture userId={userId} width={40} height={40} />
+          </div>
           <div className="font-medium tracking-[-3.5%]">
             <div className="flex  items-center gap-4 leading-[2.4rem]">
               <span className="text-[1.6rem]">{user.userName}</span>

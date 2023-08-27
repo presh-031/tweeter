@@ -6,6 +6,7 @@ import ProfilePicture from "../ProfilePicture";
 import Follow from "../ui/Follow";
 import { useRouter } from "next/router";
 import UnFollow from "../ui/UnFollow";
+import CoverImage from "../CoverImage";
 
 export type userType = {
   userId: string;
@@ -38,7 +39,7 @@ const User = ({
           }}
           className="flex w-fit gap-[.635rem] "
         >
-          <div>
+          <div className="flex h-[4rem] w-[4rem] items-center">
             <ProfilePicture userId={uid} width={40} height={40} />
           </div>
           <div className="font-medium tracking-[-3.5%]">
@@ -61,6 +62,8 @@ const User = ({
           {bio}
         </p>
       </div>
+
+      {/* <CoverImage userId={profileOwnerId} /> */}
 
       <div className="mb-[1.4rem] w-fit">
         {profileOwnerInfo.followers.includes(authUserId) ? (

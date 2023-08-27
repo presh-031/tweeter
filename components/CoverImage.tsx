@@ -24,17 +24,17 @@ const CoverImage = ({ userId }: CoverImageProps) => {
 
   return (
     <div className="">
-      <Image
-        // use better placeholder for ui.
-        src={coverImageURL ? coverImageURL : userPlaceholder}
-        alt="header-photo"
-        width={375}
-        height={168}
-        className={` ${
-          coverImageURL ? "" : "border-y-[1px] border-blueish"
-        } h-[16.8rem] w-[37.5rem] object-cover
-        `}
-      />
+      {coverImageURL ? (
+        <Image
+          src={coverImageURL}
+          alt="header-photo"
+          width={375}
+          height={168}
+          className=" h-[16.8rem] w-[37.5rem] object-cover"
+        />
+      ) : (
+        <div className="h-[16.8rem] w-[37.5rem] bg-blueish"></div>
+      )}
     </div>
   );
 };
