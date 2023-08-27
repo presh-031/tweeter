@@ -81,7 +81,6 @@ const Tweet = ({
     >
       {/* <p>Daniel Jensen Retweeted</p> */}
       <div className=" rounded-[8px] bg-white  px-[1.523rem] pt-[2rem] shadow-[2px_2px_4px_rgba(0,0,0,0.05)]  hover:cursor-pointer">
-        {/* Clicking here should take you to the user profile of who made the tweet */}
         <div
           onClick={(e) => {
             e.stopPropagation();
