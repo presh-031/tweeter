@@ -1,5 +1,5 @@
-import css from "./SignInLoader.module.css";
-const SignInLoader = () => {
+import css from "./SignUpLoader.module.css";
+const SignUpLoader = () => {
   return (
     <div>
       <svg
@@ -98,4 +98,4 @@ const SignInLoader = () => {
   );
 };
 
-export default SignInLoader;
+export default SignUpLoader;

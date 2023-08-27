@@ -2,7 +2,7 @@ import { auth } from "@/config/firebase";
 import React from "react";
 import { useSignInWithGoogle } from "react-firebase-hooks/auth";
 import { AiOutlineGoogle } from "react-icons/ai";
-import SignInLoader from "../Loaders/SignInLoader";
+import { SignUpLoader } from "../../index";
 import { useRouter } from "next/router";
 import { createNewUserInDb } from "@/helpers/authHelpers";
 
@@ -27,7 +27,7 @@ const GoogleBtn = () => {
     >
       <AiOutlineGoogle />
       <span>continue with Google</span>
-      {loading && <SignInLoader />}
+      {loading && <SignUpLoader />}
     </button>
   );
 };

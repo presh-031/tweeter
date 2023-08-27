@@ -10,7 +10,7 @@ import { MdEmail } from "react-icons/md";
 import { IoMdLock } from "react-icons/io";
 import { createNewUserInDb } from "@/helpers/authHelpers";
 import { useRouter } from "next/router";
-import SignInLoader from "./Loaders/SignInLoader";
+import { SignUpLoader } from "../index";
 import { useState } from "react";
 
 const schema = yup.object().shape({
@@ -22,14 +22,13 @@ const schema = yup.object().shape({
     .string()
     .min(8, "Password must be at least 8 characters long")
     .required("Password is required"),
-  fullName: yup.string().required("Full name is required"),
 });
 type FormData = yup.InferType<typeof schema>;
 
 const LogInForm = () => {
   const router = useRouter();
-  const [createUserWithEmailAndPassword, user, loading, error] =
-    useCreateUserWithEmailAndPassword(auth);
+  const [signInWithEmailAndPassword, user, loading, error] =
+    useSignInWithEmailAndPassword(auth);
 
   const {
     register,
@@ -39,14 +38,11 @@ const LogInForm = () => {
     resolver: yupResolver(schema),
   });
 
-  const [fullName, setFullName] = useState("");
   const onSubmit = (data: FormData) => {
-    createUserWithEmailAndPassword(data.email, data.password);
-    setFullName(data.fullName);
+    signInWithEmailAndPassword(data.email, data.password);
   };
 
   if (user?.user) {
-    createNewUserInDb(user, fullName);
     router.push("/");
   }
 
@@ -63,7 +59,6 @@ const LogInForm = () => {
           />
         </div>
         <p className="text-red-600">{errors.email?.message}</p>
-        {error && <p className="text-red-600">Email already being used</p>}
       </div>
 
       <div>
@@ -79,21 +74,24 @@ const LogInForm = () => {
         <p className="text-red-600">{errors.password?.message}</p>
       </div>
 
-      <div className="relative flex items-center">
-        <input
-          type="submit"
-          disabled={loading}
-          value="Start tweeting now"
-          className={`${
-            loading ? "bg-opacity-30" : ""
-          } mt-2 w-full rounded-xl border bg-blueish py-4 text-2xl font-medium text-white`}
-        />
+      <div>
+        <div className="relative flex items-center">
+          <input
+            type="submit"
+            disabled={loading}
+            value="Continue tweeting"
+            className={`${
+              loading ? "bg-opacity-30" : ""
+            } mt-2 w-full rounded-xl border bg-blueish py-4 text-2xl font-medium text-white`}
+          />
 
-        {loading && (
-          <div className="absolute right-10">
-            <SignInLoader />
-          </div>
-        )}
+          {loading && (
+            <div className="absolute right-10">
+              <SignUpLoader />
+            </div>
+          )}
+        </div>{" "}
+        {error && <p className="text-red-600">{error.message}</p>}
       </div>
     </form>
   );

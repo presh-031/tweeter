@@ -10,7 +10,7 @@ import { MdEmail } from "react-icons/md";
 import { IoMdLock } from "react-icons/io";
 import { createNewUserInDb } from "@/helpers/authHelpers";
 import { useRouter } from "next/router";
-import SignInLoader from "./Loaders/SignInLoader";
+import SignUpLoader from "./Loaders/SignUpLoader/index";
 import { useState } from "react";
 
 const schema = yup.object().shape({
@@ -26,7 +26,7 @@ const schema = yup.object().shape({
 });
 type FormData = yup.InferType<typeof schema>;
 
-const SignInForm = () => {
+const SignUpForm = () => {
   const router = useRouter();
   const [createUserWithEmailAndPassword, user, loading, error] =
     useCreateUserWithEmailAndPassword(auth);
@@ -105,7 +105,7 @@ const SignInForm = () => {
 
         {loading && (
           <div className="absolute right-10">
-            <SignInLoader />
+            <SignUpLoader />
           </div>
         )}
       </div>
@@ -113,4 +113,4 @@ const SignInForm = () => {
   );
 };
 
-export default SignInForm;
+export default SignUpForm;

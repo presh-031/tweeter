@@ -1,5 +1,5 @@
 import LoginForm from "@/components/LoginForm";
-import { GoogleBtn, SignInForm } from "..";
+import { GoogleBtn } from "..";
 import logo from "../assets/tweeter.svg";
 import Image from "next/image";
 import { IconContext } from "react-icons";
@@ -11,7 +11,9 @@ const login = () => {
     <IconContext.Provider value={{ className: "react-icons sign-in-icons" }}>
       <div className=" min-h-full bg-white py-24 px-20">
         <Image src={logo} alt="logo" />
-        <p className="mb-12 mt-8 text-2xl font-semibold">Log in</p>
+        <p className="mb-12 mt-8 text-2xl ">
+          <span className="font-semibold">Log in</span> to continue tweeting
+        </p>
 
         <LoginForm />
         <p className="my-6 text-center text-xl">or</p>

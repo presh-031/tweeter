@@ -11,7 +11,7 @@ const poppins = Poppins({
 
 const Layout = ({ children }: LayoutProps) => {
   const router = useRouter();
-  const isSignInPage = router.pathname === "/sign-in";
+  const isSignUpPage = router.pathname === "/sign-up";
   const isLoginPage = router.pathname === "/log-in";
 
   return (
@@ -19,9 +19,9 @@ const Layout = ({ children }: LayoutProps) => {
       className={`${poppins.className} min-h-screen bg-[#eee] bg-opacity-40`}
     >
       <Toaster />
-      {!isSignInPage && !isLoginPage && <NavBar />}
+      {!isSignUpPage && !isLoginPage && <NavBar />}
       {children}
-      {!isSignInPage && !isLoginPage && <AppNav />}
+      {!isSignUpPage && !isLoginPage && <AppNav />}
     </div>
   );
 };
