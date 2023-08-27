@@ -4,8 +4,9 @@ import useImageDownloadURL from "@/hooks/useImageDownloadURL";
 import { collection, query, where } from "firebase/firestore";
 import { useCollectionData } from "react-firebase-hooks/firestore";
 import { db } from "@/config/firebase";
+import { ProfilePictureProps } from "@/typings";
 
-const ProfilePicture = ({ userId, height, width }) => {
+const ProfilePicture = ({ userId, height, width }: ProfilePictureProps) => {
   // IMAGE DOWNLOADS.
   // use userId to fetch img metadata
   const metaDataRef = collection(db, "profile-pictures");

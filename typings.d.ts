@@ -74,5 +74,18 @@ export type EditProfileImagesProps = {
 };
 
 export type CoverImageProps = {
-  coverImg: string | undefined;
+  userId: string;
+};
+
+export type ProfileInfoProps = {
+  userName: string;
+  followers: string[];
+  following: string[];
+  bio: string;
+};
+
+export type ProfilePictureProps = {
+  userId: string;
+  height: number;
+  width: number;
 };

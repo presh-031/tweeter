@@ -72,7 +72,12 @@ const Profile = () => {
                   />
                 )}
               </div>
-              <ProfileInfo profileOwnerInfo={profileOwnerInfo} />
+              <ProfileInfo
+                userName={profileOwnerInfo.userName}
+                following={profileOwnerInfo.following}
+                followers={profileOwnerInfo.followers}
+                bio={profileOwnerInfo.bio}
+              />
 
               {!authUserIsProfileOwner && (
                 <>
