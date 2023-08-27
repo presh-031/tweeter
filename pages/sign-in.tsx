@@ -9,7 +9,7 @@ import Link from "next/link";
 const SignIn = () => {
   return (
     <IconContext.Provider value={{ className: "react-icons sign-in-icons" }}>
-      <div className=" bg-white py-24 px-20">
+      <div className=" min-h-full bg-white py-24 px-20">
         <Image src={logo} alt="logo" />
         <p className="mb-12 mt-8 text-2xl">
           <span className="font-semibold">Sign in</span> to join thousands of
