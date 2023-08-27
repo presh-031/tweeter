@@ -21,6 +21,7 @@ const TweetInfo = () => {
   const commentsQuery = query(
     commentsRef,
     where("tweetId", "==", id)
+    // should order comments, but orderBy causes firebase error. Remember to look into.
     // orderBy("timestamp", "desc")
   );
   const [comments, commentsLoading, commentsError] = useCollection(

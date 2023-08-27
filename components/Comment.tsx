@@ -5,6 +5,7 @@ import { db } from "@/config/firebase";
 import { timestampType } from "@/typings";
 import { formatDateToTimeAgo } from "@/utils/formatDate";
 import Image from "next/image";
+import ProfilePicture from "./ProfilePicture";
 
 type CommentProps = {
   text: string;
@@ -30,18 +31,9 @@ const Comment = ({ text, timestamp, userId }: CommentProps) => {
   return (
     <div className="mb-4 rounded-[8px] bg-white  px-[1.523rem] py-[2rem] shadow-[2px_2px_4px_rgba(0,0,0,0.05)]  hover:cursor-pointer">
       <div className="flex w-fit gap-[.635rem]">
-        <Image
-          src={
-            user.profilePictureUrl
-              ? user.profilePictureUrl
-              : // Default image shown should be a placeholder, actually
-                "https://picsum.photos/id/1/40/40"
-          }
-          alt="profile-pic"
-          width={40}
-          height={40}
-          className="h-[4rem] w-[4rem] rounded-[8px]"
-        />
+        <div className="flex h-[4rem] w-[4rem] items-center">
+          <ProfilePicture userId={userId} height={40} width={40} />
+        </div>
         <div className="font-medium tracking-[-3.5%]">
           <div className="flex  items-center gap-4 leading-[2.4rem]">
             <span className="text-[1.6rem]">{user.userName}</span>

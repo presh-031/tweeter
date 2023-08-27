@@ -6,13 +6,14 @@ import Image from "next/image";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { toast } from "react-hot-toast";
 import { AiOutlineLoading3Quarters } from "react-icons/ai";
+import ProfilePicture from "./ProfilePicture";
 
 const AddComment = ({ tweetId, setShowAddComment }: AddCommentProps) => {
   // For user Id and profilePic
-  const [currentUser] = useAuthState(auth);
-  const currentUserId = currentUser ? currentUser.uid : "";
+  const [authUser] = useAuthState(auth);
+  const authUserId = authUser ? authUser.uid : "";
 
-  const userRef = doc(db, "users", currentUserId);
+  const userRef = doc(db, "users", authUserId);
   const [user, setUser] = useState<any>({});
 
   useEffect(() => {
@@ -40,7 +41,7 @@ const AddComment = ({ tweetId, setShowAddComment }: AddCommentProps) => {
             // id will be automatically generated for each new comment in the firestore
             comment,
             tweetId,
-            // userId: currentUserId,
+            userId: authUserId,
             timestamp: Timestamp.now(),
           });
 
@@ -60,18 +61,8 @@ const AddComment = ({ tweetId, setShowAddComment }: AddCommentProps) => {
       onClick={(e) => [e.stopPropagation()]}
       className="flex items-center gap-[1.622rem] pt-[.9rem] pb-[2rem]"
     >
-      {/* Image here is that of the currently auth user */}
-      <div className=" h-[4rem] w-[4rem]">
-        {user.profilePictureUrl && (
-          <Image
-            src={user.profilePictureUrl}
-            alt="profile-pic"
-            width={40}
-            height={40}
-            loading="eager"
-            className="h-[4rem] w-[4rem] rounded-[8px]"
-          />
-        )}
+      <div className=" flex h-[4rem] w-[4rem] items-center">
+        <ProfilePicture userId={authUserId} width={40} height={40} />
       </div>
 
       <input
