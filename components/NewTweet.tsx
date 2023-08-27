@@ -1,18 +1,13 @@
 import { auth, db } from "@/config/firebase";
-import { addDoc, collection, doc, getDoc, Timestamp } from "firebase/firestore";
-import { useEffect, useState, ChangeEvent } from "react";
-import { userInfoType } from "@/typings";
-import Image from "next/image";
+import { doc } from "firebase/firestore";
+import { useState } from "react";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { toast } from "react-hot-toast";
 import { AiOutlineLoading3Quarters } from "react-icons/ai";
 import { BiWorld } from "react-icons/bi";
 import { MdClose, MdOutlineImage } from "react-icons/md";
-import { GeneralLoader } from "..";
-import userPlaceholder from "../assets/user-placeholder.png";
 import { useDocumentData } from "react-firebase-hooks/firestore";
 import { postNewTweet } from "@/services/tweetServices";
-import { GrClose, GrFormClose } from "react-icons/gr";
 import useSelectedImage from "@/hooks/useSelectedImage";
 import ProfilePicture from "./ProfilePicture";
 

@@ -1,20 +1,11 @@
-import { auth, db, storage } from "@/config/firebase";
-import { collection, doc, query, where } from "firebase/firestore";
-import {
-  useCollection,
-  useCollectionData,
-  useDocumentData,
-} from "react-firebase-hooks/firestore";
+import { auth, db } from "@/config/firebase";
+import { doc } from "firebase/firestore";
+import { useDocumentData } from "react-firebase-hooks/firestore";
 import { Follow, UnFollow, WithAuthUser } from "../../index";
-import Image from "next/image";
 import { useRouter } from "next/router";
 import { useAuthState } from "react-firebase-hooks/auth";
 import ProfileTweets from "@/components/ProfileTweets";
 import CoverImage from "@/components/CoverImage";
-import { useDownloadURL } from "react-firebase-hooks/storage";
-import { getDownloadURL, ref } from "firebase/storage";
-import { useEffect, useState } from "react";
-import useImageDownloadURL from "@/hooks/useImageDownloadURL";
 import ProfilePicture from "@/components/ProfilePicture";
 import ProfileInfo from "@/components/ProfileInfo";
 

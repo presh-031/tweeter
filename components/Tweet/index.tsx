@@ -3,7 +3,6 @@ import { collection, doc, getDoc } from "firebase/firestore";
 import { useEffect, useState } from "react";
 import { TweetProps } from "@/typings";
 import { formatDateForTweet } from "@/utils/formatDate";
-import Image from "next/image";
 import { useRouter } from "next/router";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { useCollection } from "react-firebase-hooks/firestore";
@@ -17,7 +16,6 @@ import {
   handleLike,
   handleRetweet,
 } from "@/helpers/tweetHelpers";
-import userPlaceholder from "../../assets/user-placeholder.png";
 import ProfilePicture from "../ProfilePicture";
 
 const Tweet = ({

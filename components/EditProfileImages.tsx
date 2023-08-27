@@ -1,6 +1,4 @@
 import { MdOutlineBrokenImage } from "react-icons/md";
-import Image from "next/image";
-import userPlaceholder from "../assets/user-placeholder.png";
 import useSelectedImage from "@/hooks/useSelectedImage";
 import { v4 } from "uuid";
 import { ref } from "firebase/storage";
