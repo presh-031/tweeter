@@ -1,11 +1,13 @@
-import { db } from "@/config/firebase";
-import { collection, limit, orderBy, query } from "firebase/firestore";
+import { auth, db } from "@/config/firebase";
+import { collection, doc, limit, orderBy, query } from "firebase/firestore";
 import React from "react";
 import {
   useCollection,
   useCollectionData,
+  useDocumentData,
 } from "react-firebase-hooks/firestore";
 import { GeneralLoader, User } from "../..";
+import { useAuthState } from "react-firebase-hooks/auth";
 
 const People = () => {
   const usersRef = collection(db, "users");
@@ -18,6 +20,13 @@ const People = () => {
     snapshotListenOptions: { includeMetadataChanges: true },
   });
 
+  // Get auth user info
+  const [authUser] = useAuthState(auth);
+  const authUserId = authUser ? authUser.uid : "";
+  const [authUserInfo, authUserInfoLoading, authUserInfoError] =
+    useDocumentData(doc(db, "users", authUserId), {
+      snapshotListenOptions: { includeMetadataChanges: true },
+    });
   return (
     <div>
       {error && <strong>Error: {JSON.stringify(error)}</strong>}
@@ -31,15 +40,10 @@ const People = () => {
         {topUsers?.map((user) => (
           <User
             key={user.uid}
-            userId={user.uid}
-            bio={user.bio}
-            createdAt={user.createdAt}
-            displayName={user.displayName}
-            email={user.email}
-            followers={user.followers}
-            following={user.following}
-            userName={user.userName}
-            bookmarkedTweets={[]}
+            profileOwnerInfo={user}
+            profileOwnerId={user.uid}
+            authUserId={authUserId}
+            authUserInfo={authUserInfo}
           />
         ))}
       </div>

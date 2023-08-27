@@ -1,9 +1,10 @@
-import { userInfoType } from "@/typings";
+import { userInfoType, userServicesProps } from "@/typings";
 import Image from "next/image";
 import React from "react";
 import userPlaceholder from "../../assets/user-placeholder.png";
 import ProfilePicture from "../ProfilePicture";
 import Follow from "../ui/Follow";
+import { useRouter } from "next/router";
 
 export type userType = {
   userId: string;
@@ -18,23 +19,20 @@ export type userType = {
 };
 
 const User = ({
-  userId,
-  bio,
-  createdAt,
-  displayName,
-  email,
-  followers,
-  following,
-  userName,
-  bookmarkedTweets,
-}: userType) => {
+  profileOwnerInfo,
+  profileOwnerId,
+  authUserId,
+  authUserInfo,
+}: userServicesProps) => {
+  const router = useRouter();
+  const { userId, userName, displayName, followers, bio } = profileOwnerInfo;
   return (
     <div className=" bg-white  px-[1.523rem] pt-[2rem] shadow-[2px_2px_4px_rgba(0,0,0,0.05)]  hover:cursor-pointer">
       <div className="flex items-center justify-between">
         <div
           onClick={(e) => {
             e.stopPropagation();
-            // router.push(`/profile/${userId}`);
+            router.push(`/profile/${userId}`);
           }}
           className="flex w-fit gap-[.635rem] "
         >
@@ -52,12 +50,12 @@ const User = ({
             </p>
           </div>
         </div>
-        {/* <Follow
-                      profileOwnerInfo={profileOwnerInfo}
-                      profileOwnerId={profileOwnerId}
-                      authUserId={authUserId}
-                      authUserInfo={authUserInfo}
-                    /> */}
+        <Follow
+          profileOwnerInfo={profileOwnerInfo}
+          profileOwnerId={profileOwnerId}
+          authUserId={authUserId}
+          authUserInfo={authUserInfo}
+        />
       </div>
 
       <div className="mt-[2rem] mb-[1.4rem]">
