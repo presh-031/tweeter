@@ -48,7 +48,7 @@ const NavBar = () => {
       </div>
 
       <div onClick={toggleShowUserNav} className="flex items-center">
-        <ProfilePicture authUserId={authUserId} width={32} height={32} />
+        <ProfilePicture userId={authUserId} width={32} height={32} />
         <p className="w-12 truncate text-lg">{user?.displayName}</p>
         {showUserNav ? (
           <RiArrowUpSFill className="text-3xl" />

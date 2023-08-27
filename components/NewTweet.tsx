@@ -14,6 +14,7 @@ import { useDocumentData } from "react-firebase-hooks/firestore";
 import { postNewTweet } from "@/services/tweetServices";
 import { GrClose, GrFormClose } from "react-icons/gr";
 import useSelectedImage from "@/hooks/useSelectedImage";
+import ProfilePicture from "./ProfilePicture";
 
 const NewTweet = () => {
   const [authUser] = useAuthState(auth);
@@ -60,17 +61,7 @@ const NewTweet = () => {
       </p>
       <form onSubmit={handleNewTweetSumbit} className="flex items-center">
         {authUserInfo && (
-          <Image
-            src={
-              authUserInfo?.profilePictureUrl
-                ? authUserInfo.profilePictureUrl
-                : userPlaceholder
-            }
-            width={40}
-            height={40}
-            alt="profile-pic"
-            className="h-[4rem] w-[4rem] outline "
-          />
+          <ProfilePicture userId={authUserId} width={40} height={40} />
         )}
         <input
           className="w-full overflow-hidden pl-[1.2rem] text-[1.6rem] font-medium leading-[2.179rem] tracking-[-3.5%]  outline-none placeholder:text-[#bdbdbd]"

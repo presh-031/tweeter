@@ -18,6 +18,7 @@ import {
   handleRetweet,
 } from "@/helpers/tweetHelpers";
 import userPlaceholder from "../../assets/user-placeholder.png";
+import ProfilePicture from "../ProfilePicture";
 
 const Tweet = ({
   tweetId,
@@ -106,15 +107,8 @@ const Tweet = ({
           }}
           className="flex w-fit gap-[.635rem]"
         >
-          <Image
-            src={
-              user.profilePictureUrl ? user.profilePictureUrl : userPlaceholder
-            }
-            alt="profile-pic"
-            width={40}
-            height={40}
-            className="rounded-[8px]"
-          />
+          <ProfilePicture userId={userId} width={40} height={40} />
+
           <div className="font-medium tracking-[-3.5%]">
             <div className="flex  items-center gap-4 leading-[2.4rem]">
               <span className="text-[1.6rem]">{user.userName}</span>

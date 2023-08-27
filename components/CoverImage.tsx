@@ -6,11 +6,11 @@ import { db } from "@/config/firebase";
 import { useCollectionData } from "react-firebase-hooks/firestore";
 import useImageDownloadURL from "@/hooks/useImageDownloadURL";
 
-const CoverImage = ({ authUserId }) => {
+const CoverImage = ({ userId }) => {
   // IMAGE DOWNLOADS.
   // use userId to fetch img metadata
   const metaDataRef = collection(db, "cover-images");
-  const metaDataQuery = query(metaDataRef, where("userId", "==", authUserId));
+  const metaDataQuery = query(metaDataRef, where("userId", "==", userId));
   const [metaDataSnapshot, loadingmetaData, metaDataError] = useCollectionData(
     metaDataQuery,
     {
