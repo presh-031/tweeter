@@ -9,6 +9,7 @@ import { RiArrowDownSFill, RiArrowUpSFill } from "react-icons/ri";
 import logo from "../assets/tweeter.svg";
 import userPlaceholder from "../assets/user-placeholder.png";
 import { AppNav, UserNav } from "../index";
+import ProfilePicture from "./ProfilePicture";
 
 const NavBar = () => {
   const router = useRouter();
@@ -26,6 +27,7 @@ const NavBar = () => {
     getUser();
   }, [authUserId]);
 
+  // local state for nav
   const [showUserNav, setShowUserNav] = useState(false);
   const toggleShowUserNav = () => {
     setShowUserNav((prevShowUserNav) => !prevShowUserNav);
@@ -46,18 +48,8 @@ const NavBar = () => {
       </div>
 
       <div onClick={toggleShowUserNav} className="flex items-center">
-        <Image
-          src={
-            user?.profilePictureUrl ? user.profilePictureUrl : userPlaceholder
-          }
-          alt="profile-pic"
-          width={32}
-          height={32}
-          className="h-[3.2rem] w-[3.2rem] rounded-[8px] outline"
-        />
-
+        <ProfilePicture authUserId={authUserId} width={32} height={32} />
         <p className="w-12 truncate text-lg">{user?.displayName}</p>
-
         {showUserNav ? (
           <RiArrowUpSFill className="text-3xl" />
         ) : (

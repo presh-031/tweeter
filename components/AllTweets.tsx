@@ -14,7 +14,7 @@ const AllTweets = () => {
   // console.log(allTweets?.docs[2].data());
   return (
     <div>
-      {error && <strong>Error: {JSON.stringify(error)}</strong>}
+      {error && <p>Error: {JSON.stringify(error)}</p>}
       {loading && (
         <div className="mt-16 flex justify-center">
           <GeneralLoader />

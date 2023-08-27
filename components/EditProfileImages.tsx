@@ -16,15 +16,6 @@ const EditCoverImage = ({ authUserId }: EditProfileImagesProps) => {
   const [uploadFile, uploading, snapshot, error] = useUploadFile();
   const imageRef = ref(storage, `cover-images/${selectedImage?.name + v4()}`);
 
-  const uploadImage = useImageUploader();
-  const upload = async () => {
-    await uploadImage(
-      selectedImage,
-      imageRef,
-      uploadFile,
-      saveCoverImageMetaData
-    );
-  };
   const saveCoverImageMetaData = async (fullPath: string) => {
     const metaData = {
       fullPath,
@@ -36,6 +27,16 @@ const EditCoverImage = ({ authUserId }: EditProfileImagesProps) => {
     } catch (err) {
       alert(err);
     }
+  };
+
+  const uploadImage = useImageUploader();
+  const upload = async () => {
+    await uploadImage(
+      selectedImage,
+      imageRef,
+      uploadFile,
+      saveCoverImageMetaData
+    );
   };
 
   return (
@@ -75,28 +76,57 @@ const EditCoverImage = ({ authUserId }: EditProfileImagesProps) => {
   );
 };
 
-const EditProfilePic = () => {
+const EditProfilePic = ({ authUserId }: EditProfileImagesProps) => {
   const { selectedImage, handleImageChange, deleteSelectedImage } =
     useSelectedImage();
 
+  const [uploadFile, uploading, snapshot, error] = useUploadFile();
+  const imageRef = ref(
+    storage,
+    `profile-pictures/${selectedImage?.name + v4()}`
+  );
+
+  const saveProfilePictureMetaData = async (fullPath: string) => {
+    const metaData = {
+      fullPath,
+      userId: authUserId,
+    };
+
+    try {
+      await addDoc(collection(db, "profile-pictures"), metaData);
+    } catch (err) {
+      alert(err);
+    }
+  };
+
+  const uploadImage = useImageUploader();
+  const upload = async () => {
+    await uploadImage(
+      selectedImage,
+      imageRef,
+      uploadFile,
+      saveProfilePictureMetaData
+    );
+  };
   return (
-    <div className="relative mt-8 flex h-[5rem] w-[5rem] items-center justify-center overflow-hidden rounded-[.8rem] bg-black bg-opacity-20">
-      <label
-        htmlFor="profile-picker"
-        className="absolute top-1/2 left-1/2 z-[100] block w-fit -translate-x-1/2 -translate-y-1/2 transform rounded-full bg-black bg-opacity-60 p-2"
-      >
-        <MdOutlineBrokenImage className=" text-3xl text-white" />
-      </label>
+    <>
+      <div className="relative mt-8 flex h-[5rem] w-[5rem] items-center justify-center overflow-hidden rounded-[.8rem] bg-black bg-opacity-20">
+        <label
+          htmlFor="profile-picker"
+          className="absolute top-1/2 left-1/2 z-[100] block w-fit -translate-x-1/2 -translate-y-1/2 transform rounded-full bg-black bg-opacity-60 p-2"
+        >
+          <MdOutlineBrokenImage className=" text-3xl text-white" />
+        </label>
 
-      <input
-        type="file"
-        id="profile-picker"
-        accept="image/*"
-        onChange={handleImageChange}
-        className="hidden"
-      />
+        <input
+          type="file"
+          id="profile-picker"
+          accept="image/*"
+          onChange={handleImageChange}
+          className="hidden"
+        />
 
-      {/* {selectedImage ? (
+        {/* {selectedImage ? (
         <Image
           src={selectedImage}
           alt="Selected"
@@ -113,7 +143,9 @@ const EditProfilePic = () => {
           className="opacity-30 "
         />
       )} */}
-    </div>
+      </div>
+      <p onClick={upload}>save</p>
+    </>
   );
 };
 
@@ -121,7 +153,7 @@ const EditProfileImages = ({ authUserId }: EditProfileImagesProps) => {
   return (
     <>
       <EditCoverImage authUserId={authUserId} />
-      <EditProfilePic />
+      <EditProfilePic authUserId={authUserId} />
     </>
   );
 };

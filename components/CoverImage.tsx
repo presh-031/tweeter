@@ -1,18 +1,37 @@
 import Image from "next/image";
 import userPlaceholder from "../assets/user-placeholder.png";
 import { CoverImageProps } from "@/typings";
+import { collection, query, where } from "firebase/firestore";
+import { db } from "@/config/firebase";
+import { useCollectionData } from "react-firebase-hooks/firestore";
+import useImageDownloadURL from "@/hooks/useImageDownloadURL";
 
-const CoverImage = ({ coverImg }: CoverImageProps) => {
+const CoverImage = ({ authUserId }) => {
+  // IMAGE DOWNLOADS.
+  // use userId to fetch img metadata
+  const metaDataRef = collection(db, "cover-images");
+  const metaDataQuery = query(metaDataRef, where("userId", "==", authUserId));
+  const [metaDataSnapshot, loadingmetaData, metaDataError] = useCollectionData(
+    metaDataQuery,
+    {
+      snapshotListenOptions: { includeMetadataChanges: true },
+    }
+  );
+  const metaData = metaDataSnapshot;
+
+  // use fullPath in metadata to get imageURL
+  const coverImageURL = useImageDownloadURL(metaData);
+
   return (
     <div className="">
       <Image
         // use better placeholder for ui.
-        src={coverImg ? coverImg : userPlaceholder}
+        src={coverImageURL ? coverImageURL : userPlaceholder}
         alt="header-photo"
         width={375}
         height={168}
         className={` ${
-          coverImg ? "" : "border-y-[1px] border-blueish"
+          coverImageURL ? "" : "border-y-[1px] border-blueish"
         } h-[16.8rem] w-[37.5rem] object-cover
         `}
       />

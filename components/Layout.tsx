@@ -2,7 +2,6 @@ import { LayoutProps } from "@/typings";
 import { Poppins } from "next/font/google";
 import { Toaster } from "react-hot-toast";
 import { NavBar, AppNav } from "../index";
-// Universal app font setup
 import { useRouter } from "next/router";
 
 const poppins = Poppins({
