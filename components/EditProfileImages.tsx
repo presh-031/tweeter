@@ -44,6 +44,7 @@ export const EditCoverImage = ({
   useEffect(() => {
     // console.log("Function in  cover image triggered!");
     upload();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [triggered]);
 
   return (
@@ -122,6 +123,7 @@ export const EditProfilePic = ({
   useEffect(() => {
     // console.log("Function in  profile pic triggered!");
     upload();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [triggered]);
 
   return (

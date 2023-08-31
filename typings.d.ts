@@ -67,8 +67,14 @@ export type MediaProps = {
   images: string[];
 };
 
+export type EditProfileFormProps = {
+  authUserId: string;
+  triggerFunction: () => void;
+};
+
 export type EditProfileImagesProps = {
   authUserId: string;
+  triggered: boolean;
 };
 
 export type CoverImageProps = {

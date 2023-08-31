@@ -3,11 +3,11 @@ import * as yup from "yup";
 import { useRouter } from "next/router";
 import { doc, updateDoc } from "firebase/firestore";
 import { useState } from "react";
-import { auth, db } from "@/config/firebase";
+import { db } from "@/config/firebase";
 import toast from "react-hot-toast";
 import { useForm } from "react-hook-form";
 import { BiArrowBack } from "react-icons/bi";
-// import { updatedDataType } from "@/typings";
+import { EditProfileFormProps } from "@/typings";
 // import { yupResolver } from "@hookform/resolvers/yup";
 
 const schema = yup.object().shape({
@@ -28,16 +28,26 @@ const resolver = async (data: FormData) => {
     await schema.validate(cleanedData, { abortEarly: false });
     return { values: cleanedData, errors: {} };
   } catch (errors) {
-    const formErrors = errors.inner.reduce((acc, currentError) => {
-      acc[currentError.path] = currentError.message;
-      return acc;
-    }, {});
+    const formErrors: { [key: string]: string } = (
+      errors as yup.ValidationError
+    ).inner.reduce(
+      (acc: { [key: string]: string }, currentError: yup.ValidationError) => {
+        if (currentError.path) {
+          acc[currentError.path] = currentError.message;
+        }
+        return acc;
+      },
+      {}
+    );
 
     return { values: cleanedData, errors: formErrors };
   }
 };
 
-const EditProfileForm = ({ authUserId, triggerFunction }) => {
+const EditProfileForm = ({
+  authUserId,
+  triggerFunction,
+}: EditProfileFormProps) => {
   const router = useRouter();
   const {
     register,
@@ -49,10 +59,10 @@ const EditProfileForm = ({ authUserId, triggerFunction }) => {
 
   const [loading, setLoading] = useState(false);
 
-  const siblingComponentRef = useRef();
   const onSubmit = async (data: FormData) => {
     // Logic to handle images
     triggerFunction();
+
     // Logic to handle form
     //get whichever input field has a value and update that. Thats what the user wants to change.
     const updatedData: FormData = {};
@@ -74,6 +84,8 @@ const EditProfileForm = ({ authUserId, triggerFunction }) => {
       toast.error("No changes made.");
       return;
     }
+
+    console.log(updatedData);
 
     setLoading(true);
     const userDocRef = doc(db, "users", authUserId);
@@ -153,5 +165,3 @@ const EditProfileForm = ({ authUserId, triggerFunction }) => {
 };
 
 export default EditProfileForm;
-
-// userName, displayName, bio, header & profile pic.
