@@ -25,12 +25,12 @@ const WithAuthUser = (Component: React.ComponentType<any>) => {
 
     if (error) {
       console.error("Authentication error:", error);
-      router.replace("/sign-in");
+      router.replace("/sign-up");
       return <p>An error occurred while checking authentication status.</p>;
     }
 
     if (!user) {
-      router.replace("/sign-in");
+      router.replace("/sign-up");
       return null;
     }
 

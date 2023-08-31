@@ -12,6 +12,7 @@ import { createNewUserInDb } from "@/helpers/authHelpers";
 import { useRouter } from "next/router";
 import SignUpLoader from "./Loaders/SignUpLoader/index";
 import { useState } from "react";
+import { FaUser } from "react-icons/fa";
 
 const schema = yup.object().shape({
   email: yup
@@ -54,7 +55,7 @@ const SignUpForm = () => {
     <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-6">
       <div>
         <div className="flex items-center gap-4 overflow-hidden rounded-xl  bg-gray-100  pl-4">
-          {/* <MdEmail /> */}
+          <FaUser className="text-[#afafaf]" />
           <input
             type="text"
             {...register("fullName")}
@@ -68,7 +69,7 @@ const SignUpForm = () => {
 
       <div>
         <div className="flex items-center gap-4 overflow-hidden rounded-xl  bg-gray-100  pl-4">
-          <MdEmail />
+          <MdEmail className="text-[#afafaf]" />
           <input
             type="text"
             {...register("email")}
@@ -82,7 +83,7 @@ const SignUpForm = () => {
 
       <div>
         <div className="flex items-center gap-4 overflow-hidden rounded-xl  bg-gray-100 pl-4">
-          <IoMdLock />
+          <IoMdLock className="text-[#afafaf]" />
           <input
             type="password"
             {...register("password")}

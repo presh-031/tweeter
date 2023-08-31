@@ -73,20 +73,14 @@ const Tweet = ({
   );
 
   return (
-    <div
-      onClick={() => {
-        router.push(`/tweet/${tweetId}`);
-      }}
-      className="my-[2.317rem]"
-    >
+    <div className="my-[2.317rem] ">
       {/* <p>Daniel Jensen Retweeted</p> */}
       <div className=" rounded-[8px] bg-white  px-[1.523rem] pt-[2rem] shadow-[2px_2px_4px_rgba(0,0,0,0.05)]  hover:cursor-pointer">
         <div
           onClick={(e) => {
-            e.stopPropagation();
             router.push(`/profile/${userId}`);
           }}
-          className="flex w-fit gap-[.635rem]"
+          className="flex w-fit gap-[.635rem] "
         >
           <div className="flex h-[4rem] w-[4rem] items-center">
             <ProfilePicture userId={userId} width={40} height={40} />
@@ -104,11 +98,14 @@ const Tweet = ({
           </div>
         </div>
 
-        <div className="mt-[2rem] mb-[1.4rem]">
-          <p className="text-[1.60rem] font-normal leading-[2.179rem] tracking-[-3.5%] text-[#4F4F4F]">
-            {text}
-          </p>
-        </div>
+        <p
+          onClick={() => {
+            router.push(`/tweet/${tweetId}`);
+          }}
+          className="mt-[2rem] mb-[1.4rem]  text-[1.60rem] font-normal leading-[2.179rem] tracking-[-3.5%] text-[#4F4F4F]"
+        >
+          {text}
+        </p>
 
         <div>
           <div>

@@ -8,7 +8,7 @@ import { addDoc, collection } from "firebase/firestore";
 import { EditProfileImagesProps } from "@/typings";
 import useImageUploader from "@/hooks/useImageUploader";
 
-const EditCoverImage = ({ authUserId }: EditProfileImagesProps) => {
+export const EditCoverImage = ({ authUserId }: EditProfileImagesProps) => {
   const { selectedImage, handleImageChange, deleteSelectedImage } =
     useSelectedImage();
   const [uploadFile, uploading, snapshot, error] = useUploadFile();
@@ -69,12 +69,12 @@ const EditCoverImage = ({ authUserId }: EditProfileImagesProps) => {
           />
         )} */}
       </div>
-      <button onClick={upload}>Save</button>
+      {/* <button onClick={upload}>Save</button> */}
     </>
   );
 };
 
-const EditProfilePic = ({ authUserId }: EditProfileImagesProps) => {
+export const EditProfilePic = ({ authUserId }: EditProfileImagesProps) => {
   const { selectedImage, handleImageChange, deleteSelectedImage } =
     useSelectedImage();
 
@@ -106,6 +106,7 @@ const EditProfilePic = ({ authUserId }: EditProfileImagesProps) => {
       saveProfilePictureMetaData
     );
   };
+
   return (
     <>
       <div className="relative mt-8 flex h-[5rem] w-[5rem] items-center justify-center overflow-hidden rounded-[.8rem] bg-black bg-opacity-20">
@@ -146,14 +147,3 @@ const EditProfilePic = ({ authUserId }: EditProfileImagesProps) => {
     </>
   );
 };
-
-const EditProfileImages = ({ authUserId }: EditProfileImagesProps) => {
-  return (
-    <>
-      <EditCoverImage authUserId={authUserId} />
-      <EditProfilePic authUserId={authUserId} />
-    </>
-  );
-};
-
-export default EditProfileImages;

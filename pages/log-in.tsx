@@ -8,7 +8,7 @@ import Link from "next/link";
 
 const login = () => {
   return (
-    <IconContext.Provider value={{ className: "react-icons sign-in-icons" }}>
+    <IconContext.Provider value={{ className: "react-icons sign-up-icons" }}>
       <div className=" min-h-full bg-white py-24 px-20">
         <Image src={logo} alt="logo" />
         <p className="mb-12 mt-8 text-2xl ">
@@ -24,7 +24,7 @@ const login = () => {
 
         <p className="mt-12 text-center text-xl">
           Not a member?{" "}
-          <Link href="/sign-in" className="text-blueish">
+          <Link href="/sign-up" className="text-blueish">
             Sign up
           </Link>
         </p>

@@ -1,6 +1,6 @@
 import WithAuthUser from "@/components/WithAuthUser";
 import { auth, db } from "@/config/firebase";
-import { collection, doc, query, where } from "firebase/firestore";
+import { arrayUnion, collection, doc, query, where } from "firebase/firestore";
 import { useAuthState } from "react-firebase-hooks/auth";
 import {
   useCollection,
@@ -9,56 +9,39 @@ import {
 } from "react-firebase-hooks/firestore";
 import { Tweet } from "..";
 
+import firebase from "firebase/app";
+import "firebase/firestore";
+
 const Bookmarks = () => {
-  // Get current user info
-  // const [currentUser, loadingCurrentUser, errorCurrentUser] =
-  //   useAuthState(auth);
-  // const currentUserId = currentUser ? currentUser.uid : "";
+  //   // Get current user info
+  //   const [authUser] = useAuthState(auth);
+  //   const authUserId = authUser ? authUser.uid : "";
+  //   const [authUserInfo, authUserInfoLoading, authUserInfoError] =
+  //     useDocumentData(doc(db, "users", authUserId), {
+  //       snapshotListenOptions: { includeMetadataChanges: true },
+  //     });
+  //   const bookmarkedTweetsIds = authUserInfo?.bookmarkedTweets;
 
-  // const [userInfo, userInfoLoading, userInfoError] = useDocumentData(
-  //   doc(db, "users", ""),
-  //   {
+  //   console.log(bookmarkedTweetsIds);
+
+  //   //Still just simply fetching all tweets and filtering on the FE.
+  //   const tweetsRef = collection(db, "tweets");
+  //   const [tweetSnapshots, loading, error] = useCollection(tweetsRef, {
   //     snapshotListenOptions: { includeMetadataChanges: true },
-  //   }
-  // );
-  // const bookmarkedTweetsIds = userInfo?.bookmarkedTweets;
-
-  // console.log(userInfo?.bookmarkedTweets);
-  // Simply fetching all tweets and filtering on the FE.
-  // const tweetsRef = collection(db, "tweets");
-  // const [tweetSnapshots, loading, error] = useCollection(tweetsRef, {
-  //   snapshotListenOptions: { includeMetadataChanges: true },
-  // });
-
-  // const bookmarkedTweets = tweetSnapshots?.docs.filter((doc) =>
-  //   bookmarkedTweetsIds.includes(doc.id)
-  // );
-
-  // const tweetsRef = collection(db, "tweets");
-
-  // let tweetsQuery;
-  // if (bookmarkedTweetsIds?.length) {
-  //   tweetsQuery = query(tweetsRef, where("tweetId", "in", bookmarkedTweetsIds));
-  //   console.log("bookmarks are there");
-  // } else {
-  //   // query that won't fetch anything
-  //   tweetsQuery = query(tweetsRef, where("tweetId", "==", ""));
-  //   console.log("bookmarks are not there");
-  // }
-
-  // const [tweetSnapshots, loading, error] = useCollectionData(tweetsQuery, {
-  //   snapshotListenOptions: { includeMetadataChanges: true },
-  // });
-
-  // console.log(tweetSnapshots);
-
+  //   });
+  //   const bookmarkedTweets = tweetSnapshots?.docs.filter((tweet) =>
+  //     bookmarkedTweetsIds.includes(tweet.id)
+  //   );
+  //   // console.log(bookmarkedTweets[0]?.data().id);
   return (
-    <div className=" px-[1.90rem] pb-[9.615rem]">
-      bookmarks
+    <div className=" flex justify-center px-[1.90rem] pb-[9.615rem]">
+      <p className="mt-[4rem] w-[80%] text-center text-2xl">
+        Bookmarks feature in progress. Please check back later.
+      </p>
       {/* {bookmarkedTweets?.map((tweet) => {
         return (
           <Tweet
-            key={tweet.id}
+            key={tweet.id} //check id
             tweetId={tweet.id}
             likes={tweet.data()?.likes}
             retweets={tweet.data()?.retweets}

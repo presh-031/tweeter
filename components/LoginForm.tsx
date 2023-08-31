@@ -50,7 +50,7 @@ const LogInForm = () => {
     <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-6">
       <div>
         <div className="flex items-center gap-4 overflow-hidden rounded-xl  bg-gray-100  pl-4">
-          <MdEmail />
+          <MdEmail className="text-[#afafaf]" />
           <input
             type="text"
             {...register("email")}
@@ -63,7 +63,7 @@ const LogInForm = () => {
 
       <div>
         <div className="flex items-center gap-4 overflow-hidden rounded-xl  bg-gray-100 pl-4">
-          <IoMdLock />
+          <IoMdLock className="text-[#afafaf]" />
           <input
             type="password"
             {...register("password")}
