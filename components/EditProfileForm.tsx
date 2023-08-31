@@ -78,11 +78,7 @@ const EditProfileForm = ({ authUserId, triggerFunction }) => {
     setLoading(true);
     const userDocRef = doc(db, "users", authUserId);
     try {
-      await updateDoc(userDocRef, {
-        userName: data.userName,
-        displayName: data.displayName,
-        bio: data.bio,
-      });
+      await updateDoc(userDocRef, updatedData);
       toast.success("Successfully edited.");
     } catch (error) {
       toast.error("Please try again.");
