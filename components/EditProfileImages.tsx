@@ -42,8 +42,8 @@ export const EditCoverImage = ({
   };
 
   useEffect(() => {
-    // The function logic you want to trigger in this sibling component
-    console.log("Function in  profile image triggered!");
+    // console.log("Function in  cover image triggered!");
+    upload();
   }, [triggered]);
 
   return (
@@ -83,7 +83,10 @@ export const EditCoverImage = ({
   );
 };
 
-export const EditProfilePic = ({ authUserId }: EditProfileImagesProps) => {
+export const EditProfilePic = ({
+  authUserId,
+  triggered,
+}: EditProfileImagesProps) => {
   const { selectedImage, handleImageChange, deleteSelectedImage } =
     useSelectedImage();
 
@@ -115,6 +118,11 @@ export const EditProfilePic = ({ authUserId }: EditProfileImagesProps) => {
       saveProfilePictureMetaData
     );
   };
+
+  useEffect(() => {
+    // console.log("Function in  profile pic triggered!");
+    upload();
+  }, [triggered]);
 
   return (
     <>
@@ -157,7 +165,6 @@ export const EditProfilePic = ({ authUserId }: EditProfileImagesProps) => {
         />
       )} */}
       </div>
-      <p onClick={upload}>save</p>
     </>
   );
 };

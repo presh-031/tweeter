@@ -22,7 +22,7 @@ const Edit = () => {
         <p className="mb-12 text-4xl text-blueish">Edit Profile</p>
 
         <EditCoverImage authUserId={authUserId} triggered={triggered} />
-        <EditProfilePic authUserId={authUserId} />
+        <EditProfilePic authUserId={authUserId} triggered={triggered} />
         <EditProfileForm
           authUserId={authUserId}
           triggerFunction={triggerFunction}
