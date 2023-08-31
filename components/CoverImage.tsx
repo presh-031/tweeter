@@ -27,7 +27,7 @@ const CoverImage = ({ userId }: CoverImageProps) => {
       {coverImageURL ? (
         <Image
           src={coverImageURL}
-          alt="header-photo"
+          alt="Cover Image"
           width={375}
           height={168}
           className=" h-[16.8rem] w-[37.5rem] object-cover"

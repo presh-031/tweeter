@@ -24,7 +24,7 @@ const ProfilePicture = ({ userId, height, width }: ProfilePictureProps) => {
   return (
     <Image
       src={profilePictureURL ? profilePictureURL : userPlaceholder}
-      alt="profile-pic"
+      alt="Profile picture"
       width={width}
       height={height}
       className={` aspect-auto min-h-[${height}px] overflow-hidden  w-[${width}px] rounded-[8px] object-cover`}

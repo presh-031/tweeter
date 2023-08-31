@@ -10,14 +10,23 @@ const Edit = () => {
   const [authUser] = useAuthState(auth);
   const authUserId = authUser ? authUser.uid : "";
 
+  const [triggered, setTriggered] = useState(false);
+
+  const triggerFunction = () => {
+    setTriggered((prevTriggered) => !prevTriggered);
+  };
+
   return (
     <div className="rounded-2xl px-20 pb-[9.615rem]">
       <div className="py-8 ">
         <p className="mb-12 text-4xl text-blueish">Edit Profile</p>
 
-        <EditCoverImage authUserId={authUserId} />
+        <EditCoverImage authUserId={authUserId} triggered={triggered} />
         <EditProfilePic authUserId={authUserId} />
-        <EditProfileForm authUserId={authUserId} />
+        <EditProfileForm
+          authUserId={authUserId}
+          triggerFunction={triggerFunction}
+        />
       </div>
     </div>
   );

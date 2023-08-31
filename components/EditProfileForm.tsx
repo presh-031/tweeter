@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useRef } from "react";
 import * as yup from "yup";
 import { useRouter } from "next/router";
 import { doc, updateDoc } from "firebase/firestore";
@@ -37,7 +37,7 @@ const resolver = async (data: FormData) => {
   }
 };
 
-const EditProfileForm = ({ authUserId }) => {
+const EditProfileForm = ({ authUserId, triggerFunction }) => {
   const router = useRouter();
   const {
     register,
@@ -49,9 +49,10 @@ const EditProfileForm = ({ authUserId }) => {
 
   const [loading, setLoading] = useState(false);
 
+  const siblingComponentRef = useRef();
   const onSubmit = async (data: FormData) => {
     // Logic to handle images
-
+    triggerFunction();
     // Logic to handle form
     //get whichever input field has a value and update that. Thats what the user wants to change.
     const updatedData: FormData = {};

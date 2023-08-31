@@ -7,8 +7,12 @@ import { db, storage } from "@/config/firebase";
 import { addDoc, collection } from "firebase/firestore";
 import { EditProfileImagesProps } from "@/typings";
 import useImageUploader from "@/hooks/useImageUploader";
+import { forwardRef, useEffect } from "react";
 
-export const EditCoverImage = ({ authUserId }: EditProfileImagesProps) => {
+export const EditCoverImage = ({
+  authUserId,
+  triggered,
+}: EditProfileImagesProps) => {
   const { selectedImage, handleImageChange, deleteSelectedImage } =
     useSelectedImage();
   const [uploadFile, uploading, snapshot, error] = useUploadFile();
@@ -36,6 +40,11 @@ export const EditCoverImage = ({ authUserId }: EditProfileImagesProps) => {
       saveCoverImageMetaData
     );
   };
+
+  useEffect(() => {
+    // The function logic you want to trigger in this sibling component
+    console.log("Function in  profile image triggered!");
+  }, [triggered]);
 
   return (
     <>
@@ -109,6 +118,11 @@ export const EditProfilePic = ({ authUserId }: EditProfileImagesProps) => {
 
   return (
     <>
+      {error && <strong>Error: {error.message}</strong>}
+      {uploading && <span>Uploading file...</span>}
+      {snapshot && <span>Snapshot: {JSON.stringify(snapshot)}</span>}
+      {selectedImage && <span>Selected file: {selectedImage.name}</span>}
+
       <div className="relative mt-8 flex h-[5rem] w-[5rem] items-center justify-center overflow-hidden rounded-[.8rem] bg-black bg-opacity-20">
         <label
           htmlFor="profile-picker"
