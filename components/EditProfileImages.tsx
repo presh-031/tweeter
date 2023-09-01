@@ -4,7 +4,7 @@ import { v4 } from "uuid";
 import { ref } from "firebase/storage";
 import { useUploadFile } from "react-firebase-hooks/storage";
 import { db, storage } from "@/config/firebase";
-import { addDoc, collection } from "firebase/firestore";
+import { addDoc, collection, serverTimestamp } from "firebase/firestore";
 import { EditProfileImagesProps } from "@/typings";
 import useImageUploader from "@/hooks/useImageUploader";
 import { forwardRef, useEffect } from "react";
@@ -22,6 +22,7 @@ export const EditCoverImage = ({
     const metaData = {
       fullPath,
       userId: authUserId,
+      timestamp: serverTimestamp(),
     };
 
     try {
@@ -101,6 +102,7 @@ export const EditProfilePic = ({
     const metaData = {
       fullPath,
       userId: authUserId,
+      timestamp: serverTimestamp(),
     };
 
     try {

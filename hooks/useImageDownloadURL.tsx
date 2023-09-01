@@ -5,7 +5,6 @@ import React, { useEffect, useState } from "react";
 // use fullPath in metadata to get imageURL
 const useImageDownloadURL = (metaData: any) => {
   const [imageURL, setImageURL] = useState("");
-
   useEffect(() => {
     async function getDownloadUrlForImg(fullPath: string) {
       try {
@@ -18,8 +17,8 @@ const useImageDownloadURL = (metaData: any) => {
       }
     }
 
-    if (metaData && metaData.length) {
-      const fullPath = metaData[0].fullPath;
+    if (metaData) {
+      const fullPath = metaData.fullPath;
       getDownloadUrlForImg(fullPath);
     }
   }, [metaData]);
