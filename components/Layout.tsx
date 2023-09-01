@@ -1,9 +1,8 @@
 import { LayoutProps } from "@/typings";
 import { Poppins } from "next/font/google";
 import { Toaster } from "react-hot-toast";
-import { AppNav } from "../index";
+import { AppNav, Nav } from "../index";
 import { useRouter } from "next/router";
-import NavBar from "./NavBar";
 
 const poppins = Poppins({
   subsets: ["latin"],
@@ -20,7 +19,7 @@ const Layout = ({ children }: LayoutProps) => {
       className={`${poppins.className} min-h-screen bg-[#eee] bg-opacity-40`}
     >
       <Toaster />
-      {!isSignUpPage && !isLoginPage && <NavBar />}
+      {!isSignUpPage && !isLoginPage && <Nav />}
       {children}
       {!isSignUpPage && !isLoginPage && <AppNav />}
     </div>

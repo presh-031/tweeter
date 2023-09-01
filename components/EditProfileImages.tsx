@@ -7,7 +7,7 @@ import { db, storage } from "@/config/firebase";
 import { addDoc, collection, serverTimestamp } from "firebase/firestore";
 import { EditProfileImagesProps } from "@/typings";
 import useImageUploader from "@/hooks/useImageUploader";
-import { forwardRef, useEffect } from "react";
+import { useEffect } from "react";
 
 export const EditCoverImage = ({
   authUserId,

@@ -9,7 +9,7 @@ import logo from "../assets/tweeter.svg";
 import { AppNav, UserNav } from "../index";
 import ProfilePicture from "./ProfilePicture";
 
-const NavBar = () => {
+const Nav = () => {
   const router = useRouter();
   const [authUser] = useAuthState(auth);
   const authUserId = authUser ? authUser.uid : "";
@@ -61,4 +61,4 @@ const NavBar = () => {
   );
 };
 
-export default NavBar;
+export default Nav;
