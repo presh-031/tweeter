@@ -36,9 +36,11 @@ const Nav = () => {
 
       <div onClick={toggleShowUserNav} className="flex items-center">
         <div className="flex h-[3.2rem] w-[3.2rem] items-center">
-          <ProfilePicture userId={authUserId} width={32} height={32} />
+          {authUserId && (
+            <ProfilePicture userId={authUserId} width={32} height={32} />
+          )}
         </div>
-        <DisplayName authUserId={authUserId} />
+        {authUserId && <DisplayName authUserId={authUserId} />}
         {showUserNav ? (
           <RiArrowUpSFill className="text-3xl" />
         ) : (
