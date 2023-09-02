@@ -8,6 +8,7 @@ import { RiArrowDownSFill, RiArrowUpSFill } from "react-icons/ri";
 import logo from "../assets/tweeter.svg";
 import { AppNav, UserNav } from "../index";
 import ProfilePicture from "./ProfilePicture";
+import { useDocumentData } from "react-firebase-hooks/firestore";
 
 const Nav = () => {
   const router = useRouter();
@@ -15,15 +16,21 @@ const Nav = () => {
   const authUserId = authUser ? authUser.uid : "";
 
   // firebase hooks breaks stuff here.
-  const [user, setUser] = useState<any>(null);
-  useEffect(() => {
-    const getUser = async () => {
-      const userSnap = await getDoc(doc(db, "users", authUserId));
-      setUser(userSnap.data());
-    };
+  // const [user, setUser] = useState<any>(null);
+  // useEffect(() => {
+  //   const getUser = async () => {
+  //     const userSnap = await getDoc(doc(db, "users", authUserId));
+  //     setUser(userSnap.data());
+  //   };
 
-    getUser();
-  }, [authUserId]);
+  //   console.log("nav");
+  //   getUser();
+  // }, [authUserId]);
+
+  const [authUserInfo, authUserInfoLoading, authUserInfoError] =
+    useDocumentData(doc(db, "users", authUserId), {
+      snapshotListenOptions: { includeMetadataChanges: true },
+    });
 
   // local state for nav
   const [showUserNav, setShowUserNav] = useState(false);
@@ -49,7 +56,7 @@ const Nav = () => {
         <div className="flex h-[3.2rem] w-[3.2rem] items-center">
           <ProfilePicture userId={authUserId} width={32} height={32} />
         </div>
-        <p className="w-12 truncate text-lg">{user?.displayName}</p>
+        <p className="w-12 truncate text-lg">{authUserInfo?.displayName}</p>
         {showUserNav ? (
           <RiArrowUpSFill className="text-3xl" />
         ) : (
