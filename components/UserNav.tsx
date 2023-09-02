@@ -7,15 +7,12 @@ import { IoMdSettings } from "react-icons/io";
 import { TbLogout } from "react-icons/tb";
 import { UserNavProps } from "@/typings";
 
-const UserNav = ({ toggleShowUserNav }: UserNavProps) => {
-  const [signOut] = useSignOut(auth);
+const UserNav = ({ authUserId, toggleShowUserNav }: UserNavProps) => {
   const router = useRouter();
-
-  const [currentUser] = useAuthState(auth);
-  const currentUserId = currentUser?.uid;
+  const [signOut] = useSignOut(auth);
 
   const handleProfileClick = () => {
-    router.push(`/profile/${currentUserId}`);
+    router.push(`/profile/${authUserId}`);
     toggleShowUserNav();
   };
 

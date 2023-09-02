@@ -1,6 +1,5 @@
-import { auth, db } from "@/config/firebase";
-import { doc, getDoc } from "firebase/firestore";
-import { useEffect, useState } from "react";
+import { auth } from "@/config/firebase";
+import { useState } from "react";
 import Image from "next/image";
 import { useRouter } from "next/router";
 import { useAuthState } from "react-firebase-hooks/auth";
@@ -8,29 +7,12 @@ import { RiArrowDownSFill, RiArrowUpSFill } from "react-icons/ri";
 import logo from "../assets/tweeter.svg";
 import { AppNav, UserNav } from "../index";
 import ProfilePicture from "./ProfilePicture";
-import { useDocumentData } from "react-firebase-hooks/firestore";
+import DisplayName from "./DisplayName";
 
 const Nav = () => {
   const router = useRouter();
   const [authUser] = useAuthState(auth);
   const authUserId = authUser ? authUser.uid : "";
-
-  // firebase hooks breaks stuff here.
-  // const [user, setUser] = useState<any>(null);
-  // useEffect(() => {
-  //   const getUser = async () => {
-  //     const userSnap = await getDoc(doc(db, "users", authUserId));
-  //     setUser(userSnap.data());
-  //   };
-
-  //   console.log("nav");
-  //   getUser();
-  // }, [authUserId]);
-
-  const [authUserInfo, authUserInfoLoading, authUserInfoError] =
-    useDocumentData(doc(db, "users", authUserId), {
-      snapshotListenOptions: { includeMetadataChanges: true },
-    });
 
   // local state for nav
   const [showUserNav, setShowUserNav] = useState(false);
@@ -56,14 +38,19 @@ const Nav = () => {
         <div className="flex h-[3.2rem] w-[3.2rem] items-center">
           <ProfilePicture userId={authUserId} width={32} height={32} />
         </div>
-        <p className="w-12 truncate text-lg">{authUserInfo?.displayName}</p>
+        <DisplayName authUserId={authUserId} />
         {showUserNav ? (
           <RiArrowUpSFill className="text-3xl" />
         ) : (
           <RiArrowDownSFill className="text-3xl" />
         )}
       </div>
-      {showUserNav && <UserNav toggleShowUserNav={toggleShowUserNav} />}
+      {showUserNav && (
+        <UserNav
+          authUserId={authUserId}
+          toggleShowUserNav={toggleShowUserNav}
+        />
+      )}
     </div>
   );
 };

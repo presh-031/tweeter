@@ -60,6 +60,7 @@ export type ExploreTabsProps = {
 };
 
 export type UserNavProps = {
+  authUserId: string;
   toggleShowUserNav: () => void;
 };
 
@@ -92,4 +93,8 @@ export type ProfilePictureProps = {
   userId: string;
   height: number;
   width: number;
+};
+
+export type DisplayNameProps = {
+  authUserId: string;
 };
