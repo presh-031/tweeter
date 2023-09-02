@@ -1,5 +1,4 @@
 import Image from "next/image";
-import userPlaceholder from "../assets/user-placeholder.png";
 import { CoverImageProps } from "@/typings";
 import {
   collection,
@@ -10,14 +9,12 @@ import {
   where,
 } from "firebase/firestore";
 import { db } from "@/config/firebase";
-import { useCollectionData } from "react-firebase-hooks/firestore";
 import useImageDownloadURL from "@/hooks/useImageDownloadURL";
 import { useEffect, useState } from "react";
 
 const CoverImage = ({ userId }: CoverImageProps) => {
   // IMAGE DOWNLOADS.
   // use userId to fetch img metadata
-
   const [mostRecentDocumentMetaData, setmostRecentDocumentMetaData] = useState(
     {}
   );
@@ -27,6 +24,7 @@ const CoverImage = ({ userId }: CoverImageProps) => {
       try {
         const q = query(
           collection(db, "cover-images"),
+          where("userId", "==", userId),
           orderBy("timestamp", "desc"),
           limit(1)
         );
@@ -45,7 +43,7 @@ const CoverImage = ({ userId }: CoverImageProps) => {
     };
 
     queryMostRecentCoverImage();
-  }, []);
+  }, [userId]);
 
   // use fullPath in metadata to get imageURL
   const coverImageURL = useImageDownloadURL(mostRecentDocumentMetaData);

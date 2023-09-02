@@ -25,6 +25,7 @@ const ProfilePicture = ({ userId, height, width }: ProfilePictureProps) => {
       try {
         const q = query(
           collection(db, "profile-pictures"),
+          where("userId", "==", userId),
           orderBy("timestamp", "desc"),
           limit(1)
         );
@@ -43,7 +44,7 @@ const ProfilePicture = ({ userId, height, width }: ProfilePictureProps) => {
     };
 
     queryMostRecentProfilePic();
-  }, []);
+  }, [userId]);
 
   // use fullPath in metadata to get imageURL
   const profilePictureURL = useImageDownloadURL(mostRecentProfilePicMetaData);

@@ -8,10 +8,12 @@ const useImageDownloadURL = (metaData: any) => {
   useEffect(() => {
     async function getDownloadUrlForImg(fullPath: string) {
       try {
-        const imageRef = ref(storage, fullPath ? fullPath : "");
-        const downloadURL = await getDownloadURL(imageRef);
+        if (fullPath) {
+          const imageRef = ref(storage, fullPath ? fullPath : "");
+          const downloadURL = await getDownloadURL(imageRef);
 
-        setImageURL(downloadURL);
+          setImageURL(downloadURL);
+        }
       } catch (error) {
         console.error("Error getting download URL:", error);
       }
