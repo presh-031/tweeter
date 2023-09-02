@@ -42,9 +42,9 @@ const Profile = () => {
       {profileOwnerInfo && (
         <div className="pb-[9.615rem]">
           {authUserIsProfileOwner ? (
-            <CoverImage userId={authUserId} width={375} height={168} />
+            <CoverImage userId={authUserId} />
           ) : (
-            <CoverImage userId={profileOwnerId} width={375} height={168} />
+            <CoverImage userId={profileOwnerId} />
           )}
           <div className="px-[1.90rem] ">
             <div className="relative rounded-[1.2rem]  px-[1.6rem] pb-[2.316rem] pt-[4.388rem] text-center shadow-[0_2px_4px_rgba(0,0,0,0.05)]">
