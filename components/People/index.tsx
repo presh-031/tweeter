@@ -2,10 +2,8 @@ import { auth, db } from "@/config/firebase";
 import { collection, doc, limit, orderBy, query } from "firebase/firestore";
 import React from "react";
 import {
-  useCollection,
   useCollectionData,
   useDocumentData,
-  useDocumentDataOnce,
 } from "react-firebase-hooks/firestore";
 import { GeneralLoader, User } from "../..";
 import { useAuthState } from "react-firebase-hooks/auth";
@@ -14,12 +12,14 @@ const People = () => {
   const usersRef = collection(db, "users");
   const usersQuery = query(
     usersRef,
-    orderBy("followers", "desc"),
+    orderBy("followers", "desc"), //should order by "followersCount" cos "followers" is an arr.
     limit(10) //top 10 users based on followers
   );
   const [topUsers, loading, error] = useCollectionData(usersQuery, {
     snapshotListenOptions: { includeMetadataChanges: true },
   });
+
+  console.log(topUsers);
 
   // Get auth user info
   const [authUser] = useAuthState(auth);

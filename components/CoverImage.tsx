@@ -15,6 +15,7 @@ import { useEffect, useState } from "react";
 const CoverImage = ({ userId }: CoverImageProps) => {
   // IMAGE DOWNLOADS.
   // use userId to fetch img metadata
+
   const [mostRecentDocumentMetaData, setmostRecentDocumentMetaData] = useState(
     {}
   );

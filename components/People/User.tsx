@@ -1,7 +1,6 @@
-import { userInfoType, userServicesProps } from "@/typings";
+import { userServicesProps } from "@/typings";
 import Image from "next/image";
 import React from "react";
-import userPlaceholder from "../../assets/user-placeholder.png";
 import ProfilePicture from "../ProfilePicture";
 import Follow from "../ui/Follow";
 import { useRouter } from "next/router";
@@ -63,9 +62,11 @@ const User = ({
         </p>
       </div>
 
-      {/* <CoverImage userId={profileOwnerId} /> */}
+      <div className="h-[10rem] overflow-hidden">
+        <CoverImage userId={profileOwnerId} />
+      </div>
 
-      <div className="mb-[1.4rem] w-fit">
+      <div className="my-[1.4rem] w-fit">
         {profileOwnerInfo.followers.includes(authUserId) ? (
           <UnFollow
             profileOwnerInfo={profileOwnerInfo}
