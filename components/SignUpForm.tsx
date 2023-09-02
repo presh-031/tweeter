@@ -42,8 +42,8 @@ const SignUpForm = () => {
 
   const [fullName, setFullName] = useState("");
   const onSubmit = (data: FormData) => {
-    createUserWithEmailAndPassword(data.email, data.password);
     setFullName(data.fullName);
+    createUserWithEmailAndPassword(data.email, data.password);
   };
 
   if (user?.user) {
