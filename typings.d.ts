@@ -58,6 +58,10 @@ export type ExploreTabsProps = {
   activeTab: string;
   handleTabClick: (string) => void;
 };
+export type ProfileTabsProps = {
+  activeProfileTab: string;
+  handleTabClick: (string) => void;
+};
 
 export type UserNavProps = {
   authUserId: string;

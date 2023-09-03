@@ -8,6 +8,8 @@ import ProfileTweets from "@/components/ProfileTweets";
 import CoverImage from "@/components/CoverImage";
 import ProfilePicture from "@/components/ProfilePicture";
 import ProfileInfo from "@/components/ProfileInfo";
+import ProfileTabs from "@/components/ProfileTabs";
+import { useEffect, useState } from "react";
 
 let authUserIsProfileOwner;
 
@@ -36,6 +38,19 @@ const Profile = () => {
   } else {
     authUserIsProfileOwner = false;
   }
+
+  // Logic for the tabs
+  const storedValue = localStorage.getItem("activeProfileTab");
+  const [activeProfileTab, setActiveProfileTab] = useState(
+    storedValue || "tweets"
+  );
+  useEffect(() => {
+    localStorage.setItem("activeProfileTab", activeProfileTab);
+  }, [activeProfileTab]);
+
+  const handleTabClick = (tabName: string) => {
+    setActiveProfileTab(tabName);
+  };
 
   return (
     <>
@@ -90,7 +105,18 @@ const Profile = () => {
                 </>
               )}
             </div>
-            <ProfileTweets profileOwnerId={profileOwnerId} />
+
+            <ProfileTabs
+              activeProfileTab={activeProfileTab}
+              handleTabClick={handleTabClick}
+            />
+            <div className="">
+              {activeProfileTab === "tweets" && (
+                <ProfileTweets profileOwnerId={profileOwnerId} />
+              )}
+              {/* {activeProfileTab === "media" && <LatestTweets />}
+              {activeProfileTab === "likes" && <People />} */}
+            </div>
           </div>
         </div>
       )}
