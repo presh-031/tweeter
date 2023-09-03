@@ -17,8 +17,8 @@ const Edit = () => {
   };
 
   return (
-    <div className="rounded-2xl px-20 pb-[9.615rem]">
-      <div className="py-8 ">
+    <div className="min-h-full rounded-2xl bg-white px-20  pt-24 pb-[9.615rem] sm:bg-[#F2F2F2] sm:px-28">
+      <div className="min-[500px]:mx-auto min-[500px]:max-w-[500px] min-[500px]:rounded-[.8rem] min-[500px]:p-24 sm:bg-white">
         <p className="mb-12 text-4xl text-blueish">Edit Profile</p>
 
         <EditCoverImage authUserId={authUserId} triggered={triggered} />
