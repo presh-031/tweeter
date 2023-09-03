@@ -50,11 +50,14 @@ const NewTweet = () => {
   };
 
   return (
-    <div className="mt-[1.469rem] rounded-[12px] bg-white py-[1.091rem] px-[1.39rem] shadow-[0_2px_2px_rgba(0,0,0,0.05)] ">
-      <p className="border-b-[1px] border-[#f2f2f2] pb-[.74rem] text-[1.2rem] font-semibold leading-[1.8rem] tracking-[-3.5%] text-[#4F4F4F]">
+    <div className="mt-[1.469rem] rounded-[12px]  bg-white py-[1.091rem] px-[1.39rem] shadow-[0_2px_2px_rgba(0,0,0,0.05)] md:mt-[2rem] ">
+      <p className="border-b-[1px] border-[#f2f2f2] pb-[.74rem] text-[1.2rem] font-semibold leading-[1.8rem] tracking-[-3.5%] text-[#4F4F4F] md:text-[1.4rem]">
         Tweet something
       </p>
-      <form onSubmit={handleNewTweetSumbit} className="flex items-center">
+      <form
+        onSubmit={handleNewTweetSumbit}
+        className="mt-[.74rem] flex items-center"
+      >
         {authUserInfo && (
           <div className="flex h-[4rem] w-[4rem] items-center">
             <ProfilePicture userId={authUserId} width={40} height={40} />
@@ -91,7 +94,7 @@ const NewTweet = () => {
       )}
 
       <div className="mt-[3rem] flex justify-between text-blueish">
-        <div className=" flex items-center gap-[.71rem] ">
+        <div className=" flex items-center gap-[.71rem]  md:ml-[7.2rem] ">
           <div>
             <label htmlFor="tweet-img-picker">
               <MdOutlineImage className="mr-[.673] h-[1.5rem] w-[1.5rem] " />
@@ -105,12 +108,12 @@ const NewTweet = () => {
             />
           </div>
           <BiWorld className="h-[1.6rem] w-[1.6rem]" />
-          <p className="text-[1.2rem] font-medium leading-[1.6rem] tracking-[-3.5%]">
+          <p className="text-[1.2rem] font-medium leading-[1.6rem] tracking-[-3.5%] md:text-[1.4rem]">
             Everyone can reply
           </p>
         </div>
         <input
-          className="rounded-[4px] bg-blueish px-[2.4rem] py-[.8rem] text-[1.2rem] font-medium leading-[1.6rem] tracking-[-3.5%] text-white"
+          className="rounded-[4px] bg-blueish px-[2.4rem] py-[.8rem] text-[1.2rem] font-medium leading-[1.6rem] tracking-[-3.5%] text-white md:text-[1.4rem]"
           type="submit"
           value="Tweet"
           onClick={handleNewTweetSumbit}

@@ -19,4 +19,4 @@ export { default as UnFollow } from "./components/ui/UnFollow";
 export { default as People } from "./components/People/index";
 export { default as User } from "./components/People/User";
 export { default as EditProfileForm } from "./components/EditProfileForm";
-export { default as Nav } from "./components/Nav";
+export { default as NavBar } from "./components/NavBar";

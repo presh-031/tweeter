@@ -75,12 +75,12 @@ const Tweet = ({
   return (
     <div className="my-[2.317rem] ">
       {/* <p>Daniel Jensen Retweeted</p> */}
-      <div className=" rounded-[8px] bg-white  px-[1.523rem] pt-[2rem] shadow-[2px_2px_4px_rgba(0,0,0,0.05)]  hover:cursor-pointer">
+      <div className=" rounded-[8px]  bg-white  px-[1.523rem] pt-[2rem] shadow-[2px_2px_4px_rgba(0,0,0,0.05)] md:px-[2rem] md:shadow-[2px_2px_6px_rgba(0,0,0,0.1)]">
         <div
           onClick={(e) => {
             router.push(`/profile/${userId}`);
           }}
-          className="flex w-fit gap-[.635rem] "
+          className="flex w-fit gap-[.635rem]  md:gap-[1.8rem]"
         >
           <div className="flex h-[4rem] w-[4rem] items-center">
             <ProfilePicture userId={userId} width={40} height={40} />
@@ -102,7 +102,7 @@ const Tweet = ({
           onClick={() => {
             router.push(`/tweet/${tweetId}`);
           }}
-          className="mt-[2rem] mb-[1.4rem]  text-[1.60rem] font-normal leading-[2.179rem] tracking-[-3.5%] text-[#4F4F4F]"
+          className="mt-[2rem] mb-[1.4rem]  text-[1.60rem] font-normal leading-[2.179rem] tracking-[-3.5%] text-[#4F4F4F] md:text-[1.8rem]"
         >
           {text}
         </p>
@@ -112,7 +112,7 @@ const Tweet = ({
             <TweetMedia images={media} />
           </div>
 
-          <div className="mt-[1.4rem] mb-[0.651rem] flex justify-end gap-[1.6rem]">
+          <div className="mt-[1.4rem] mb-[0.651rem] flex justify-end gap-[1.6rem]  text-[1.2rem]">
             <span className="tweet-stats">
               {likes.length} {likes.length > 1 ? "Likes" : "Like"}
             </span>
@@ -127,46 +127,54 @@ const Tweet = ({
           </div>
         </div>
 
-        <div className="flex justify-center border-y-[1px] border-[#F2F2F2] py-[.382rem]">
+        <div className="flex justify-center  border-y-[1px] border-[#F2F2F2] py-[.382rem]">
           <button onClick={handleCommentBtnClick} className="tweet-icons-btn">
             <MdOutlineModeComment className="tweet-icons" />
-            <span className="hidden">Comment</span>
+            <span className="hidden md:block">Comment</span>
           </button>
           <button
             onClick={() => handleRetweet(tweetId, currentUserId, retweets)}
-            className="tweet-icons-btn"
+            className={` tweet-icons-btn ${
+              retweets.includes(currentUserId) ? "text-[#27AE60] " : ""
+            }`}
           >
             <FaRetweet
-              style={retweets.includes(currentUserId) ? { color: "red" } : {}}
               className="tweet-icons"
+              style={
+                retweets.includes(currentUserId) ? { color: "#27AE60" } : {}
+              }
             />
-            <span className="hidden">Retweet</span>
+            <span className="hidden md:block">Retweet</span>
           </button>
           <button
             onClick={() => {
               handleLike(tweetId, currentUserId, likes);
             }}
-            className="tweet-icons-btn"
+            className={` tweet-icons-btn ${
+              likes.includes(currentUserId) ? "text-[#EB5757] " : ""
+            }`}
           >
             <AiOutlineHeart
               className="tweet-icons"
-              style={likes.includes(currentUserId) ? { color: "red" } : {}}
+              style={likes.includes(currentUserId) ? { color: "#EB5757" } : {}}
             />
-            <span className="hidden">Likes</span>
+            <span className="hidden md:block">Like</span>
           </button>
           <button
             onClick={() => {
               handleBookmark(tweetId, currentUserId, bookmarkedBy);
             }}
-            className="tweet-icons-btn"
+            className={` tweet-icons-btn ${
+              bookmarkedBy.includes(currentUserId) ? "text-[#2D9CDB] " : ""
+            }`}
           >
             <HiOutlineBookmark
               className="tweet-icons"
               style={
-                bookmarkedBy.includes(currentUserId) ? { color: "blue" } : {}
+                bookmarkedBy.includes(currentUserId) ? { color: "#2D9CDB" } : {}
               }
             />
-            <span className="hidden">Save</span>
+            <span className="hidden md:block">Save</span>
           </button>
         </div>
 

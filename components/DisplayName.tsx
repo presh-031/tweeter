@@ -9,7 +9,11 @@ const DisplayName = ({ authUserId }: DisplayNameProps) => {
     useDocumentData(doc(db, "users", authUserId), {
       snapshotListenOptions: { includeMetadataChanges: true },
     });
-  return <p className="w-12 truncate text-lg">{authUserInfo?.displayName}</p>;
+  return (
+    <p className="w-12  truncate text-lg  font-medium  leading-normal  tracking-[-0.049rem] md:min-w-fit md:max-w-[7rem] md:text-[1.4rem]">
+      {authUserInfo?.displayName}
+    </p>
+  );
 };
 
 export default DisplayName;
