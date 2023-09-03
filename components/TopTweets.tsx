@@ -20,7 +20,7 @@ const TopTweets = () => {
     <div>
       {error && <strong>Error: {JSON.stringify(error)}</strong>}
       {loading && (
-        <div className="mt-16 flex justify-center">
+        <div className="flex justify-center">
           <GeneralLoader />
         </div>
       )}

@@ -21,7 +21,7 @@ const Explore = () => {
   return (
     <div className=" px-[1.90rem] pb-[9.615rem]">
       <ExploreTabs activeTab={activeTab} handleTabClick={handleTabClick} />
-      <div className="">
+      <div className="md:mt-22 mt-16">
         {activeTab === "top" && <TopTweets />}
         {activeTab === "latest" && <LatestTweets />}
         {activeTab === "people" && <People />}

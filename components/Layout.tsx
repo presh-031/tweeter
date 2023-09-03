@@ -21,7 +21,11 @@ const Layout = ({ children }: LayoutProps) => {
       <Toaster />
       {!isSignUpPage && !isLoginPage && <NavBar />}
       {children}
-      {!isSignUpPage && !isLoginPage && <AppNav />}
+      {!isSignUpPage && !isLoginPage && (
+        <div className="md:hidden">
+          <AppNav />
+        </div>
+      )}
     </div>
   );
 };

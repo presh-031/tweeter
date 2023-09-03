@@ -8,12 +8,12 @@ import {
 import { GeneralLoader, User } from "../..";
 import { useAuthState } from "react-firebase-hooks/auth";
 
-const People = () => {
+const People = ({ max = 10 }) => {
   const usersRef = collection(db, "users");
   const usersQuery = query(
     usersRef,
     orderBy("followers", "desc"), //should order by "followersCount" cos "followers" is an arr.
-    limit(10) //top 10 users based on followers
+    limit(max) //top 10 users based on followers
   );
   const [topUsers, loading, error] = useCollectionData(usersQuery, {
     snapshotListenOptions: { includeMetadataChanges: true },
@@ -21,7 +21,7 @@ const People = () => {
 
   console.log(topUsers);
 
-  // Get auth user info
+  // Get auth user info for follow and unfollow btns.
   const [authUser] = useAuthState(auth);
   const authUserId = authUser ? authUser.uid : "";
   const [authUserInfo, authUserInfoLoading, authUserInfoError] =
@@ -29,16 +29,21 @@ const People = () => {
       snapshotListenOptions: { includeMetadataChanges: true },
     });
 
+  if (error) {
+    return <strong>Error: {JSON.stringify(error)}</strong>;
+  }
+
+  if (loading) {
+    return (
+      <div className=" flex justify-center">
+        <GeneralLoader />
+      </div>
+    );
+  }
+
   return (
     <div>
-      {error && <strong>Error: {JSON.stringify(error)}</strong>}
-      {loading && (
-        <div className="mt-16 flex justify-center">
-          <GeneralLoader />
-        </div>
-      )}
-
-      <div className=" md:mt-22 mt-16 overflow-hidden rounded-[.8rem]">
+      <div className="overflow-hidden rounded-[.8rem]">
         {topUsers?.map((user) => (
           <User
             key={user.uid}
