@@ -38,7 +38,7 @@ const People = () => {
         </div>
       )}
 
-      <div className=" mt-16 overflow-hidden rounded-[8px]">
+      <div className=" md:mt-22 mt-16 overflow-hidden rounded-[.8rem]">
         {topUsers?.map((user) => (
           <User
             key={user.uid}

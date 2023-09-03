@@ -57,10 +57,10 @@ const CoverImage = ({ userId }: CoverImageProps) => {
           alt="Cover Image"
           width={375}
           height={168}
-          className=" h-[16.8rem] w-[37.5rem] object-cover"
+          className=" h-[16.8rem] w-full object-cover"
         />
       ) : (
-        <div className="h-[16.8rem] w-[37.5rem] bg-blueish"></div>
+        <div className="h-[16.8rem] w-full bg-blueish"></div>
       )}
     </div>
   );

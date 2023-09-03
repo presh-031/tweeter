@@ -3,7 +3,7 @@ import React from "react";
 
 const ExploreTabs = ({ activeTab, handleTabClick }: ExploreTabsProps) => {
   return (
-    <ul className="mt-[3.3rem] space-y-[1.2rem] rounded-[.8rem] bg-white py-[2rem] text-[1.4rem] font-semibold leading-normal tracking-[0.049rem]  text-[#828282] shadow-sm">
+    <ul className="mt-[3.3rem] space-y-[1.2rem] rounded-[.8rem] bg-white py-[2rem] text-[1.4rem] font-semibold leading-normal tracking-[0.049rem] text-[#828282]  shadow-sm md:text-[1.6rem]">
       <li
         onClick={() => handleTabClick("top")}
         className={` ${
@@ -13,7 +13,7 @@ const ExploreTabs = ({ activeTab, handleTabClick }: ExploreTabsProps) => {
         <div
           className={`${
             activeTab === "top" ? "bg-blueish" : "bg-transparent"
-          } h-[3.2rem] w-[0.3rem] rounded-r-[.4rem] transition-all duration-200 `}
+          } h-[3.2rem] w-[0.3rem] rounded-r-[.4rem] transition-all duration-200 md:h-[3.8rem] `}
         ></div>{" "}
         Top
       </li>
@@ -26,7 +26,7 @@ const ExploreTabs = ({ activeTab, handleTabClick }: ExploreTabsProps) => {
         <div
           className={`${
             activeTab === "latest" ? "bg-blueish" : "bg-transparent"
-          } h-[3.2rem] w-[0.3rem] rounded-r-[.4rem] transition-all duration-200 `}
+          } h-[3.2rem] w-[0.3rem] rounded-r-[.4rem] transition-all duration-200 md:h-[3.8rem] `}
         ></div>
         Latest
       </li>
@@ -39,7 +39,7 @@ const ExploreTabs = ({ activeTab, handleTabClick }: ExploreTabsProps) => {
         <div
           className={`${
             activeTab === "people" ? "bg-blueish" : "bg-transparent"
-          } h-[3.2rem] w-[0.3rem] rounded-r-[.4rem] transition-all duration-200 `}
+          } h-[3.2rem] w-[0.3rem] rounded-r-[.4rem] transition-all duration-200 md:h-[3.8rem] `}
         ></div>{" "}
         People
       </li>
@@ -52,7 +52,7 @@ const ExploreTabs = ({ activeTab, handleTabClick }: ExploreTabsProps) => {
         <div
           className={`${
             activeTab === "media" ? "bg-blueish" : "bg-transparent"
-          } h-[3.2rem] w-[0.3rem] rounded-r-[.4rem] transition-all duration-200 `}
+          } h-[3.2rem] w-[0.3rem] rounded-r-[.4rem] transition-all duration-200 md:h-[3.8rem] `}
         ></div>{" "}
         Media
       </li>

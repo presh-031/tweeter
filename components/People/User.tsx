@@ -29,7 +29,7 @@ const User = ({
   const { uid, userName, displayName, followers, bio } = profileOwnerInfo;
 
   return (
-    <div className=" border bg-white  px-[1.523rem] pt-[2rem] shadow-[2px_2px_4px_rgba(0,0,0,0.05)]  hover:cursor-pointer">
+    <div className="  bg-white  px-[1.523rem] pt-[2rem] shadow-[2px_2px_4px_rgba(0,0,0,0.05)]  hover:cursor-pointer">
       <div className="flex items-center justify-between">
         <div
           onClick={(e) => {
@@ -57,12 +57,12 @@ const User = ({
       </div>
 
       <div className="mt-[2rem] mb-[1.4rem]">
-        <p className="text-[1.60rem] font-normal leading-[2.179rem] tracking-[-3.5%] text-[#4F4F4F]">
+        <p className="text-[1.60rem] font-normal leading-[2.179rem] tracking-[-3.5%] text-[#4F4F4F] md:text-[1.8rem]">
           {bio}
         </p>
       </div>
 
-      <div className="h-[10rem] overflow-hidden">
+      <div className="h-[10rem] overflow-hidden  md:h-[16.8rem]">
         <CoverImage userId={profileOwnerId} />
       </div>
 
