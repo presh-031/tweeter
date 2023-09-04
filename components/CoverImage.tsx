@@ -12,7 +12,7 @@ import { db } from "@/config/firebase";
 import useImageDownloadURL from "@/hooks/useImageDownloadURL";
 import { useEffect, useState } from "react";
 
-const CoverImage = ({ userId }: CoverImageProps) => {
+const CoverImage = ({ userId, height = 168 }: CoverImageProps) => {
   // IMAGE DOWNLOADS.
   // use userId to fetch img metadata
 
@@ -56,7 +56,7 @@ const CoverImage = ({ userId }: CoverImageProps) => {
           src={coverImageURL}
           alt="Cover Image"
           width={375}
-          height={168}
+          height={height}
           className=" h-[16.8rem] w-full object-cover"
         />
       ) : (

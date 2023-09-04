@@ -19,7 +19,7 @@ const People = ({ max = 10 }) => {
     snapshotListenOptions: { includeMetadataChanges: true },
   });
 
-  console.log(topUsers);
+  // console.log(topUsers);
 
   // Get auth user info for follow and unfollow btns.
   const [authUser] = useAuthState(auth);

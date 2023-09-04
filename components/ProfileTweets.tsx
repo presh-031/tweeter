@@ -29,9 +29,7 @@ const ProfileTweets = ({ profileOwnerId }: profileTweetsProps) => {
           />
         ))
       ) : (
-        <p className="mt-16 text-center text-2xl font-bold">
-          You haven&apos;t tweeted yet.
-        </p>
+        <p className="mt-16 text-center text-2xl font-bold">No tweets yet.</p>
       )}
     </div>
   );

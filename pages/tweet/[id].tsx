@@ -32,7 +32,7 @@ const TweetInfo = () => {
   );
 
   return (
-    <div className="px-[1.90rem] pb-[9.615rem]">
+    <div className="mx-auto max-w-[1071px] px-[1.90rem] pb-[9.615rem] pt-[2.317rem] ">
       {tweetError && <strong>Error: {JSON.stringify(tweetError)}</strong>}
       {tweetLoading && <span>Collection: Loading...</span>}
       {tweet && (

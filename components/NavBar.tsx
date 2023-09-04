@@ -36,7 +36,7 @@ const NavBar = () => {
       </div>
       <div
         onClick={toggleShowUserNav}
-        className="flex cursor-pointer items-center"
+        className="flex cursor-pointer items-center gap-2"
       >
         <div className="flex h-[4rem] w-[4rem] items-center">
           {authUserId && (

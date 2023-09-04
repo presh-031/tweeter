@@ -19,7 +19,7 @@ const Explore = () => {
   };
 
   return (
-    <div className=" px-[1.90rem] pb-[9.615rem]">
+    <div className=" mx-auto max-w-[1071px] px-[1.90rem] pb-[9.615rem] lg:flex lg:gap-[2.4rem]">
       <ExploreTabs activeTab={activeTab} handleTabClick={handleTabClick} />
       <div className="md:mt-22 mt-16">
         {activeTab === "top" && <TopTweets />}

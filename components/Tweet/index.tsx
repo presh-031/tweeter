@@ -73,9 +73,9 @@ const Tweet = ({
   );
 
   return (
-    <div className="my-[2.317rem] ">
+    <div className="mb-[2.317rem]">
       {/* <p>Daniel Jensen Retweeted</p> */}
-      <div className=" rounded-[8px]  bg-white  px-[1.523rem] pt-[2rem] shadow-[2px_2px_4px_rgba(0,0,0,0.05)] md:px-[2rem] md:shadow-[2px_2px_6px_rgba(0,0,0,0.1)]">
+      <div className=" w-full rounded-[8px] bg-white  px-[1.523rem] pt-[2rem] shadow-[2px_2px_4px_rgba(0,0,0,0.05)] md:px-[2rem] md:shadow-[2px_2px_6px_rgba(0,0,0,0.1)]">
         <div
           onClick={(e) => {
             router.push(`/profile/${userId}`);

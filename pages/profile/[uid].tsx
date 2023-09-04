@@ -56,7 +56,7 @@ const Profile = () => {
     <>
       {profileOwnerInfo && (
         <div className="pb-[9.615rem]">
-          <div className="">
+          <div className="border border-red-800 lg:h-[29.7rem]">
             {authUserIsProfileOwner ? (
               <CoverImage userId={authUserId} />
             ) : (
@@ -64,8 +64,8 @@ const Profile = () => {
             )}
           </div>
           <div className=" px-[1.90rem] ">
-            <div className="relative bottom-10 rounded-[1.2rem]  bg-white  px-[1.6rem] pb-[2.316rem] pt-[4.388rem] text-center shadow-[0_2px_4px_rgba(0,0,0,0.05)]">
-              <div className="absolute top-[-6.2rem] left-[50%] flex h-[12.4rem] w-[12.4rem] translate-x-[-50%] items-center overflow-hidden rounded-[8px]  p-[.8rem] ">
+            <div className="relative bottom-10 mx-auto max-w-[1071px]  rounded-[1.2rem]  bg-white px-[1.6rem] pb-[2.316rem] pt-[4.388rem] text-center  shadow-[0_2px_4px_rgba(0,0,0,0.05)]  lg:flex lg:items-start lg:justify-between lg:p-0 lg:px-[2.4rem] lg:pt-[2.4rem]">
+              <div className="absolute top-[-6.2rem] left-[50%] flex h-[12.4rem] w-[12.4rem] translate-x-[-50%] items-center overflow-hidden rounded-[8px]  p-[.8rem] lg:hidden">
                 {authUserIsProfileOwner ? (
                   <ProfilePicture
                     userId={authUserId}
@@ -80,15 +80,32 @@ const Profile = () => {
                   />
                 )}
               </div>
-              <ProfileInfo
-                userName={profileOwnerInfo.userName}
-                following={profileOwnerInfo.following}
-                followers={profileOwnerInfo.followers}
-                bio={profileOwnerInfo.bio}
-              />
+              <div className="lg:flex">
+                <div className="hidden h-[15.2rem] w-[15.2rem] overflow-hidden rounded-[8px] lg:relative lg:bottom-[6.1rem] lg:mr-[2.4rem] lg:block">
+                  {authUserIsProfileOwner ? (
+                    <ProfilePicture
+                      userId={authUserId}
+                      height={152}
+                      width={152}
+                    />
+                  ) : (
+                    <ProfilePicture
+                      userId={profileOwnerId}
+                      height={152}
+                      width={152}
+                    />
+                  )}
+                </div>
+                <ProfileInfo
+                  userName={profileOwnerInfo.userName}
+                  following={profileOwnerInfo.following}
+                  followers={profileOwnerInfo.followers}
+                  bio={profileOwnerInfo.bio}
+                />
+              </div>
 
               {!authUserIsProfileOwner && (
-                <>
+                <div className="">
                   {profileOwnerInfo.followers.includes(authUserId) ? (
                     <UnFollow
                       profileOwnerInfo={profileOwnerInfo}
@@ -104,20 +121,22 @@ const Profile = () => {
                       authUserInfo={authUserInfo}
                     />
                   )}
-                </>
+                </div>
               )}
             </div>
 
-            <ProfileTabs
-              activeProfileTab={activeProfileTab}
-              handleTabClick={handleTabClick}
-            />
-            <div className="">
-              {activeProfileTab === "tweets" && (
-                <ProfileTweets profileOwnerId={profileOwnerId} />
-              )}
-              {/* {activeProfileTab === "media" && <LatestTweets />}
+            <div className="mx-auto mt-[2.5rem] max-w-[1071px] lg:flex lg:gap-[2.4rem]">
+              <ProfileTabs
+                activeProfileTab={activeProfileTab}
+                handleTabClick={handleTabClick}
+              />
+              <div className="w-full">
+                {activeProfileTab === "tweets" && (
+                  <ProfileTweets profileOwnerId={profileOwnerId} />
+                )}
+                {/* {activeProfileTab === "media" && <LatestTweets />}
               {activeProfileTab === "likes" && <People />} */}
+              </div>
             </div>
           </div>
         </div>
