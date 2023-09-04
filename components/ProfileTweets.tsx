@@ -12,6 +12,15 @@ const ProfileTweets = ({ profileOwnerId }: profileTweetsProps) => {
     snapshotListenOptions: { includeMetadataChanges: true },
   });
   const profileOwnerTweets = tweetsListSnapshot?.docs;
+
+  if (loading) {
+    return <p>Loading tweets</p>;
+  }
+
+  if (error) {
+    return <p>Error loading tweets. Please try again.</p>;
+  }
+
   return (
     <div>
       {profileOwnerTweets?.length ? (

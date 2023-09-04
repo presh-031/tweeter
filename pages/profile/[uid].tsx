@@ -56,6 +56,7 @@ const Profile = () => {
     <>
       {profileOwnerInfo && (
         <div className="pb-[9.615rem]">
+          {/* fix cover image height */}
           <div className="border border-red-800 lg:h-[29.7rem]">
             {authUserIsProfileOwner ? (
               <CoverImage userId={authUserId} />
