@@ -25,7 +25,6 @@ const UserNav = ({ authUserId, toggleShowUserNav }: UserNavProps) => {
     const success = await signOut();
     if (success) {
       toast.success("Signed out Successfully.");
-      toggleShowUserNav();
     }
   };
 

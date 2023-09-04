@@ -39,11 +39,9 @@ const NavBar = () => {
         className="flex cursor-pointer items-center gap-2"
       >
         <div className="flex h-[4rem] w-[4rem] items-center">
-          {authUserId && (
-            <ProfilePicture userId={authUserId} width={40} height={40} />
-          )}
+          <ProfilePicture userId={authUserId} width={40} height={40} />
         </div>
-        {authUserId && <DisplayName authUserId={authUserId} />}
+        <DisplayName authUserId={authUserId} />
         {showUserNav ? (
           <RiArrowUpSFill className="text-3xl" />
         ) : (
