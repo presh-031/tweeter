@@ -84,7 +84,7 @@ const Tweet = ({ tweetId, media, text, timestamp, userId }: TweetProps) => {
     where("userId", "==", currentUserId),
     where("tweetId", "==", tweetId)
   );
-  const [likedTweet, likeedLoading, likedError] = useCollection(likesQuery, {
+  const [likedTweet, likedLoading, likedError] = useCollection(likesQuery, {
     snapshotListenOptions: { includeMetadataChanges: true },
   });
 

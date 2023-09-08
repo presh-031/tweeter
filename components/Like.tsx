@@ -1,13 +1,12 @@
 import { db } from "@/config/firebase";
-import { collection, doc } from "firebase/firestore";
-import React from "react";
-import { useDocument, useDocumentData } from "react-firebase-hooks/firestore";
+import { doc } from "firebase/firestore";
+import { useDocument } from "react-firebase-hooks/firestore";
 import Tweet from "./Tweet";
 
-const Bookmark = ({ bookmarkInfo }) => {
-  console.log(bookmarkInfo.data());
+const Like = ({ likeInfo }) => {
+  console.log(likeInfo.data());
 
-  const tweetId = bookmarkInfo.data().tweetId;
+  const tweetId = likeInfo.data().tweetId;
   const [tweet, tweetLoading, tweetError] = useDocument(
     doc(db, "tweets", tweetId),
     {
@@ -32,5 +31,4 @@ const Bookmark = ({ bookmarkInfo }) => {
     </div>
   );
 };
-
-export default Bookmark;
+export default Like;

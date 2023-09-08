@@ -10,6 +10,7 @@ import ProfilePicture from "@/components/ProfilePicture";
 import ProfileInfo from "@/components/ProfileInfo";
 import ProfileTabs from "@/components/ProfileTabs";
 import { useEffect, useState } from "react";
+import ProfileLikes from "@/components/ProfileLikes";
 
 let authUserIsProfileOwner;
 
@@ -135,8 +136,10 @@ const Profile = () => {
                 {activeProfileTab === "tweets" && (
                   <ProfileTweets profileOwnerId={profileOwnerId} />
                 )}
-                {/* {activeProfileTab === "media" && <LatestTweets />}
-              {activeProfileTab === "likes" && <People />} */}
+                {/* {activeProfileTab === "media" && <LatestTweets />} */}
+                {activeProfileTab === "likes" && (
+                  <ProfileLikes profileOwnerId={profileOwnerId} />
+                )}
               </div>
             </div>
           </div>
