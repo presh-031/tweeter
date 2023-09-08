@@ -70,7 +70,7 @@ export type AddCommentProps = {
 };
 
 export type CommentBtnProps = {
-  handleCommentBtnClick: () => void;
+  handleCommentBtnClick: (e: React.MouseEvent<HTMLButtonElement>) => void;
 };
 
 export type ExploreTabsProps = {
