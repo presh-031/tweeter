@@ -1,3 +1,4 @@
+import { db } from "@/config/firebase";
 import {
   bookmarkTweet,
   likeTweet,
@@ -6,33 +7,42 @@ import {
   unbookmarkTweet,
   unlikeTweet,
 } from "@/services/tweetServices";
+import { addDoc, collection, deleteDoc, doc } from "firebase/firestore";
 
 export const handleLike = (
   tweetId: string,
   currentUserId: string,
-  likes: string[]
+  likedTweet: any
 ) => {
-  likes.includes(currentUserId)
-    ? unlikeTweet(tweetId, currentUserId, likes)
-    : likeTweet(tweetId, currentUserId, likes);
+  // add new bookmark document to bookmarks
+
+  if (likedTweet?.docs.length) {
+    unlikeTweet(likedTweet);
+  } else {
+    likeTweet(tweetId, currentUserId);
+  }
 };
 
 export const handleRetweet = (
   tweetId: string,
   currentUserId: string,
-  retweets: string[]
+  retweetedTweet: any
 ) => {
-  retweets.includes(currentUserId)
-    ? unRetweetTweet(tweetId, currentUserId, retweets)
-    : retweetTweet(tweetId, currentUserId, retweets);
+  if (retweetedTweet?.docs.length) {
+    unRetweetTweet(retweetedTweet);
+  } else {
+    retweetTweet(tweetId, currentUserId);
+  }
 };
 
-export const handleBookmark = (
+export const handleBookmark = async (
   tweetId: string,
   currentUserId: string,
-  bookmarkedBy: string[]
+  bookmarkedTweet: any
 ) => {
-  bookmarkedBy.includes(currentUserId)
-    ? unbookmarkTweet(tweetId, currentUserId, bookmarkedBy)
-    : bookmarkTweet(tweetId, currentUserId, bookmarkedBy);
+  if (bookmarkedTweet?.docs.length) {
+    unbookmarkTweet(bookmarkedTweet);
+  } else {
+    bookmarkTweet(tweetId, currentUserId);
+  }
 };

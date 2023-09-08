@@ -24,13 +24,10 @@ const AllTweets = () => {
         <Tweet
           key={tweet.id}
           tweetId={tweet.id}
-          likes={tweet.data().likes}
-          retweets={tweet.data().retweets}
           media={tweet.data().media}
           text={tweet.data().text}
           timestamp={tweet.data().timestamp}
           userId={tweet.data().userId}
-          bookmarkedBy={tweet.data().bookmarkedBy}
         />
       ))}
     </div>

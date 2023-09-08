@@ -1,4 +1,4 @@
-import { doc, updateDoc } from "firebase/firestore";
+import { deleteDoc, doc, updateDoc } from "firebase/firestore";
 import { db } from "@/config/firebase";
 
 import { Timestamp, addDoc, collection } from "firebase/firestore";
@@ -17,7 +17,6 @@ export const postNewTweet = async (
       retweets: [],
       media: [],
       comments: [],
-      bookmarkedBy: [],
       likesCount: 0,
     });
   } catch (err) {
@@ -26,16 +25,11 @@ export const postNewTweet = async (
 };
 
 // like tweet
-export const likeTweet = async (
-  tweetId: string,
-  currentUserId: string,
-  likes: string[]
-) => {
-  const tweetDocRef = doc(db, "tweets", tweetId);
-
+export const likeTweet = async (tweetId: string, currentUserId: string) => {
   try {
-    await updateDoc(tweetDocRef, {
-      likes: [...likes, currentUserId],
+    await addDoc(collection(db, "likes"), {
+      userId: currentUserId,
+      tweetId,
     });
   } catch (err) {
     alert(err);
@@ -44,16 +38,11 @@ export const likeTweet = async (
 
 // unlike tweet
 export const unlikeTweet = async (
-  tweetId: string,
-  currentUserId: string,
-  likes: string[]
+  likedTweet: any //check type
 ) => {
-  const tweetDocRef = doc(db, "tweets", tweetId);
-
   try {
-    await updateDoc(tweetDocRef, {
-      likes: likes.filter((like) => like !== currentUserId),
-    });
+    const likeDocRef = doc(db, "likes", likedTweet?.docs[0].id);
+    await deleteDoc(likeDocRef);
   } catch (err) {
     alert(err);
   }
@@ -61,16 +50,11 @@ export const unlikeTweet = async (
 
 // Logic to handle tweet retweets
 // Retweeting should be done by currently auth user
-export const retweetTweet = async (
-  tweetId: string,
-  currentUserId: string,
-  retweets: string[]
-) => {
-  const tweetDocRef = doc(db, "tweets", tweetId);
-
+export const retweetTweet = async (tweetId: string, currentUserId: string) => {
   try {
-    await updateDoc(tweetDocRef, {
-      retweets: [...retweets, currentUserId],
+    await addDoc(collection(db, "retweets"), {
+      userId: currentUserId,
+      tweetId,
     });
   } catch (err) {
     alert(err);
@@ -78,33 +62,22 @@ export const retweetTweet = async (
 };
 
 export const unRetweetTweet = async (
-  tweetId: string,
-  currentUserId: string,
-  retweets: string[]
+  retweetedTweet: any //check type
 ) => {
-  const tweetDocRef = doc(db, "tweets", tweetId);
-
-  // retweets still not adding up in tweets list
   try {
-    await updateDoc(tweetDocRef, {
-      retweets: retweets.filter((retweet) => retweet !== currentUserId),
-    });
+    const retweetDocRef = doc(db, "retweets", retweetedTweet?.docs[0].id);
+    await deleteDoc(retweetDocRef);
   } catch (err) {
     alert(err);
   }
 };
 
 // bookmarkTweet
-export const bookmarkTweet = async (
-  tweetId: string,
-  currentUserId: string,
-  bookmarkedBy: string[]
-) => {
-  const tweetDocRef = doc(db, "tweets", tweetId);
-
+export const bookmarkTweet = async (tweetId: string, currentUserId: string) => {
   try {
-    await updateDoc(tweetDocRef, {
-      bookmarkedBy: [...bookmarkedBy, currentUserId],
+    await addDoc(collection(db, "bookmarks"), {
+      userId: currentUserId,
+      tweetId,
     });
   } catch (err) {
     alert(err);
@@ -113,18 +86,11 @@ export const bookmarkTweet = async (
 
 // unbookmark tweet
 export const unbookmarkTweet = async (
-  tweetId: string,
-  currentUserId: string,
-  bookmarkedBy: string[]
+  bookmarkedTweet: any //check type
 ) => {
-  const tweetDocRef = doc(db, "tweets", tweetId);
-
   try {
-    await updateDoc(tweetDocRef, {
-      bookmarkedBy: bookmarkedBy.filter(
-        (bookmarker) => bookmarker !== currentUserId
-      ),
-    });
+    const bookmarkDocRef = doc(db, "bookmarks", bookmarkedTweet?.docs[0].id);
+    await deleteDoc(bookmarkDocRef);
   } catch (err) {
     alert(err);
   }

@@ -40,13 +40,10 @@ export type LayoutProps = {
 
 export type TweetProps = {
   tweetId: string;
-  likes: string[];
-  retweets: string[];
   media: string[];
   text: string;
   timestamp: timestampType;
   userId: string;
-  bookmarkedBy: string[];
 };
 
 export type AddCommentProps = {

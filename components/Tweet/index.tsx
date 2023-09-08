@@ -1,5 +1,5 @@
 import { auth, db } from "@/config/firebase";
-import { collection, doc, getDoc } from "firebase/firestore";
+import { collection, doc, getDoc, query, where } from "firebase/firestore";
 import { useEffect, useState } from "react";
 import { TweetProps } from "@/typings";
 import { formatDateForTweet } from "@/utils/formatDate";
@@ -18,16 +18,7 @@ import {
 } from "@/helpers/tweetHelpers";
 import ProfilePicture from "../ProfilePicture";
 
-const Tweet = ({
-  tweetId,
-  likes,
-  retweets,
-  media,
-  text,
-  timestamp,
-  userId,
-  bookmarkedBy,
-}: TweetProps) => {
+const Tweet = ({ tweetId, media, text, timestamp, userId }: TweetProps) => {
   const router = useRouter();
   // Logic to get info about the user with userId for each tweet
   // const userRef = doc(db, "users", userId);
@@ -72,6 +63,53 @@ const Tweet = ({
     (comment: any) => comment.tweetId === tweetId
   );
 
+  // check if tweet has been bookmarked by authUser
+  const bookmarksRef = collection(db, "bookmarks");
+  const bookmarksQuery = query(
+    bookmarksRef,
+    where("userId", "==", currentUserId),
+    where("tweetId", "==", tweetId)
+  );
+  const [bookmarkedTweet, bookmarkedLoading, bookmarkedError] = useCollection(
+    bookmarksQuery,
+    {
+      snapshotListenOptions: { includeMetadataChanges: true },
+    }
+  );
+
+  // check if tweet has been liked by authUser
+  const likesRef = collection(db, "likes");
+  const likesQuery = query(
+    likesRef,
+    where("userId", "==", currentUserId),
+    where("tweetId", "==", tweetId)
+  );
+  const [likedTweet, likeedLoading, likedError] = useCollection(likesQuery, {
+    snapshotListenOptions: { includeMetadataChanges: true },
+  });
+
+  // check if tweet has been retweeted by authUser
+  const retweetsRef = collection(db, "retweets");
+  const retweetsQuery = query(
+    retweetsRef,
+    where("userId", "==", currentUserId),
+    where("tweetId", "==", tweetId)
+  );
+  const [retweetedTweet, retweetedLoading, retweetedError] = useCollection(
+    retweetsQuery,
+    {
+      snapshotListenOptions: { includeMetadataChanges: true },
+    }
+  );
+
+  // console.log("bookmarks", bookmarkedTweet?.docs[0].id);
+  // if (bookmarkedTweet?.docs.length) {
+  //   bookmarkedTweet.docs.forEach((doc) => {
+  //     console.log("Document ID:", doc.id); // This line gets the document ID
+  //     console.log("Document data:", doc.data()); // This line gets the document data
+  //   });
+  // }
+  // console.log(bookmarkedTweet?.docs.length);
   return (
     <div className="mb-[2.317rem]">
       {/* <p>Daniel Jensen Retweeted</p> */}
@@ -114,16 +152,16 @@ const Tweet = ({
 
           <div className="mt-[1.4rem] mb-[0.651rem] flex justify-end gap-[1.6rem]  text-[1.2rem]">
             <span className="tweet-stats">
-              {likes.length} {likes.length > 1 ? "Likes" : "Like"}
+              {/* {likes.length} {likes.length > 1 ? "Likes" : "Like"} */}
             </span>
             <span className="tweet-stats">
-              {retweets.length} {retweets.length > 1 ? "Retweets" : "Retweet"}
+              {/* {retweets.length} {retweets.length > 1 ? "Retweets" : "Retweet"} */}
             </span>
             <span className="tweet-stats">
               {tweetComments.length}{" "}
               {tweetComments.length > 1 ? "Comments" : "Comment"}
             </span>
-            <span className="tweet-stats">{bookmarkedBy.length} Saved</span>
+            {/* <span className="tweet-stats">{bookmarkedBy.length} Saved</span> */}
           </div>
         </div>
 
@@ -133,46 +171,44 @@ const Tweet = ({
             <span className="hidden md:block">Comment</span>
           </button>
           <button
-            onClick={() => handleRetweet(tweetId, currentUserId, retweets)}
+            onClick={() =>
+              handleRetweet(tweetId, currentUserId, retweetedTweet)
+            }
             className={` tweet-icons-btn ${
-              retweets.includes(currentUserId) ? "text-[#27AE60] " : ""
+              retweetedTweet?.docs.length ? "text-[#27AE60] " : ""
             }`}
           >
             <FaRetweet
               className="tweet-icons"
-              style={
-                retweets.includes(currentUserId) ? { color: "#27AE60" } : {}
-              }
+              style={retweetedTweet?.docs.length ? { color: "#27AE60" } : {}}
             />
             <span className="hidden md:block">Retweet</span>
           </button>
           <button
             onClick={() => {
-              handleLike(tweetId, currentUserId, likes);
+              handleLike(tweetId, currentUserId, likedTweet);
             }}
             className={` tweet-icons-btn ${
-              likes.includes(currentUserId) ? "text-[#EB5757] " : ""
+              likedTweet?.docs.length ? "text-[#EB5757] " : ""
             }`}
           >
             <AiOutlineHeart
               className="tweet-icons"
-              style={likes.includes(currentUserId) ? { color: "#EB5757" } : {}}
+              style={likedTweet?.docs.length ? { color: "#EB5757" } : {}}
             />
             <span className="hidden md:block">Like</span>
           </button>
           <button
             onClick={() => {
-              handleBookmark(tweetId, currentUserId, bookmarkedBy);
+              handleBookmark(tweetId, currentUserId, bookmarkedTweet);
             }}
             className={` tweet-icons-btn ${
-              bookmarkedBy.includes(currentUserId) ? "text-[#2D9CDB] " : ""
+              bookmarkedTweet?.docs.length ? "text-[#2D9CDB] " : ""
             }`}
           >
             <HiOutlineBookmark
               className="tweet-icons"
-              style={
-                bookmarkedBy.includes(currentUserId) ? { color: "#2D9CDB" } : {}
-              }
+              style={bookmarkedTweet?.docs.length ? { color: "#2D9CDB" } : {}}
             />
             <span className="hidden md:block">Save</span>
           </button>
