@@ -18,7 +18,7 @@ const Bookmark = ({ bookmarkInfo }: BookmarkInfoProps) => {
   //   console.log(tweet?.data());
   return (
     <div>
-      {tweet ? (
+      {tweet && (
         <Tweet
           key={tweet.id} //check id
           tweetId={tweet.id}
@@ -27,8 +27,6 @@ const Bookmark = ({ bookmarkInfo }: BookmarkInfoProps) => {
           timestamp={tweet.data()?.timestamp}
           userId={tweet.data()?.userId}
         />
-      ) : (
-        ""
       )}
     </div>
   );
