@@ -17,26 +17,14 @@ import {
   handleRetweet,
 } from "@/helpers/tweetHelpers";
 import ProfilePicture from "../ProfilePicture";
+import TweetUserInfo from "./TweetUserInfo";
+import TweetText from "./TweetText";
+import RetweetBtn from "./RetweetBtn";
+import LikeBtn from "./LikeBtn";
+import BookmarkBtn from "./BookmarkBtn";
+import CommentBtn from "./CommentBtn";
 
 const Tweet = ({ tweetId, media, text, timestamp, userId }: TweetProps) => {
-  const router = useRouter();
-  // Logic to get info about the user with userId for each tweet
-  // const userRef = doc(db, "users", userId);
-  const [user, setUser] = useState<any>({});
-
-  useEffect(() => {
-    const getUser = async () => {
-      const userSnap = await getDoc(doc(db, "users", userId));
-      setUser(userSnap.data());
-    };
-
-    getUser();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
-
-  // Format date for tweet timestamps
-  const formattedDate = formatDateForTweet(timestamp);
-
   // For logics to handle tweet like and unlike
   // Liking and unLiking should be done by currently auth user
   const [currentUser] = useAuthState(auth);
@@ -112,39 +100,9 @@ const Tweet = ({ tweetId, media, text, timestamp, userId }: TweetProps) => {
   // console.log(bookmarkedTweet?.docs.length);
   return (
     <div className="mb-[2.317rem]">
-      {/* <p>Daniel Jensen Retweeted</p> */}
       <div className=" w-full rounded-[8px] bg-white  px-[1.523rem] pt-[2rem] shadow-[2px_2px_4px_rgba(0,0,0,0.05)] md:px-[2rem] md:shadow-[2px_2px_6px_rgba(0,0,0,0.1)]">
-        <div
-          onClick={(e) => {
-            router.push(`/profile/${userId}`);
-          }}
-          className="flex w-fit gap-[.635rem]  md:gap-[1.8rem]"
-        >
-          <div className="flex h-[4rem] w-[4rem] items-center">
-            <ProfilePicture userId={userId} width={40} height={40} />
-          </div>
-          <div className="font-medium tracking-[-3.5%]">
-            <div className="flex  items-center gap-4 leading-[2.4rem]">
-              <span className="text-[1.6rem]">{user.userName}</span>
-              <span className="text-[1.2rem] text-[#555555]">
-                {user.displayName && `@${user.displayName}`}
-              </span>
-            </div>
-            <p className="text-[1.2rem] leading-[1.63rem] text-[#bdbdbd]">
-              {formattedDate}
-            </p>
-          </div>
-        </div>
-
-        <p
-          onClick={() => {
-            router.push(`/tweet/${tweetId}`);
-          }}
-          className="mt-[2rem] mb-[1.4rem]  text-[1.60rem] font-normal leading-[2.179rem] tracking-[-3.5%] text-[#4F4F4F] md:text-[1.8rem]"
-        >
-          {text}
-        </p>
-
+        <TweetUserInfo userId={userId} timestamp={timestamp} />
+        <TweetText tweetId={tweetId} text={text} />
         <div>
           <div>
             <TweetMedia images={media} />
@@ -158,60 +116,30 @@ const Tweet = ({ tweetId, media, text, timestamp, userId }: TweetProps) => {
               {/* {retweets.length} {retweets.length > 1 ? "Retweets" : "Retweet"} */}
             </span>
             <span className="tweet-stats">
-              {tweetComments.length}{" "}
-              {tweetComments.length > 1 ? "Comments" : "Comment"}
+              {/* {tweetComments.length}{" "}
+              {tweetComments.length > 1 ? "Comments" : "Comment"} */}
             </span>
             {/* <span className="tweet-stats">{bookmarkedBy.length} Saved</span> */}
           </div>
         </div>
 
         <div className="flex justify-center  border-y-[1px] border-[#F2F2F2] py-[.382rem]">
-          <button onClick={handleCommentBtnClick} className="tweet-icons-btn">
-            <MdOutlineModeComment className="tweet-icons" />
-            <span className="hidden md:block">Comment</span>
-          </button>
-          <button
-            onClick={() =>
-              handleRetweet(tweetId, currentUserId, retweetedTweet)
-            }
-            className={` tweet-icons-btn ${
-              retweetedTweet?.docs.length ? "text-[#27AE60] " : ""
-            }`}
-          >
-            <FaRetweet
-              className="tweet-icons"
-              style={retweetedTweet?.docs.length ? { color: "#27AE60" } : {}}
-            />
-            <span className="hidden md:block">Retweet</span>
-          </button>
-          <button
-            onClick={() => {
-              handleLike(tweetId, currentUserId, likedTweet);
-            }}
-            className={` tweet-icons-btn ${
-              likedTweet?.docs.length ? "text-[#EB5757] " : ""
-            }`}
-          >
-            <AiOutlineHeart
-              className="tweet-icons"
-              style={likedTweet?.docs.length ? { color: "#EB5757" } : {}}
-            />
-            <span className="hidden md:block">Like</span>
-          </button>
-          <button
-            onClick={() => {
-              handleBookmark(tweetId, currentUserId, bookmarkedTweet);
-            }}
-            className={` tweet-icons-btn ${
-              bookmarkedTweet?.docs.length ? "text-[#2D9CDB] " : ""
-            }`}
-          >
-            <HiOutlineBookmark
-              className="tweet-icons"
-              style={bookmarkedTweet?.docs.length ? { color: "#2D9CDB" } : {}}
-            />
-            <span className="hidden md:block">Save</span>
-          </button>
+          <CommentBtn handleCommentBtnClick={handleCommentBtnClick} />
+          <RetweetBtn
+            retweetedTweet={retweetedTweet}
+            tweetId={tweetId}
+            currentUserId={currentUserId}
+          />
+          <LikeBtn
+            likedTweet={likedTweet}
+            tweetId={tweetId}
+            currentUserId={currentUserId}
+          />
+          <BookmarkBtn
+            bookmarkedTweet={bookmarkedTweet}
+            tweetId={tweetId}
+            currentUserId={currentUserId}
+          />
         </div>
 
         {/* Add comment */}

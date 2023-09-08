@@ -3,8 +3,9 @@ import { collection, doc } from "firebase/firestore";
 import React from "react";
 import { useDocument, useDocumentData } from "react-firebase-hooks/firestore";
 import Tweet from "./Tweet";
+import { BookmarkInfoProps } from "@/typings";
 
-const Bookmark = ({ bookmarkInfo }) => {
+const Bookmark = ({ bookmarkInfo }: BookmarkInfoProps) => {
   console.log(bookmarkInfo.data());
 
   const tweetId = bookmarkInfo.data().tweetId;

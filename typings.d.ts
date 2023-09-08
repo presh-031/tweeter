@@ -65,6 +65,13 @@ export type UserNavProps = {
   toggleShowUserNav: () => void;
 };
 
+export type BookmarkInfoProps = {
+  bookmarkInfo: any;
+};
+export type LikeProps = {
+  likeInfo: any;
+};
+
 export type MediaProps = {
   images: string[];
 };
