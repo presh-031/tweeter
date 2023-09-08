@@ -1,8 +1,25 @@
+import { db } from "@/config/firebase";
 import { handleRetweet } from "@/helpers/tweetHelpers";
+import { StatBtnProps } from "@/typings";
+import { collection, query, where } from "firebase/firestore";
 import React from "react";
+import { useCollection } from "react-firebase-hooks/firestore";
 import { FaRetweet } from "react-icons/fa";
 
-const RetweetBtn = ({ retweetedTweet, tweetId, currentUserId }) => {
+const RetweetBtn = ({ tweetId, currentUserId }: StatBtnProps) => {
+  // check if tweet has been retweeted by authUser
+  const retweetsRef = collection(db, "retweets");
+  const retweetsQuery = query(
+    retweetsRef,
+    where("userId", "==", currentUserId),
+    where("tweetId", "==", tweetId)
+  );
+  const [retweetedTweet, retweetedLoading, retweetedError] = useCollection(
+    retweetsQuery,
+    {
+      snapshotListenOptions: { includeMetadataChanges: true },
+    }
+  );
   return (
     <button
       onClick={() => handleRetweet(tweetId, currentUserId, retweetedTweet)}

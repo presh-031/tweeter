@@ -6,7 +6,7 @@ import Tweet from "./Tweet";
 import { BookmarkInfoProps } from "@/typings";
 
 const Bookmark = ({ bookmarkInfo }: BookmarkInfoProps) => {
-  console.log(bookmarkInfo.data());
+  //   console.log(bookmarkInfo.data());
 
   const tweetId = bookmarkInfo.data().tweetId;
   const [tweet, tweetLoading, tweetError] = useDocument(
@@ -15,7 +15,7 @@ const Bookmark = ({ bookmarkInfo }: BookmarkInfoProps) => {
       snapshotListenOptions: { includeMetadataChanges: true },
     }
   );
-  console.log(tweet?.data());
+  //   console.log(tweet?.data());
   return (
     <div>
       {tweet ? (

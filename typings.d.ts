@@ -46,9 +46,31 @@ export type TweetProps = {
   userId: string;
 };
 
+export type TweetUserInfoProps = {
+  timestamp: timestampType;
+  userId: string;
+};
+
+export type TweetTextProps = {
+  tweetId: string;
+  text: string;
+};
+
+export type TweetStatsProps = {
+  tweetId: string;
+};
+export type StatBtnProps = {
+  tweetId: string;
+  currentUserId: string;
+};
+
 export type AddCommentProps = {
   tweetId: string;
   setShowAddComment: React.Dispatch<React.SetStateAction<boolean>>;
+};
+
+export type CommentBtnProps = {
+  handleCommentBtnClick: () => void;
 };
 
 export type ExploreTabsProps = {

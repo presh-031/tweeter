@@ -5,7 +5,7 @@ import Tweet from "./Tweet";
 import { LikeProps } from "@/typings";
 
 const Like = ({ likeInfo }: LikeProps) => {
-  console.log(likeInfo.data());
+  //   console.log(likeInfo.data());
 
   const tweetId = likeInfo.data().tweetId;
   const [tweet, tweetLoading, tweetError] = useDocument(
@@ -14,7 +14,7 @@ const Like = ({ likeInfo }: LikeProps) => {
       snapshotListenOptions: { includeMetadataChanges: true },
     }
   );
-  console.log(tweet?.data());
+  //   console.log(tweet?.data());
   return (
     <div>
       {tweet ? (

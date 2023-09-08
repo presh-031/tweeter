@@ -15,7 +15,7 @@ const ProfileLikes = ({ profileOwnerId }: profileTweetsProps) => {
     <div>
       {" "}
       {likes?.docs.map((like) => {
-        return <Like likeInfo={like} />;
+        return <Like key={like.id} likeInfo={like} />;
       })}
     </div>
   );

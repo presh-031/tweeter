@@ -1,7 +1,8 @@
+import { TweetTextProps } from "@/typings";
 import { useRouter } from "next/router";
 import React from "react";
 
-const TweetText = ({ tweetId, text }) => {
+const TweetText = ({ tweetId, text }: TweetTextProps) => {
   const router = useRouter();
 
   return (

@@ -34,12 +34,13 @@ const Bookmarks = () => {
       snapshotListenOptions: { includeMetadataChanges: true },
     }
   );
+  // console.log(bookmarks?.docs[0].id);
 
   return (
     <div className=" flex justify-center px-[1.90rem] pb-[9.615rem]">
       <div className="flex flex-col border border-red-800">
         {bookmarks?.docs.map((bookmark) => {
-          return <Bookmark bookmarkInfo={bookmark} />;
+          return <Bookmark key={bookmark.id} bookmarkInfo={bookmark} />;
         })}
       </div>
     </div>

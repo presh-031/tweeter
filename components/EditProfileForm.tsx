@@ -85,7 +85,7 @@ const EditProfileForm = ({
       return;
     }
 
-    console.log(updatedData);
+    // console.log(updatedData);
 
     setLoading(true);
     const userDocRef = doc(db, "users", authUserId);

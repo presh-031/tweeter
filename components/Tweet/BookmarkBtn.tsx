@@ -1,8 +1,26 @@
+import { db } from "@/config/firebase";
 import { handleBookmark } from "@/helpers/tweetHelpers";
+import { StatBtnProps } from "@/typings";
+import { collection, query, where } from "firebase/firestore";
 import React from "react";
+import { useCollection } from "react-firebase-hooks/firestore";
 import { HiOutlineBookmark } from "react-icons/hi";
 
-const BookmarkBtn = ({ bookmarkedTweet, tweetId, currentUserId }) => {
+const BookmarkBtn = ({ tweetId, currentUserId }: StatBtnProps) => {
+  // check if tweet has been bookmarked by authUser
+  const bookmarksRef = collection(db, "bookmarks");
+  const bookmarksQuery = query(
+    bookmarksRef,
+    where("userId", "==", currentUserId),
+    where("tweetId", "==", tweetId)
+  );
+  const [bookmarkedTweet, bookmarkedLoading, bookmarkedError] = useCollection(
+    bookmarksQuery,
+    {
+      snapshotListenOptions: { includeMetadataChanges: true },
+    }
+  );
+
   return (
     <button
       onClick={() => {

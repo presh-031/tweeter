@@ -4,8 +4,9 @@ import { useRouter } from "next/router";
 import React, { useEffect, useState } from "react";
 import ProfilePicture from "../ProfilePicture";
 import { formatDateForTweet } from "@/utils/formatDate";
+import { TweetUserInfoProps } from "@/typings";
 
-const TweetUserInfo = ({ userId, timestamp }) => {
+const TweetUserInfo = ({ userId, timestamp }: TweetUserInfoProps) => {
   const router = useRouter();
   // Logic to get info about the user with userId for each tweet
   // const userRef = doc(db, "users", userId);
@@ -29,7 +30,7 @@ const TweetUserInfo = ({ userId, timestamp }) => {
       onClick={(e) => {
         router.push(`/profile/${userId}`);
       }}
-      className="flex w-fit gap-[.635rem] border border-red-800 md:gap-[1.8rem]"
+      className="flex w-fit gap-[.635rem] md:gap-[1.8rem]"
     >
       <div className="flex h-[4rem] w-[4rem] items-center">
         <ProfilePicture userId={userId} width={40} height={40} />
