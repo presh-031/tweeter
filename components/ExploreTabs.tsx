@@ -3,7 +3,7 @@ import React from "react";
 
 const ExploreTabs = ({ activeTab, handleTabClick }: ExploreTabsProps) => {
   return (
-    <ul className="mt-[3.3rem] space-y-[1.2rem] rounded-[.8rem] bg-white py-[2rem] text-[1.4rem] font-semibold leading-normal tracking-[0.049rem] text-[#828282] shadow-sm  md:text-[1.6rem] lg:h-fit lg:min-w-[30.4rem]">
+    <ul className="space-y-[1.2rem] rounded-[.8rem] bg-white py-[2rem] text-[1.4rem] font-semibold leading-normal tracking-[0.049rem] text-[#828282] shadow-sm  md:text-[1.6rem] lg:h-fit lg:min-w-[30.4rem]">
       <li
         onClick={() => handleTabClick("top")}
         className={` ${

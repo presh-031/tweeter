@@ -14,7 +14,7 @@ import {
   useCollectionData,
   useDocumentData,
 } from "react-firebase-hooks/firestore";
-import { Tweet } from "..";
+import { GeneralLoader, Tweet } from "..";
 
 import firebase from "firebase/app";
 import "firebase/firestore";
@@ -35,22 +35,32 @@ const Bookmarks = () => {
     }
   );
 
-  if (bookmarksLoading) {
-    return <p>Loading bookmarks</p>;
+  if (bookmarksError) {
+    return (
+      <p className="mt-[10rem] text-center text-2xl font-semibold text-[#828282] ">
+        Error fetching bookmarks. Please try again
+      </p>
+    );
   }
 
-  if (bookmarksError) {
-    return <p>Error fetching bookmarks. Please try again</p>;
+  if (bookmarksLoading) {
+    return (
+      <div className="my-[10rem] flex justify-center">
+        <GeneralLoader />
+      </div>
+    );
   }
 
   return (
-    <div className=" flex justify-center px-[1.90rem] pb-[9.615rem]">
-      <div className="flex flex-col border border-red-800">
-        {bookmarks?.docs.length
-          ? bookmarks?.docs.map((bookmark) => {
-              return <Bookmark key={bookmark.id} bookmarkInfo={bookmark} />;
-            })
-          : "You have no bookmarks"}
+    <div className="mx-auto flex max-w-[1071px] justify-center px-[1.90rem] pb-[9.615rem]">
+      <div className="mt-[2.317rem] flex flex-col">
+        {bookmarks?.docs.length ? (
+          bookmarks?.docs.map((bookmark) => {
+            return <Bookmark key={bookmark.id} bookmarkInfo={bookmark} />;
+          })
+        ) : (
+          <p>You have no bookmarks</p>
+        )}
       </div>
     </div>
   );

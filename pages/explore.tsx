@@ -19,9 +19,9 @@ const Explore = () => {
   };
 
   return (
-    <div className=" mx-auto max-w-[1071px] px-[1.90rem] pb-[9.615rem] lg:flex lg:gap-[2.4rem]">
+    <div className="mx-auto max-w-[1071px] px-[1.90rem] pt-[3.3rem] pb-[9.615rem] lg:flex lg:gap-[2.4rem]">
       <ExploreTabs activeTab={activeTab} handleTabClick={handleTabClick} />
-      <div className="md:mt-22 mt-16">
+      <div className="mt-16 flex  w-full justify-center md:mt-20 lg:mt-0">
         {activeTab === "top" && <TopTweets />}
         {activeTab === "latest" && <LatestTweets />}
         {activeTab === "people" && <People />}

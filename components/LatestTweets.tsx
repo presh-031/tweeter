@@ -15,14 +15,24 @@ const LatestTweets = () => {
     snapshotListenOptions: { includeMetadataChanges: true },
   });
 
+  if (error) {
+    return (
+      <p className="text-center text-2xl font-semibold text-[#828282] ">
+        Error loading latest tweets. Please try again.
+      </p>
+    );
+  }
+
+  if (loading) {
+    return (
+      <div className="my-[10rem] flex justify-center">
+        <GeneralLoader />
+      </div>
+    );
+  }
+
   return (
     <div>
-      {error && <strong>Error: {JSON.stringify(error)}</strong>}
-      {loading && (
-        <div className="flex justify-center">
-          <GeneralLoader />
-        </div>
-      )}
       {latestTweets?.docs.map((tweet) => (
         <Tweet
           key={tweet.id}

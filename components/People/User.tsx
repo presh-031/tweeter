@@ -29,7 +29,7 @@ const User = ({
   const { uid, userName, displayName, followers, bio } = profileOwnerInfo;
 
   return (
-    <div className="  bg-white  px-[1.523rem] pt-[2rem] shadow-[2px_2px_4px_rgba(0,0,0,0.05)]  hover:cursor-pointer">
+    <div className="w-full  bg-white  px-[1.5rem] pt-[2rem] shadow-[2px_2px_4px_rgba(0,0,0,0.05)]  hover:cursor-pointer">
       <div className="flex items-center justify-between">
         <div
           onClick={(e) => {

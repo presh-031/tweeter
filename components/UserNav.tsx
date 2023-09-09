@@ -24,6 +24,7 @@ const UserNav = ({ authUserId, toggleShowUserNav }: UserNavProps) => {
   const handleLogOut = async () => {
     const success = await signOut();
     if (success) {
+      // router.push("/log-in");
       toast.success("Signed out Successfully.");
     }
   };

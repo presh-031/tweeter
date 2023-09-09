@@ -1,5 +1,4 @@
 import { collection, orderBy, query } from "firebase/firestore";
-
 import { db } from "@/config/firebase";
 import { useCollection } from "react-firebase-hooks/firestore";
 import { GeneralLoader, Tweet } from "../index";
@@ -11,15 +10,24 @@ const AllTweets = () => {
     snapshotListenOptions: { includeMetadataChanges: true },
   });
 
-  // console.log(allTweets?.docs[2].data());
+  if (error) {
+    return (
+      <p className="mt-16 text-center text-2xl font-semibold text-[#828282] ">
+        Error loading tweets. Please try again.
+      </p>
+    );
+  }
+
+  if (loading) {
+    return (
+      <div className="mt-16 flex justify-center lg:mt-[10rem]">
+        <GeneralLoader />
+      </div>
+    );
+  }
+
   return (
     <div>
-      {error && <p>Error: {JSON.stringify(error)}</p>}
-      {loading && (
-        <div className="mt-16 flex justify-center">
-          <GeneralLoader />
-        </div>
-      )}
       {allTweets?.docs?.map((tweet) => (
         <Tweet
           key={tweet.id}

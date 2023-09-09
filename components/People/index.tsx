@@ -13,7 +13,7 @@ const People = ({ max = 10 }) => {
   const usersQuery = query(
     usersRef,
     orderBy("followers", "desc"), //should order by "followersCount" cos "followers" is an arr.
-    limit(max) //top 10 users based on followers
+    limit(max) //top  users
   );
   const [topUsers, loading, error] = useCollectionData(usersQuery, {
     snapshotListenOptions: { includeMetadataChanges: true },
@@ -30,30 +30,32 @@ const People = ({ max = 10 }) => {
     });
 
   if (error) {
-    return <strong>Error: {JSON.stringify(error)}</strong>;
+    return (
+      <p className="text-center text-2xl font-semibold text-[#828282] ">
+        Error loading people. Please try again.
+      </p>
+    );
   }
 
   if (loading) {
     return (
-      <div className=" flex justify-center">
+      <div className="my-[10rem] flex justify-center">
         <GeneralLoader />
       </div>
     );
   }
 
   return (
-    <div>
-      <div className="overflow-hidden rounded-[.8rem]">
-        {topUsers?.map((user) => (
-          <User
-            key={user.uid}
-            profileOwnerInfo={user}
-            profileOwnerId={user.uid}
-            authUserId={authUserId}
-            authUserInfo={authUserInfo}
-          />
-        ))}
-      </div>
+    <div className="w-full overflow-hidden rounded-[.8rem]">
+      {topUsers?.map((user) => (
+        <User
+          key={user.uid}
+          profileOwnerInfo={user}
+          profileOwnerId={user.uid}
+          authUserId={authUserId}
+          authUserInfo={authUserInfo}
+        />
+      ))}
     </div>
   );
 };

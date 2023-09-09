@@ -9,21 +9,31 @@ const TopTweets = () => {
   const tweetsRef = collection(db, "tweets");
   const tweetsQuery = query(
     tweetsRef,
-    orderBy("likesCount", "desc"),
+    // orderBy("likesCount", "desc"),
     limit(10) //top 10 tweets based on likes
   );
   const [tweets, loading, error] = useCollection(tweetsQuery, {
     snapshotListenOptions: { includeMetadataChanges: true },
   });
 
+  if (error) {
+    return (
+      <p className="text-center text-2xl font-semibold text-[#828282] ">
+        Error loading top tweets. Please try again.
+      </p>
+    );
+  }
+
+  if (loading) {
+    return (
+      <div className="my-[10rem] flex justify-center">
+        <GeneralLoader />
+      </div>
+    );
+  }
+
   return (
     <div>
-      {error && <strong>Error: {JSON.stringify(error)}</strong>}
-      {loading && (
-        <div className="flex justify-center">
-          <GeneralLoader />
-        </div>
-      )}
       {tweets?.docs.map((tweet) => (
         <Tweet
           key={tweet.id}

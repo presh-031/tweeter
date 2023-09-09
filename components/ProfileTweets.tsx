@@ -4,6 +4,7 @@ import { collection, query, where } from "firebase/firestore";
 import { db } from "@/config/firebase";
 import { useCollection } from "react-firebase-hooks/firestore";
 import { profileTweetsProps } from "@/typings";
+import { GeneralLoader } from "..";
 
 const ProfileTweets = ({ profileOwnerId }: profileTweetsProps) => {
   const tweetsRef = collection(db, "tweets");
@@ -13,12 +14,20 @@ const ProfileTweets = ({ profileOwnerId }: profileTweetsProps) => {
   });
   const profileOwnerTweets = tweetsListSnapshot?.docs;
 
-  if (loading) {
-    return <p>Loading tweets</p>;
+  if (error) {
+    return (
+      <p className="text-center text-2xl font-semibold text-[#828282] ">
+        Error loading tweets. Please try again.
+      </p>
+    );
   }
 
-  if (error) {
-    return <p>Error loading tweets. Please try again.</p>;
+  if (loading) {
+    return (
+      <div className="my-[10rem] flex justify-center">
+        <GeneralLoader />
+      </div>
+    );
   }
 
   return (
@@ -35,7 +44,9 @@ const ProfileTweets = ({ profileOwnerId }: profileTweetsProps) => {
           />
         ))
       ) : (
-        <p className="mt-16 text-center text-2xl font-bold">No tweets yet.</p>
+        <p className="mt-16 text-center text-2xl font-semibold text-[#828282]">
+          No tweets yet.
+        </p>
       )}
     </div>
   );
