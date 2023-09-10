@@ -1,6 +1,6 @@
 import { auth, db } from "@/config/firebase";
 import { doc } from "firebase/firestore";
-import { useState } from "react";
+import { useRef, useState } from "react";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { toast } from "react-hot-toast";
 import { AiOutlineLoading3Quarters } from "react-icons/ai";
@@ -11,6 +11,8 @@ import { postNewTweet } from "@/services/tweetServices";
 import useSelectedImage from "@/hooks/useSelectedImage";
 import ProfilePicture from "./ProfilePicture";
 
+import Image from "next/image";
+
 const NewTweet = () => {
   const [authUser] = useAuthState(auth);
   const authUserId = authUser ? authUser.uid : "";
@@ -19,11 +21,12 @@ const NewTweet = () => {
       snapshotListenOptions: { includeMetadataChanges: true },
     });
 
-  const [newTweetText, setNewTweetText] = useState("");
+  // const [newTweetText, setNewTweetText] = useState("");
+  const inputRef = useRef<HTMLInputElement>(null);
   const [newTweetLoading, setNewTweetLoading] = useState(false);
-  const handleTweetChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setNewTweetText(e.target.value);
-  };
+  // const handleTweetChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  //   setNewTweetText(e.target.value);
+  // };
 
   // image picker
   const { selectedImage, handleImageChange, deleteSelectedImage } =
@@ -31,17 +34,23 @@ const NewTweet = () => {
 
   const handleNewTweetSumbit = (e: { preventDefault: () => void }) => {
     e.preventDefault();
+    console.log(inputRef?.current?.value);
+    const newTweetText = inputRef?.current?.value;
+
     if (newTweetText) {
       try {
         setNewTweetLoading(true);
         postNewTweet(newTweetText, authUserId);
         toast.success("Posted!");
 
-        setNewTweetText("");
+        // setNewTweetText("");
+        inputRef.current.value = "";
+
         deleteSelectedImage();
         setNewTweetLoading(false);
       } catch (err) {
         toast.success("Try again!");
+        inputRef.current.value = newTweetText;
         console.log(err);
       }
     } else {
@@ -67,8 +76,9 @@ const NewTweet = () => {
           className="w-full overflow-hidden pl-[1.2rem] text-[1.6rem] font-medium leading-[2.179rem] tracking-[-3.5%]  outline-none placeholder:text-[#bdbdbd]"
           type="text"
           placeholder="What's happening?"
-          value={newTweetText}
-          onChange={handleTweetChange}
+          // value={newTweetText}
+          // onChange={handleTweetChange}
+          ref={inputRef}
         />
         {newTweetLoading && (
           <AiOutlineLoading3Quarters className="animate-spin text-4xl text-blueish" />
@@ -77,13 +87,13 @@ const NewTweet = () => {
 
       {selectedImage && (
         <div className="relative flex justify-end">
-          {/* <Image
-            src={selectedImage}
+          <Image
+            src={URL.createObjectURL(selectedImage)}
             alt="Selected"
-            width={100}
-            height={100}
+            width={200}
+            height={200}
             className="mt-[1rem] h-auto max-h-[50rem] w-auto max-w-full rounded-[8px] object-cover "
-          /> */}
+          />
           <div
             onClick={deleteSelectedImage}
             className="absolute top-[2rem] right-[1rem] flex h-[2.2rem] w-[2.2rem] items-center justify-center rounded-full bg-black bg-opacity-50 opacity-80"
