@@ -1,5 +1,5 @@
-import { auth, db } from "@/config/firebase";
-import { doc } from "firebase/firestore";
+import { auth, db, storage } from "@/config/firebase";
+import { addDoc, collection, doc, serverTimestamp } from "firebase/firestore";
 import { useRef, useState } from "react";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { toast } from "react-hot-toast";
@@ -12,6 +12,10 @@ import useSelectedImage from "@/hooks/useSelectedImage";
 import ProfilePicture from "./ProfilePicture";
 
 import Image from "next/image";
+import { useUploadFile } from "react-firebase-hooks/storage";
+import { ref } from "firebase/storage";
+import { v4 } from "uuid";
+import useImageUploader from "@/hooks/useImageUploader";
 
 const NewTweet = () => {
   const [authUser] = useAuthState(auth);
@@ -32,11 +36,37 @@ const NewTweet = () => {
   const { selectedImage, handleImageChange, deleteSelectedImage } =
     useSelectedImage();
 
+  const [uploadFile, uploading, snapshot, error] = useUploadFile();
+  const imageRef = ref(storage, `tweet-images/${selectedImage?.name + v4()}`);
+
+  const saveProfilePictureMetaData = async (fullPath: string) => {
+    const metaData = {
+      fullPath,
+      userId: authUserId,
+      timestamp: serverTimestamp(),
+    };
+
+    try {
+      await addDoc(collection(db, "tweet-images"), metaData);
+    } catch (err) {
+      alert(err);
+    }
+  };
+
+  const uploadImage = useImageUploader();
+  const upload = async () => {
+    await uploadImage(
+      selectedImage,
+      imageRef,
+      uploadFile,
+      saveProfilePictureMetaData
+    );
+  };
+
   const handleNewTweetSumbit = (e: { preventDefault: () => void }) => {
     e.preventDefault();
-    console.log(inputRef?.current?.value);
-    const newTweetText = inputRef?.current?.value;
 
+    const newTweetText = inputRef?.current?.value;
     if (newTweetText) {
       try {
         setNewTweetLoading(true);
@@ -45,7 +75,6 @@ const NewTweet = () => {
 
         // setNewTweetText("");
         inputRef.current.value = "";
-
         deleteSelectedImage();
         setNewTweetLoading(false);
       } catch (err) {
@@ -54,7 +83,11 @@ const NewTweet = () => {
         console.log(err);
       }
     } else {
-      toast.error("That's empty");
+      toast.error("Text field is empty");
+    }
+
+    if (selectedImage) {
+      upload();
     }
   };
 
