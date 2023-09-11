@@ -4,7 +4,7 @@ const useImageUploader = () => {
     imageRef: any,
     uploadFile: any,
     saveCoverImageMetaData: any,
-    newTweetId: any
+    newTweetId?: any
   ) => {
     if (selectedImage) {
       const result = await uploadFile(imageRef, selectedImage, {
@@ -13,7 +13,13 @@ const useImageUploader = () => {
 
       if (result?.metadata) {
         const fullPath = result.metadata.fullPath;
-        saveCoverImageMetaData(fullPath, newTweetId);
+
+        // newTweetId might be falsy as profilepic and cover img uploads use the same hook.
+        if (newTweetId) {
+          saveCoverImageMetaData(fullPath, newTweetId);
+        } else {
+          saveCoverImageMetaData(fullPath);
+        }
       }
     }
   };
