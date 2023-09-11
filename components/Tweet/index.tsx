@@ -11,7 +11,7 @@ import BookmarkBtn from "./BookmarkBtn";
 import CommentBtn from "./CommentBtn";
 import TweetStats from "./TweetStats";
 
-const Tweet = ({ tweetId, media, text, timestamp, userId }: TweetProps) => {
+const Tweet = ({ tweetId, text, timestamp, userId }: TweetProps) => {
   // For logics to handle tweet like and unlike
   // Liking and unLiking should be done by currently auth user
   const [currentUser] = useAuthState(auth);
@@ -30,13 +30,9 @@ const Tweet = ({ tweetId, media, text, timestamp, userId }: TweetProps) => {
 
         <TweetText tweetId={tweetId} text={text} />
 
-        <div>
-          <div>
-            <TweetMedia images={media} />
-          </div>
+        <TweetMedia tweetId={tweetId} />
 
-          <TweetStats tweetId={tweetId} />
-        </div>
+        <TweetStats tweetId={tweetId} />
 
         <div className="flex justify-center  border-y-[1px] border-[#F2F2F2] py-[.382rem]">
           <CommentBtn handleCommentBtnClick={handleCommentBtnClick} />
@@ -45,7 +41,6 @@ const Tweet = ({ tweetId, media, text, timestamp, userId }: TweetProps) => {
           <BookmarkBtn tweetId={tweetId} currentUserId={currentUserId} />
         </div>
 
-        {/* Add comment */}
         {showAddComment && (
           <AddComment tweetId={tweetId} setShowAddComment={setShowAddComment} />
         )}

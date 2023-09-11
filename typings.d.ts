@@ -40,7 +40,6 @@ export type LayoutProps = {
 
 export type TweetProps = {
   tweetId: string;
-  media: string[];
   text: string;
   timestamp: timestampType;
   userId: string;
@@ -95,7 +94,7 @@ export type LikeProps = {
 };
 
 export type MediaProps = {
-  images: string[];
+  tweetId: string;
 };
 
 export type EditProfileFormProps = {

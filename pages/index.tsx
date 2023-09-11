@@ -2,7 +2,7 @@ import { WithAuthUser, NewTweet, AllTweets, People } from "../index";
 const Home = () => {
   return (
     <>
-      <div className="  mx-auto mt-[1.469rem] max-w-[1071px] px-[1.90rem] pb-[9.615rem] md:mt-[2rem] md:px-[2.4rem] lg:flex lg:gap-[2.5rem]">
+      <div className="mx-auto mt-[1.469rem] max-w-[1071px] px-[1.90rem] pb-[9.615rem] md:mt-[2rem] md:px-[2.4rem] lg:flex lg:gap-[2.5rem]">
         <div className="lg:w-full">
           <NewTweet />
           <AllTweets />
@@ -21,4 +21,3 @@ const Home = () => {
 };
 
 export default WithAuthUser(Home);
-// export default Home;

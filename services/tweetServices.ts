@@ -9,16 +9,16 @@ export const postNewTweet = async (
   authUserId: string
 ) => {
   try {
-    await addDoc(collection(db, "tweets"), {
+    const newTweetDoc = await addDoc(collection(db, "tweets"), {
       text: newTweetText,
       userId: authUserId,
       timestamp: Timestamp.now(),
-      likes: [],
-      retweets: [],
-      media: [],
-      comments: [],
-      likesCount: 0,
     });
+
+    const newTweetId = newTweetDoc.id;
+
+    // use newTweetId to upload tweetImg metadata
+    return newTweetId;
   } catch (err) {
     alert(err);
   }

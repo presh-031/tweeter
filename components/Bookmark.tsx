@@ -22,7 +22,6 @@ const Bookmark = ({ bookmarkInfo }: BookmarkInfoProps) => {
         <Tweet
           key={tweet.id} //check id
           tweetId={tweet.id}
-          media={tweet.data()?.media}
           text={tweet.data()?.text}
           timestamp={tweet.data()?.timestamp}
           userId={tweet.data()?.userId}

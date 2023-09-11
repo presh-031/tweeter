@@ -32,7 +32,6 @@ const AllTweets = () => {
         <Tweet
           key={tweet.id}
           tweetId={tweet.id}
-          media={tweet.data().media}
           text={tweet.data().text}
           timestamp={tweet.data().timestamp}
           userId={tweet.data().userId}

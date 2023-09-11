@@ -39,13 +39,16 @@ const NewTweet = () => {
   const [uploadFile, uploading, snapshot, error] = useUploadFile();
   const imageRef = ref(storage, `tweet-images/${selectedImage?.name + v4()}`);
 
-  const saveProfilePictureMetaData = async (fullPath: string) => {
+  const saveProfilePictureMetaData = async (
+    fullPath: string,
+    newTweetId: string
+  ) => {
     const metaData = {
       fullPath,
+      tweetId: newTweetId, //need to get new tweetId so I can add to tweet img metadata.
       userId: authUserId,
       timestamp: serverTimestamp(),
     };
-
     try {
       await addDoc(collection(db, "tweet-images"), metaData);
     } catch (err) {
@@ -54,23 +57,28 @@ const NewTweet = () => {
   };
 
   const uploadImage = useImageUploader();
-  const upload = async () => {
+  const upload = async (newTweetId: string) => {
     await uploadImage(
       selectedImage,
       imageRef,
       uploadFile,
-      saveProfilePictureMetaData
+      saveProfilePictureMetaData,
+      newTweetId
     );
   };
 
-  const handleNewTweetSumbit = (e: { preventDefault: () => void }) => {
+  const handleNewTweetSumbit = async (e: { preventDefault: () => void }) => {
     e.preventDefault();
 
     const newTweetText = inputRef?.current?.value;
     if (newTweetText) {
       try {
         setNewTweetLoading(true);
-        postNewTweet(newTweetText, authUserId);
+
+        const newTweetId = await postNewTweet(newTweetText, authUserId);
+        if (newTweetId) upload(newTweetId);
+        console.log(newTweetId);
+
         toast.success("Posted!");
 
         // setNewTweetText("");
@@ -86,9 +94,9 @@ const NewTweet = () => {
       toast.error("Text field is empty");
     }
 
-    if (selectedImage) {
-      upload();
-    }
+    // if (selectedImage) {
+    //   upload();
+    // }
   };
 
   return (
