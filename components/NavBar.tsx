@@ -38,7 +38,7 @@ const NavBar = () => {
         onClick={toggleShowUserNav}
         className="flex cursor-pointer items-center gap-2"
       >
-        <div className="flex h-[4rem] w-[4rem] items-center">
+        <div className="flex h-[4rem] w-[4rem] items-center overflow-hidden rounded-[8px]">
           {authUserId && (
             <ProfilePicture userId={authUserId} width={40} height={40} />
           )}

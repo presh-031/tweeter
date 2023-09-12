@@ -32,7 +32,7 @@ const TweetUserInfo = ({ userId, timestamp }: TweetUserInfoProps) => {
       }}
       className="flex w-fit gap-[.635rem] md:gap-[1.8rem]"
     >
-      <div className="flex h-[4rem] w-[4rem] items-center">
+      <div className="flex h-[4rem] w-[4rem] items-center overflow-hidden rounded-[8px]">
         <ProfilePicture userId={userId} width={40} height={40} />
       </div>
       <div className="font-medium tracking-[-3.5%]">

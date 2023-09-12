@@ -38,7 +38,7 @@ const User = ({
           }}
           className="flex w-fit gap-[.635rem] "
         >
-          <div className="flex h-[4rem] w-[4rem] items-center">
+          <div className="flex h-[4rem] w-[4rem] items-center overflow-hidden rounded-[8px]">
             <ProfilePicture userId={uid} width={40} height={40} />
           </div>
           <div className="font-medium tracking-[-3.5%]">

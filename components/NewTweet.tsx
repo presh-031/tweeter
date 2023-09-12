@@ -109,7 +109,7 @@ const NewTweet = () => {
         className="mt-[.74rem] flex items-center"
       >
         {authUserInfo && (
-          <div className="flex h-[4rem] w-[4rem] items-center">
+          <div className="flex h-[4rem] w-[4rem] items-center overflow-hidden rounded-[8px]">
             <ProfilePicture userId={authUserId} width={40} height={40} />
           </div>
         )}

@@ -1,4 +1,4 @@
-import { deleteDoc, doc, updateDoc } from "firebase/firestore";
+import { deleteDoc, doc, serverTimestamp, updateDoc } from "firebase/firestore";
 import { db } from "@/config/firebase";
 
 import { Timestamp, addDoc, collection } from "firebase/firestore";
@@ -78,6 +78,7 @@ export const bookmarkTweet = async (tweetId: string, currentUserId: string) => {
     await addDoc(collection(db, "bookmarks"), {
       userId: currentUserId,
       tweetId,
+      timestamp: serverTimestamp(),
     });
   } catch (err) {
     alert(err);

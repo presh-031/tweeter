@@ -31,7 +31,7 @@ const Comment = ({ text, timestamp, userId }: CommentProps) => {
   return (
     <div className="mb-4 rounded-[8px] bg-white  px-[1.523rem] py-[2rem] shadow-[2px_2px_4px_rgba(0,0,0,0.05)]  hover:cursor-pointer">
       <div className="flex w-fit gap-[.635rem]">
-        <div className="flex h-[4rem] w-[4rem] items-center">
+        <div className="flex h-[4rem] w-[4rem] items-center overflow-hidden rounded-[8px]">
           <ProfilePicture userId={userId} height={40} width={40} />
         </div>
         <div className="font-medium tracking-[-3.5%]">
