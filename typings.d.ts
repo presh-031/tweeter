@@ -121,6 +121,10 @@ export type CoverImageProps = {
   userId: string;
 };
 
+export type ProfileOwnerTweetsImgsUiProps = {
+  imgMetaDataTweetId: string;
+};
+
 export type ProfileInfoProps = {
   userName: string;
   followers: string[];

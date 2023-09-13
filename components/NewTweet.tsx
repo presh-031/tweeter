@@ -157,7 +157,7 @@ const NewTweet = () => {
           </p>
         </div>
         <input
-          className="rounded-[4px] bg-blueish px-[2.4rem] py-[.8rem] text-[1.2rem] font-medium leading-[1.6rem] tracking-[-3.5%] text-white md:text-[1.4rem]"
+          className="cursor-pointer rounded-[4px] bg-blueish px-[2.4rem] py-[.8rem] text-[1.2rem] font-medium leading-[1.6rem] tracking-[-3.5%] text-white md:text-[1.4rem]"
           type="submit"
           value="Tweet"
           onClick={handleNewTweetSumbit}

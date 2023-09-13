@@ -1,4 +1,4 @@
-import { useAuthState, useSignOut } from "react-firebase-hooks/auth";
+import { useSignOut } from "react-firebase-hooks/auth";
 import { auth } from "@/config/firebase";
 import { useRouter } from "next/router";
 import { toast } from "react-hot-toast";
@@ -24,7 +24,6 @@ const UserNav = ({ authUserId, toggleShowUserNav }: UserNavProps) => {
   const handleLogOut = async () => {
     const success = await signOut();
     if (success) {
-      // router.push("/log-in");
       toast.success("Signed out Successfully.");
     }
   };
