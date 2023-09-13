@@ -81,7 +81,7 @@ const EditProfileForm = ({
 
     if (Object.keys(updatedData).length === 0) {
       // No changes to update in form. Changes may be in the images.
-      toast.error("No changes made.");
+      toast.error("No changes made to bio-info.");
       return;
     }
 
@@ -154,7 +154,7 @@ const EditProfileForm = ({
             Back
           </button>
           <input
-            className="rounded-xl bg-blueish py-4 px-6 text-white"
+            className="cursor-pointer rounded-xl bg-blueish py-4 px-6 text-white"
             type="submit"
             value="save"
           />

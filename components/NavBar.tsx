@@ -5,7 +5,7 @@ import { useRouter } from "next/router";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { RiArrowDownSFill, RiArrowUpSFill } from "react-icons/ri";
 import logo from "../assets/tweeter.svg";
-import { AppNav, UserNav } from "../index";
+import { UserNav } from "../index";
 import ProfilePicture from "./ProfilePicture";
 import DisplayName from "./DisplayName";
 import Nav from "./Nav";
