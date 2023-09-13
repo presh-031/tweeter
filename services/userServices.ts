@@ -8,7 +8,6 @@ export const follow = async (
   userInfo: any,
   authUserInfo: any
 ) => {
-  // console.log("btn clicked");
   // Update followers of followed user, and following of currentUser
   const otherUserDocRef = doc(db, "users", routeId);
   const currentUserDocRef = doc(db, "users", currentUserId);
