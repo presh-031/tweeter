@@ -11,7 +11,7 @@ const ProfileTabs = ({
         onClick={() => handleTabClick("tweets")}
         className={` ${
           activeProfileTab === "tweets" ? "text-blueish" : ""
-        } flex items-center  gap-[1.7rem] `}
+        } flex cursor-pointer items-center gap-[1.7rem] `}
       >
         <div
           className={`${
@@ -24,7 +24,7 @@ const ProfileTabs = ({
         onClick={() => handleTabClick("media")}
         className={` ${
           activeProfileTab === "media" ? "text-blueish" : ""
-        } flex items-center  gap-[1.7rem] `}
+        } flex cursor-pointer items-center gap-[1.7rem] `}
       >
         <div
           className={`${
@@ -37,7 +37,7 @@ const ProfileTabs = ({
         onClick={() => handleTabClick("likes")}
         className={` ${
           activeProfileTab === "likes" ? "text-blueish" : ""
-        } flex items-center  gap-[1.7rem] `}
+        } flex cursor-pointer items-center gap-[1.7rem] `}
       >
         <div
           className={`${

@@ -2,8 +2,6 @@ import { useAuthState } from "react-firebase-hooks/auth";
 import { WithAuthUser, EditProfileForm } from "..";
 import { EditCoverImage, EditProfilePic } from "@/components/EditProfileImages";
 import { auth, db } from "@/config/firebase";
-import { useDocumentData } from "react-firebase-hooks/firestore";
-import { doc } from "firebase/firestore";
 import { useState } from "react";
 
 const Edit = () => {

@@ -35,13 +35,18 @@ const ProfileMedia = ({ profileOwnerId }: profileTweetsProps) => {
 
   return (
     <div>
-      {profileOwnerTweetsImgsMetaData &&
-        profileOwnerTweetsImgsMetaData?.map((imgMetaData) => (
+      {profileOwnerTweetsImgsMetaData?.length ? (
+        profileOwnerTweetsImgsMetaData.map((imgMetaData) => (
           <ProfileOwnerTweetsImgsUi
             key={imgMetaData.id}
             imgMetaDataTweetId={imgMetaData.data().tweetId}
           />
-        ))}
+        ))
+      ) : (
+        <p className="mt-16 text-center text-2xl font-semibold text-[#828282]">
+          You have no media yet.
+        </p>
+      )}
     </div>
   );
 };
