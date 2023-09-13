@@ -35,8 +35,8 @@ const Media = ({ tweetId }: MediaProps) => {
     // Loading state for tweets with ImgMetaData but still loading the tweetImageUrl
     return (
       <div
-        className="  h-[16.8rem]
-      w-full min-w-[34.5rem] bg-blueish lg:h-[29.7rem]"
+        className="h-[16.8rem]
+      w-full bg-blueish lg:h-[29.7rem]"
       ></div>
     );
   }

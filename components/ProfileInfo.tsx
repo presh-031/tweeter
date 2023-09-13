@@ -15,13 +15,13 @@ const ProfileInfo = ({
         <div className="mt-[.4rem] mb-[1.4rem] flex items-center justify-center gap-8 text-[1.2rem] font-medium leading-[1.8rem] tracking-[-3.5%] text-[#828282] lg:m-0 lg:gap-[2.6rem] ">
           <p className="lg:mr-[2.6rem] lg:flex lg:gap-2">
             <span className="font-semibold  text-[#333333]">
-              {following.length}
+              {following.length}{" "}
             </span>
             Following
           </p>
           <p className=" lg:flex lg:gap-2">
             <span className="font-semibold text-[#333333]">
-              {followers.length}
+              {followers.length}{" "}
             </span>
             Followers
           </p>
