@@ -2,64 +2,43 @@ import { collection, doc, orderBy, query, where } from "firebase/firestore";
 import { useCollection, useDocument } from "react-firebase-hooks/firestore";
 import { db } from "@/config/firebase";
 import { useRouter } from "next/router";
-import { WithAuthUser, Comment, Tweet } from "../../index";
+import { WithAuthUser, Comment, Tweet, GeneralLoader } from "../../index";
+import TweetComments from "@/components/TweetComments";
 
 const TweetInfo = () => {
   const router = useRouter();
   const { id } = router.query;
   const routeId = id ? id.toString() : "";
 
-  const [tweet, tweetLoading, tweetError] = useDocument(
-    doc(db, "tweets", routeId),
-    {
-      snapshotListenOptions: { includeMetadataChanges: true },
-    }
-  );
+  const [tweet, loading, error] = useDocument(doc(db, "tweets", routeId), {
+    snapshotListenOptions: { includeMetadataChanges: true },
+  });
 
-  //Tweet comments
-  const commentsRef = collection(db, "comments");
-  const commentsQuery = query(
-    commentsRef,
-    where("tweetId", "==", id)
-    // should order comments, but orderBy causes firebase error. Remember to look into.
-    // orderBy("timestamp", "desc")
-  );
-  const [comments, commentsLoading, commentsError] = useCollection(
-    commentsQuery,
-    {
-      snapshotListenOptions: { includeMetadataChanges: true },
-    }
-  );
+  if (error) {
+    console.log(error); //handle error
+  }
+
+  if (loading) {
+    return (
+      <div className="mt-16 flex justify-center  lg:mt-[10rem]">
+        <GeneralLoader />
+      </div>
+    );
+  }
 
   return (
     <div className="mx-auto max-w-[1071px] px-[1.90rem] pb-[9.615rem] pt-[2.317rem] ">
-      {tweetError && <strong>Error: {JSON.stringify(tweetError)}</strong>}
-      {tweetLoading && <span>Collection: Loading...</span>}
       {tweet && (
-        <Tweet
-          tweetId={tweet.id}
-          text={tweet.data()?.text}
-          timestamp={tweet.data()?.timestamp}
-          userId={tweet.data()?.userId}
-        />
-      )}
-
-      <p className="my-2 text-[1.8rem] font-medium">Comments</p>
-      {commentsError && <strong>Error: {JSON.stringify(commentsError)}</strong>}
-      {commentsLoading && <span>Collection: Loading...</span>}
-      {comments ? (
-        comments.docs.map((comment) => {
-          return (
-            <Comment
-              key={comment.id}
-              text={comment.data()?.comment}
-              timestamp={comment.data()?.timestamp}
-              userId={comment.data()?.userId}
-            />
-          );
-        })
-      ) : (
-        <p>No comments to see</p>
+        <>
+          <Tweet
+            tweetId={tweet.id}
+            text={tweet.data()?.text}
+            timestamp={tweet.data()?.timestamp}
+            userId={tweet.data()?.userId}
+          />
+          <p className="my-2 text-[1.8rem] font-medium">Comments</p>
+          <TweetComments tweetId={tweet?.id} />
+        </>
       )}
     </div>
   );

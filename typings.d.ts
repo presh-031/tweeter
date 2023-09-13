@@ -45,6 +45,12 @@ export type TweetProps = {
   userId: string;
 };
 
+type CommentProps = {
+  text: string;
+  timestamp: timestampType;
+  userId: string;
+};
+
 export type TweetUserInfoProps = {
   timestamp: timestampType;
   userId: string;
@@ -66,6 +72,10 @@ export type StatBtnProps = {
 export type AddCommentProps = {
   tweetId: string;
   setShowAddComment: React.Dispatch<React.SetStateAction<boolean>>;
+};
+
+export type TweetCommentsProps = {
+  tweetId: string;
 };
 
 export type CommentBtnProps = {

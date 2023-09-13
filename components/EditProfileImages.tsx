@@ -50,9 +50,9 @@ export const EditCoverImage = ({
 
   return (
     <>
-      {error && <strong>Error: {error.message}</strong>}
+      {/* {error && <strong>Error: {error.message}</strong>}
       {uploading && <span>Uploading file...</span>}
-      {snapshot && <span>Snapshot: {JSON.stringify(snapshot)}</span>}
+      {snapshot && <span>Snapshot: {JSON.stringify(snapshot)}</span>} */}
       {selectedImage && <span>Selected file: {selectedImage.name}</span>}
 
       <div className="relative h-[10rem] w-full rounded-[.8rem] bg-[#777777] bg-opacity-80">
@@ -130,9 +130,9 @@ export const EditProfilePic = ({
 
   return (
     <>
-      {error && <strong>Error: {error.message}</strong>}
+      {/* {error && <strong>Error: {error.message}</strong>}
       {uploading && <span>Uploading file...</span>}
-      {snapshot && <span>Snapshot: {JSON.stringify(snapshot)}</span>}
+      {snapshot && <span>Snapshot: {JSON.stringify(snapshot)}</span>} */}
       {selectedImage && <span>Selected file: {selectedImage.name}</span>}
 
       <div className="relative mt-8 flex h-[5rem] w-[5rem] items-center justify-center overflow-hidden rounded-[.8rem] bg-black bg-opacity-20">

@@ -22,7 +22,7 @@ const Bookmarks = () => {
   const [bookmarks, loading, error] = useCollection(bookmarksQuery, {
     snapshotListenOptions: { includeMetadataChanges: true },
   });
-  console.log(bookmarks?.docs[0]);
+
   if (error) {
     return (
       <p className="mt-[10rem] text-center text-2xl font-semibold text-[#828282] ">

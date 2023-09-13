@@ -1,7 +1,7 @@
 import { LayoutProps } from "@/typings";
 import { Poppins } from "next/font/google";
 import { Toaster } from "react-hot-toast";
-import { AppNav, NavBar } from "../index";
+import { AppNav, NavBar, WithAuthUser } from "../index";
 import { useRouter } from "next/router";
 
 const poppins = Poppins({

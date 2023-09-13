@@ -5,7 +5,7 @@ import { Timestamp, addDoc, collection } from "firebase/firestore";
 
 // new tweet
 export const postNewTweet = async (
-  newTweetText: string,
+  newTweetText: string = "",
   authUserId: string
 ) => {
   try {

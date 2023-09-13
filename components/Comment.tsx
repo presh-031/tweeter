@@ -2,16 +2,10 @@ import { doc, getDoc } from "firebase/firestore";
 import { useEffect, useState } from "react";
 
 import { db } from "@/config/firebase";
-import { timestampType } from "@/typings";
+import { CommentProps, timestampType } from "@/typings";
 import { formatDateToTimeAgo } from "@/utils/formatDate";
-import Image from "next/image";
 import ProfilePicture from "./ProfilePicture";
 
-type CommentProps = {
-  text: string;
-  timestamp: timestampType;
-  userId: string;
-};
 const Comment = ({ text, timestamp, userId }: CommentProps) => {
   //  Logic to Get info about user that made the comment
   const [user, setUser] = useState<any>({});

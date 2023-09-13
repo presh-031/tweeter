@@ -25,17 +25,14 @@ const NewTweet = () => {
       snapshotListenOptions: { includeMetadataChanges: true },
     });
 
-  // const [newTweetText, setNewTweetText] = useState("");
   const inputRef = useRef<HTMLInputElement>(null);
   const [newTweetLoading, setNewTweetLoading] = useState(false);
-  // const handleTweetChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-  //   setNewTweetText(e.target.value);
-  // };
 
   // image picker
   const { selectedImage, handleImageChange, deleteSelectedImage } =
     useSelectedImage();
 
+  // Logic to upload image
   const [uploadFile, uploading, snapshot, error] = useUploadFile();
   const imageRef = ref(storage, `tweet-images/${selectedImage?.name + v4()}`);
 
@@ -71,32 +68,30 @@ const NewTweet = () => {
     e.preventDefault();
 
     const newTweetText = inputRef?.current?.value;
-    if (newTweetText) {
+    if (newTweetText || selectedImage) {
       try {
         setNewTweetLoading(true);
 
         const newTweetId = await postNewTweet(newTweetText, authUserId);
         if (newTweetId) upload(newTweetId);
-        console.log(newTweetId);
 
         toast.success("Posted!");
 
-        // setNewTweetText("");
-        inputRef.current.value = "";
+        if (inputRef.current) {
+          inputRef.current.value = "";
+        }
         deleteSelectedImage();
-        setNewTweetLoading(false);
       } catch (err) {
         toast.success("Try again!");
-        inputRef.current.value = newTweetText;
-        console.log(err);
+        if (inputRef.current) {
+          inputRef.current.value = newTweetText ? newTweetText : "";
+        }
+      } finally {
+        setNewTweetLoading(false);
       }
     } else {
       toast.error("Text field is empty");
     }
-
-    // if (selectedImage) {
-    //   upload();
-    // }
   };
 
   return (
@@ -117,8 +112,6 @@ const NewTweet = () => {
           className="w-full overflow-hidden pl-[1.2rem] text-[1.6rem] font-medium leading-[2.179rem] tracking-[-3.5%]  outline-none placeholder:text-[#bdbdbd]"
           type="text"
           placeholder="What's happening?"
-          // value={newTweetText}
-          // onChange={handleTweetChange}
           ref={inputRef}
         />
         {newTweetLoading && (

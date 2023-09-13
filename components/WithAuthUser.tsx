@@ -2,6 +2,7 @@ import { ReactNode, useState, useEffect } from "react";
 import { auth } from "@/config/firebase";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { useRouter } from "next/router";
+import { GeneralLoader } from "..";
 
 type WithAuthUserProps = {
   children: ReactNode;
@@ -20,7 +21,11 @@ const WithAuthUser = (Component: React.ComponentType<any>) => {
     }, [loading]);
 
     if (!authStatusKnown) {
-      return <p>Loading...</p>; // Show loading message until authentication status is known
+      return (
+        <div className="mt-16 flex justify-center lg:mt-[10rem]">
+          <GeneralLoader />
+        </div>
+      ); // Show loading message until authentication status is known
     }
 
     if (error) {
