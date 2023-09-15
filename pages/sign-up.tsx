@@ -1,8 +1,7 @@
 import { IconContext } from "react-icons";
 import Image from "next/image";
 import logo from "../assets/tweeter.svg";
-import { GoogleBtn, SignUpForm, SignUpLoader } from "../index";
-import { FaUser } from "react-icons/fa";
+import { GoogleBtn, SignUpForm } from "../index";
 import GuestBtn from "@/components/ui/GuestBtn";
 import Link from "next/link";
 

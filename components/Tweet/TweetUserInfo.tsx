@@ -1,7 +1,7 @@
 import { db } from "@/config/firebase";
 import { doc, getDoc } from "firebase/firestore";
 import { useRouter } from "next/router";
-import React, { useEffect, useState } from "react";
+import React, { memo, useEffect, useState } from "react";
 import ProfilePicture from "../ProfilePicture";
 import { formatDateForTweet } from "@/utils/formatDate";
 import { TweetUserInfoProps } from "@/typings";
@@ -50,4 +50,4 @@ const TweetUserInfo = ({ userId, timestamp }: TweetUserInfoProps) => {
   );
 };
 
-export default TweetUserInfo;
+export default memo(TweetUserInfo);

@@ -5,6 +5,7 @@ import { collection, limit, orderBy, query, where } from "firebase/firestore";
 import { useCollection } from "react-firebase-hooks/firestore";
 import { db } from "@/config/firebase";
 import { ProfilePictureProps } from "@/typings";
+import { memo } from "react";
 
 const ProfilePicture = ({ userId, height, width }: ProfilePictureProps) => {
   const profilePicsRef = collection(db, "profile-pictures");
@@ -22,6 +23,7 @@ const ProfilePicture = ({ userId, height, width }: ProfilePictureProps) => {
 
   // use fullPath in metadata to get imageURL
   const profilePictureURL = useImageDownloadURL(mostRecentProfilePicMetaData);
+
   return (
     <Image
       src={profilePictureURL ? profilePictureURL : userPlaceholder}
@@ -33,4 +35,4 @@ const ProfilePicture = ({ userId, height, width }: ProfilePictureProps) => {
   );
 };
 
-export default ProfilePicture;
+export default memo(ProfilePicture);

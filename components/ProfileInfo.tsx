@@ -1,4 +1,5 @@
 import { ProfileInfoProps } from "@/typings";
+import { memo } from "react";
 
 const ProfileInfo = ({
   userName,
@@ -34,4 +35,4 @@ const ProfileInfo = ({
   );
 };
 
-export default ProfileInfo;
+export default memo(ProfileInfo);

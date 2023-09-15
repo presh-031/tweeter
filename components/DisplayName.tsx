@@ -1,7 +1,7 @@
 import { db } from "@/config/firebase";
 import { DisplayNameProps } from "@/typings";
 import { doc } from "firebase/firestore";
-import React from "react";
+import React, { memo } from "react";
 import { useDocumentData } from "react-firebase-hooks/firestore";
 
 const DisplayName = ({ authUserId }: DisplayNameProps) => {
@@ -9,6 +9,7 @@ const DisplayName = ({ authUserId }: DisplayNameProps) => {
     useDocumentData(doc(db, "users", authUserId), {
       snapshotListenOptions: { includeMetadataChanges: true },
     });
+  console.log("display name");
   return (
     <p className="w-12  truncate text-lg  font-medium  leading-normal  tracking-[-0.049rem] md:min-w-fit md:max-w-[7rem] md:text-[1.4rem]">
       {authUserInfo?.displayName}
@@ -16,4 +17,4 @@ const DisplayName = ({ authUserId }: DisplayNameProps) => {
   );
 };
 
-export default DisplayName;
+export default memo(DisplayName);

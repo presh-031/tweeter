@@ -1,5 +1,6 @@
 import { unFollow } from "@/services/userServices";
 import { userServicesProps } from "@/typings";
+import { memo } from "react";
 import { SlUserUnfollow } from "react-icons/sl";
 
 const UnFollow = ({
@@ -21,4 +22,4 @@ const UnFollow = ({
   );
 };
 
-export default UnFollow;
+export default memo(UnFollow);

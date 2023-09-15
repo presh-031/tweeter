@@ -8,7 +8,7 @@ const ExploreTabs = ({ activeTab, handleTabClick }: ExploreTabsProps) => {
         onClick={() => handleTabClick("top")}
         className={` ${
           activeTab === "top" ? "text-blueish" : ""
-        } flex items-center  gap-[1.7rem] `}
+        } flex cursor-pointer items-center  gap-[1.7rem] `}
       >
         <div
           className={`${
@@ -21,7 +21,7 @@ const ExploreTabs = ({ activeTab, handleTabClick }: ExploreTabsProps) => {
         onClick={() => handleTabClick("latest")}
         className={` ${
           activeTab === "latest" ? "text-blueish" : ""
-        } flex items-center  gap-[1.7rem] `}
+        } flex cursor-pointer items-center  gap-[1.7rem] `}
       >
         <div
           className={`${
@@ -34,7 +34,7 @@ const ExploreTabs = ({ activeTab, handleTabClick }: ExploreTabsProps) => {
         onClick={() => handleTabClick("people")}
         className={` ${
           activeTab === "people" ? "text-blueish" : ""
-        } flex items-center  gap-[1.7rem] `}
+        } flex cursor-pointer items-center  gap-[1.7rem] `}
       >
         <div
           className={`${
@@ -47,7 +47,7 @@ const ExploreTabs = ({ activeTab, handleTabClick }: ExploreTabsProps) => {
         onClick={() => handleTabClick("media")}
         className={` ${
           activeTab === "media" ? "text-blueish" : ""
-        } flex items-center  gap-[1.7rem] `}
+        } flex cursor-pointer items-center  gap-[1.7rem] `}
       >
         <div
           className={`${

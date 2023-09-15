@@ -50,6 +50,7 @@ export const EditCoverImage = ({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [triggered]);
 
+  console.log("edit cover");
   return (
     <>
       {/* {error && <strong>Error: {error.message}</strong>}

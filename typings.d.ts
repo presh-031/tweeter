@@ -57,7 +57,6 @@ export type TweetUserInfoProps = {
 };
 
 export type TweetTextProps = {
-  tweetId: string;
   text: string;
 };
 

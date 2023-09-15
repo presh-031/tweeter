@@ -2,7 +2,7 @@ import { db } from "@/config/firebase";
 import { handleRetweet } from "@/helpers/tweetHelpers";
 import { StatBtnProps } from "@/typings";
 import { collection, query, where } from "firebase/firestore";
-import React from "react";
+import React, { memo } from "react";
 import { useCollection } from "react-firebase-hooks/firestore";
 import { FaRetweet } from "react-icons/fa";
 
@@ -36,4 +36,4 @@ const RetweetBtn = ({ tweetId, currentUserId }: StatBtnProps) => {
   );
 };
 
-export default RetweetBtn;
+export default memo(RetweetBtn);

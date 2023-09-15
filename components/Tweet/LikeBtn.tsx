@@ -2,7 +2,7 @@ import { db } from "@/config/firebase";
 import { handleLike } from "@/helpers/tweetHelpers";
 import { StatBtnProps } from "@/typings";
 import { collection, query, where } from "firebase/firestore";
-import React from "react";
+import React, { memo } from "react";
 import { useCollection } from "react-firebase-hooks/firestore";
 import { AiOutlineHeart } from "react-icons/ai";
 
@@ -35,4 +35,4 @@ const LikeBtn = ({ tweetId, currentUserId }: StatBtnProps) => {
   );
 };
 
-export default LikeBtn;
+export default memo(LikeBtn);

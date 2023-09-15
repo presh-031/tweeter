@@ -3,9 +3,9 @@ import { CoverImageProps } from "@/typings";
 import { collection, limit, orderBy, query, where } from "firebase/firestore";
 import { db } from "@/config/firebase";
 import useImageDownloadURL from "@/hooks/useImageDownloadURL";
-import { useEffect, useState } from "react";
 import { useRouter } from "next/router";
 import { useCollection } from "react-firebase-hooks/firestore";
+import { memo } from "react";
 
 const CoverImage = ({ userId }: CoverImageProps) => {
   // Get route for cover image styling.
@@ -51,4 +51,4 @@ const CoverImage = ({ userId }: CoverImageProps) => {
   );
 };
 
-export default CoverImage;
+export default memo(CoverImage);

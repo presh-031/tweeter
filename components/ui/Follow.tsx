@@ -1,5 +1,6 @@
 import { follow } from "@/services/userServices";
 import { userServicesProps } from "@/typings";
+import { memo } from "react";
 import { SlUserFollow } from "react-icons/sl";
 
 const Follow = ({
@@ -21,4 +22,4 @@ const Follow = ({
   );
 };
 
-export default Follow;
+export default memo(Follow);

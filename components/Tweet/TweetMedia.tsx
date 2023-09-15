@@ -3,6 +3,7 @@ import useImageDownloadURL from "@/hooks/useImageDownloadURL";
 import { MediaProps } from "@/typings";
 import { collection, query, where } from "firebase/firestore";
 import Image from "next/image";
+import { memo } from "react";
 import { useCollection } from "react-firebase-hooks/firestore";
 
 const Media = ({ tweetId }: MediaProps) => {
@@ -43,4 +44,4 @@ const Media = ({ tweetId }: MediaProps) => {
   return null;
 };
 
-export default Media;
+export default memo(Media);

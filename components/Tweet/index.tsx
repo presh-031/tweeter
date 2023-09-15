@@ -10,8 +10,10 @@ import LikeBtn from "./LikeBtn";
 import BookmarkBtn from "./BookmarkBtn";
 import CommentBtn from "./CommentBtn";
 import TweetStats from "./TweetStats";
+import { useRouter } from "next/router";
 
 const Tweet = ({ tweetId, text, timestamp, userId }: TweetProps) => {
+  const router = useRouter();
   // For logics to handle tweet like and unlike
   // Liking and unLiking should be done by currently auth user
   const [currentUser] = useAuthState(auth);
@@ -28,9 +30,14 @@ const Tweet = ({ tweetId, text, timestamp, userId }: TweetProps) => {
       <div className=" w-full rounded-[8px] bg-white  px-[1.523rem] pt-[2rem] shadow-[2px_2px_4px_rgba(0,0,0,0.05)] md:px-[2rem] md:shadow-[2px_2px_6px_rgba(0,0,0,0.1)]">
         <TweetUserInfo userId={userId} timestamp={timestamp} />
 
-        <TweetText tweetId={tweetId} text={text} />
-
-        <TweetMedia tweetId={tweetId} />
+        <div
+          onClick={() => {
+            router.push(`/tweet/${tweetId}`);
+          }}
+        >
+          <TweetText text={text} />
+          <TweetMedia tweetId={tweetId} />
+        </div>
 
         <TweetStats tweetId={tweetId} />
 
