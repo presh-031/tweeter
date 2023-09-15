@@ -15,7 +15,6 @@ const TopTweets = () => {
   const [tweets, loading, error] = useCollection(tweetsQuery, {
     snapshotListenOptions: { includeMetadataChanges: true },
   });
-  console.log("top tweets");
 
   if (error) {
     return (
