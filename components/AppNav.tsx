@@ -4,6 +4,7 @@ import { IoMdBookmark } from "react-icons/io";
 import { MdExplore } from "react-icons/md";
 import { useState } from "react";
 import { useRouter } from "next/router";
+import WithAuthUser from "./WithAuthUser";
 
 const AppNav = () => {
   const router = useRouter();

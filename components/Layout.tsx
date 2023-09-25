@@ -3,6 +3,8 @@ import { Poppins } from "next/font/google";
 import { Toaster } from "react-hot-toast";
 import { AppNav, NavBar, WithAuthUser } from "../index";
 import { useRouter } from "next/router";
+import { useAuthState } from "react-firebase-hooks/auth";
+import { auth } from "@/config/firebase";
 
 const poppins = Poppins({
   subsets: ["latin"],
@@ -10,18 +12,16 @@ const poppins = Poppins({
 });
 
 const Layout = ({ children }: LayoutProps) => {
-  const router = useRouter();
-  const isSignUpPage = router.pathname === "/sign-up";
-  const isLoginPage = router.pathname === "/log-in";
+  const [user] = useAuthState(auth);
 
   return (
     <div
       className={`${poppins.className} min-h-screen bg-[#eee] bg-opacity-40`}
     >
       <Toaster />
-      {!isSignUpPage && !isLoginPage && <NavBar />}
+      {user && <NavBar />}
       {children}
-      {!isSignUpPage && !isLoginPage && (
+      {user && (
         <div className="md:hidden">
           <AppNav />
         </div>

@@ -22,7 +22,7 @@ const WithAuthUser = (Component: React.ComponentType<any>) => {
 
     if (!authStatusKnown) {
       return (
-        <div className="mt-16 flex justify-center lg:mt-[10rem]">
+        <div className="flex justify-center pt-16 lg:pt-[10rem]">
           <GeneralLoader />
         </div>
       ); // Show loading message until authentication status is known
