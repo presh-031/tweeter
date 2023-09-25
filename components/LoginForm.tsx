@@ -1,17 +1,13 @@
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
-import {
-  useCreateUserWithEmailAndPassword,
-  useSignInWithEmailAndPassword,
-} from "react-firebase-hooks/auth";
+import { useSignInWithEmailAndPassword } from "react-firebase-hooks/auth";
 import { auth } from "@/config/firebase";
+import { IconContext } from "react-icons";
 import { MdEmail } from "react-icons/md";
 import { IoMdLock } from "react-icons/io";
-import { createNewUserInDb } from "@/helpers/authHelpers";
 import { useRouter } from "next/router";
 import { SignUpLoader } from "../index";
-import { useState } from "react";
 
 const schema = yup.object().shape({
   email: yup
@@ -48,51 +44,51 @@ const LogInForm = () => {
 
   return (
     <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-6">
-      <div>
-        <div className="flex items-center gap-4 overflow-hidden rounded-xl  bg-gray-100  pl-4">
-          <MdEmail className="text-[#afafaf]" />
-          <input
-            type="text"
-            {...register("email")}
-            placeholder="Email"
-            className="w-full bg-transparent py-4 text-2xl outline-none"
-          />
+      <IconContext.Provider value={{ className: "react-icons sign-up-icons" }}>
+        <div>
+          <div className="flex items-center gap-4 overflow-hidden rounded-xl  bg-gray-100  pl-4">
+            <MdEmail className="text-[#afafaf]" />
+            <input
+              type="text"
+              {...register("email")}
+              placeholder="Email"
+              className="w-full bg-transparent py-4 text-2xl outline-none"
+            />
+          </div>
+          <p className="text-red-600">{errors.email?.message}</p>
         </div>
-        <p className="text-red-600">{errors.email?.message}</p>
-      </div>
-
-      <div>
-        <div className="flex items-center gap-4 overflow-hidden rounded-xl  bg-gray-100 pl-4">
-          <IoMdLock className="text-[#afafaf]" />
-          <input
-            type="password"
-            {...register("password")}
-            placeholder="Password"
-            className="w-full bg-transparent py-4 text-2xl outline-none"
-          />
+        <div>
+          <div className="flex items-center gap-4 overflow-hidden rounded-xl  bg-gray-100 pl-4">
+            <IoMdLock className="text-[#afafaf]" />
+            <input
+              type="password"
+              {...register("password")}
+              placeholder="Password"
+              className="w-full bg-transparent py-4 text-2xl outline-none"
+            />
+          </div>
+          <p className="text-red-600">{errors.password?.message}</p>
         </div>
-        <p className="text-red-600">{errors.password?.message}</p>
-      </div>
+        <div>
+          <div className="relative flex items-center">
+            <input
+              type="submit"
+              disabled={loading}
+              value="Continue tweeting"
+              className={`${
+                loading ? "bg-opacity-30" : ""
+              } mt-2 w-full rounded-xl border bg-blueish py-4 text-2xl font-medium text-white`}
+            />
 
-      <div>
-        <div className="relative flex items-center">
-          <input
-            type="submit"
-            disabled={loading}
-            value="Continue tweeting"
-            className={`${
-              loading ? "bg-opacity-30" : ""
-            } mt-2 w-full rounded-xl border bg-blueish py-4 text-2xl font-medium text-white`}
-          />
-
-          {loading && (
-            <div className="absolute right-10">
-              <SignUpLoader />
-            </div>
-          )}
+            {loading && (
+              <div className="absolute right-10">
+                <SignUpLoader />
+              </div>
+            )}
+          </div>{" "}
+          {error && <p className="text-red-600">{error.message}</p>}
         </div>{" "}
-        {error && <p className="text-red-600">{error.message}</p>}
-      </div>
+      </IconContext.Provider>
     </form>
   );
 };
