@@ -34,8 +34,8 @@ const CoverImage = ({ userId }: CoverImageProps) => {
         <Image
           src={coverImageURL}
           alt="Cover Image"
-          width={375}
-          height={168}
+          width={1400}
+          height={300}
           className={`${
             isProfilePage ? "lg:h-[29.7rem]" : ""
           } h-[16.8rem] w-full min-w-[34.5rem] object-cover`}

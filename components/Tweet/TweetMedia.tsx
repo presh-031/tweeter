@@ -26,8 +26,8 @@ const Media = ({ tweetId }: MediaProps) => {
           <Image
             src={tweetImageURL}
             alt="media"
-            width={311}
-            height={192}
+            width={1100}
+            height={550}
             className="max-h-[50rem] w-full rounded-[8px] object-cover"
           />
         </div>
